@@ -51,7 +51,17 @@
                 Summary
               </span>
               <div style = "background-color:white;width:27vw;height:80vh;margin-left:0.5rem;margin-top:0.5rem;padding:1rem;">
-                aaaaaaaaaaaa
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style = "min-width: 5vw">
+                      Time Frame
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Q1 2024</a></li>
+                      <li><a class="dropdown-item" href="#">Q2 2024</a></li>
+                      <li><a class="dropdown-item" href="#">Q3 2024</a></li>
+                    </ul>
+                </div>
+                aaaaaaaaaaaaaaaa
               </div>
             </div>
         </div>
