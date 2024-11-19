@@ -12,29 +12,31 @@
         <div class = "d-flex justify-content-between" style = "width: 85vw;">
                 <a href = "/restaurant" style="text-decoration: none;">
                     <div class="card d-flex justify-content-center align-items-center" 
-                    style="width: 23rem;height: 30rem;color:white;background-color:#43553D;border-radius:12px;">
+                    style="width: 25vw;height: 30rem;color:white;background-color:#43553D;border-radius:12px;max-width: 400px;">
                         <img src = "{{ asset('images/home-restaurantLogo.png') }}" 
                             class="d-flex justify-content-center align-items-center" alt="...">
-                        <span style = "padding: 1rem;font-size: 22px;font-weight:700;">Restaurant</span>
+                        <span style = "padding: 1rem;font-size: 22px;font-weight:700;">
+                            Restaurant
+                        </span>
                     </div>
                 </a>
-                <a href = "/restaurant" style="text-decoration: none;">
+                <a href = "/compost" style="text-decoration: none;">
                     <div class="card d-flex justify-content-center align-items-center" 
-                    style="width: 23rem;height: 30rem;color:white;background-color:#43553D;border-radius:12px;">
+                    style="width: 25vw;height: 30rem;color:white;background-color:#43553D;border-radius:12px;max-width: 400px;">
                         <img src = "{{ asset('images/home-compostLogo.png') }}" 
                             class="d-flex justify-content-center align-items-center" alt="...">
-                        <span style = "padding: 1rem;font-size: 22px;font-weight:700;">
+                        <span style = "padding: 1rem;font-size: 22px;font-weight:700;text-align: center;">
                             Compost Producer
                         </span>
                     </div>
                 </a>
-                <a href = "/restaurant" style="text-decoration: none;">
+                <a href = "/farmer" style="text-decoration: none;">
                     <div class="card d-flex justify-content-center align-items-center" 
-                    style="width: 23rem;height: 30rem;color:white;background-color:#43553D;border-radius:12px;">
+                    style="width: 25vw;height: 30rem;color:white;background-color:#43553D;border-radius:12px;max-width: 400px;">
                         <img src = "{{ asset('images/home-farmLogo.png') }}" 
                             class="d-flex justify-content-center align-items-center" alt="...">
                         <span style = "padding: 1rem;font-size: 22px;font-weight:700;">
-                            Restaurant
+                            Farmer
                         </span>
                     </div>
                 </a>
