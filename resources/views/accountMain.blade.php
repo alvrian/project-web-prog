@@ -76,13 +76,13 @@
                 </p>
                 <div class="collapse" id="collapseExample">
                   <div class="card card-body">
-                  Perguruan tinggi Bina Nusantara Wahana tuk semaikan benih harapan Mendidik dan memberdayakan sesama Membangun nusa berkiprah untuk bangsa Berlambarkan kasih, cita dan karsa dengan rahmat Tuhan berdasar Pancasila Menjunjung tinggi nilai kejujuran Menghidupi keadilan Binusian nyalakan api di dada Rengkuh rasa hormat dan menghargai sesama Tekun dan gigih raihlah yang terbaik Kobarkan inovasi di penjuru semesta Bulatkan tekad dan niat bersamaTeguhkan langkah arungi zaman Perguruan tinggi Bina Nusantara Wujudkan Indonesia jaya 
+                  Perguruan tinggi Bina Nusantara Wahana tuk semaikan benih harapan Mendidik dan memberdayakan sesama Membangun nusa berkiprah untuk bangsa Berlambarkan kasih, cita dan karsa dengan rahmat
                   </div>
                 </div>
       </div></div></div></div></div>
     <div style="position: absolute;left:4%;top:15%">
       <img src="{{ asset('images/account-picture-placeholder.png') }}" 
-        style="border-radius:10px;width: 15vw;min-width:100px" 
+        style="border-radius:10px;width: 15vw;min-width:100px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);" 
       />
     </div>
   </div>
