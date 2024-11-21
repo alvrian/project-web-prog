@@ -42,7 +42,7 @@
               @endfor
               <!-- buat nge push yang bawah -->
               @for ($i = 1; $i <= 10; $i++)
-                <li class="list-group-item"></li>
+                <li class="list-group-item" style = "border:none;"></li>
               @endfor
             </div>
           </div>

@@ -13,4 +13,8 @@ class HomeController extends Controller
     public function market (){
         return view ("market");
     }
+
+    public function aboutUs (){
+        return view('aboutUs');
+    }
 }

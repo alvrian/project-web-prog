@@ -9,6 +9,7 @@ use App\Http\Controllers\AccountController;
 
 Route::get("/", [HomeController::class, 'index']);
 Route::get("/market", [HomeController::class, 'market']);
+Route::get("/aboutUs", [HomeController::class, 'aboutUS']);
 
 Route::get("/restaurant", [RestaurantController::class, 'index']);
 
