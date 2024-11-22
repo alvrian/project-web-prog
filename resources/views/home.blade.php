@@ -31,8 +31,25 @@
                 </div>
             </div>
         </div>
+
+        <span style = "width: 85vw;font-weight:bold;font-size: 24px;">What is FarmByte ?</span>
+        <div class="card d-flex flex-row" style = "width:85vw;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);background-color:#F0EEEF;border: none;">
+            <div class="card-body" style = "flex: 1;color: #3C4B33;">
+                Welcome to FarmByte, where we bridge the gap between farmers, compost producers, and restaurants to create a sustainable and mutually beneficial ecosystem. Our platform fosters collaboration, enabling farmers to supply fresh produce, compost producers to contribute eco-friendly solutions, and restaurants to source high-quality ingredients directly. 
+            </div>
+            <div class="card-body d-flex flex-column justify-content-center dropend" style = "flex:1;">
+                <h4 style = "font-size: 28px;font-weight:bold;color: #3C4B33;margin-bottom:1rem;">Read More</h4>
+                <a href = "/aboutUs" style = "text-decoration: none;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);border-radius: 12px;" >
+                    <button type = "button" 
+                        class = "btn d-flex dropdown-toggle justify-content-between align-items-center" 
+                        style = "color:white;height:10vh;font-weight:500;font-size:18px;background-color: #C7D6E3;width:100%;border-radius: 12px;">
+                        About Us
+                    </button>
+                </a>
+            </div>
+        </div>
         <div class="btn-group dropend" >
-            <a href = "/market" style = "text-decoration: none;width:85vw;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);" >
+            <a href = "/market" style = "text-decoration: none;width:85vw;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);border-radius:12px;" >
                 <button type = "button" class = "btn d-flex dropdown-toggle justify-content-between align-items-center" style = "color:white;height:7vh;font-weight:500;font-size:18px;background-color: #EBCF7B;width:100%;border-radius: 12px;">
                     Go to market Place
                 </button>
@@ -71,21 +88,5 @@
                     </div>
                 </a>
             </div>
-        <span style = "width: 85vw;font-weight:bold;font-size: 24px;">What is FarmByte ?</span>
-        <div class="card d-flex flex-row" style = "width:85vw;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);background-color:#F0EEEF;border: none;">
-            <div class="card-body" style = "flex: 1;color: #3C4B33;">
-                Welcome to FarmByte, where we bridge the gap between farmers, compost producers, and restaurants to create a sustainable and mutually beneficial ecosystem. Our platform fosters collaboration, enabling farmers to supply fresh produce, compost producers to contribute eco-friendly solutions, and restaurants to source high-quality ingredients directly. 
-            </div>
-            <div class="card-body d-flex flex-column justify-content-center dropend" style = "flex:1;">
-                <h4 style = "font-size: 28px;font-weight:bold;color: #3C4B33;margin-bottom:1rem;">Read More</h4>
-                <a href = "/aboutUs" style = "text-decoration: none;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);border-radius: 12px;" >
-                    <button type = "button" 
-                        class = "btn d-flex dropdown-toggle justify-content-between align-items-center" 
-                        style = "color:white;height:10vh;font-weight:500;font-size:18px;background-color: #C7D6E3;width:100%;border-radius: 12px;">
-                        About Us
-                    </button>
-                </a>
-            </div>
-        </div>
     </div>
 </x-layout>
