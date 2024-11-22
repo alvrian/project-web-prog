@@ -42,7 +42,7 @@
               @endfor
               <!-- buat nge push yang bawah -->
               @for ($i = 1; $i <= 10; $i++)
-                <li class="list-group-item"></li>
+                <li class="list-group-item" style = "border:none;"></li>
               @endfor
             </div>
           </div>
@@ -50,16 +50,39 @@
               <span style = "margin-left: 0.5rem;font-size:18px;font-weight:500;margin-bottom:1rem;">
                 Summary
               </span>
-              <div style = "background-color:white;width:27vw;height:80vh;margin-left:0.5rem;margin-top:0.5rem;padding:1rem;">
-                aaaaaaaaaaaa
-              </div>
-            </div>
-        </div>
-      </div>
-    </div>
+              <div style = "background-color:white;width:27vw;height:80vh;margin-left:0.5rem;margin-top:0.5rem;padding:2rem">
+                <span style = "font-weight:500;font-size:18px;">Progress Bar</span>
+                <div class="progress-stacked" style = "margin-top:2rem;margin-bottom: 2rem;">
+                  <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    <div class="progress-bar bg-success"></div>
+                  </div>
+                  <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                    <div class="progress-bar bg-warning"></div>
+                  </div>
+                  <div class="progress" role="progressbar" aria-label="Segment three" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                    <div class="progress-bar bg-danger"></div>
+                  </div>
+                </div>
+                <div class = "d-flex flex-column justify-content-center gap-1" style = "margin-bottom:2rem" >
+                  <span style = "font-weight:500;font-size:16px;">Total Transaction: <span>10</span></span>
+                  <span style = "width: 100%;display:block;color:green;font-weight:900;font-size: 18px;">&centerdot;<span style = "color:black;font-weight:400;font-size:16px;">&emsp;Done&emsp;&emsp;&emsp;&emsp;&ensp;</span><span style = "color:black;font-weight:400;font-size:16px;">3/10</span></span>
+                  <span style = "width: 100%;display:block;color:yellow;font-weight:900;font-size: 18px;">&centerdot;<span style = "color:black;font-weight:400;font-size:16px;">&emsp;In Progress&emsp;&emsp;</span><span style = "color:black;font-weight:400;font-size:16px;">4/10</span></span>
+                  <span style = "width: 100%;display:block;color:red;font-weight:900;font-size: 18px;">&centerdot;<span style = "color:black;font-weight:400;font-size:16px;">&emsp;Cancelled&emsp;&emsp;&ensp;&nbsp;</span><span style = "color:black;font-weight:400;font-size:16px;">4/10</span></span>
+                </div>
+                <p class="d-inline-flex gap-1">
+                  <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Notes
+                  </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body">
+                  Perguruan tinggi Bina Nusantara Wahana tuk semaikan benih harapan Mendidik dan memberdayakan sesama Membangun nusa berkiprah untuk bangsa Berlambarkan kasih, cita dan karsa dengan rahmat
+                  </div>
+                </div>
+      </div></div></div></div></div>
     <div style="position: absolute;left:4%;top:15%">
       <img src="{{ asset('images/account-picture-placeholder.png') }}" 
-        style="border-radius:10px;width: 15vw;min-width:100px" 
+        style="border-radius:10px;width: 15vw;min-width:100px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);" 
       />
     </div>
   </div>
