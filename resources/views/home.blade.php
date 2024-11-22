@@ -76,8 +76,8 @@
             <div class="card-body" style = "flex: 1;color: #3C4B33;">
                 Welcome to FarmByte, where we bridge the gap between farmers, compost producers, and restaurants to create a sustainable and mutually beneficial ecosystem. Our platform fosters collaboration, enabling farmers to supply fresh produce, compost producers to contribute eco-friendly solutions, and restaurants to source high-quality ingredients directly. 
             </div>
-            <div class="card-body d-flex flex-column justify-content-between dropend" style = "flex:1;">
-                <h4 style = "font-size: 28px;font-weight:bold;color: #3C4B33;">Read More</h4>
+            <div class="card-body d-flex flex-column justify-content-center dropend" style = "flex:1;">
+                <h4 style = "font-size: 28px;font-weight:bold;color: #3C4B33;margin-bottom:1rem;">Read More</h4>
                 <a href = "/aboutUs" style = "text-decoration: none;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);border-radius: 12px;" >
                     <button type = "button" 
                         class = "btn d-flex dropdown-toggle justify-content-between align-items-center" 
