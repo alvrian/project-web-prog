@@ -1,6 +1,6 @@
 <x-layout>
     <x-navbar />
-    <div class="d-flex flex-column flex-wrap" style="background-color: #43553D; min-height: 100vh; width: 100vw; padding: 2rem;">
+    <div class="d-flex flex-column flex-wrap" style="background-color: #43553D; min-height: 100vh;max-width: 100vw; padding: 2rem;">
         <div class="d-flex flex-wrap" style="flex-grow: 1;">
             <!-- About Us Section -->
             <div class="d-flex flex-column" style="flex: 1; max-width: 60%; padding-right: 1rem;">
