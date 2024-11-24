@@ -17,10 +17,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'username',
+        'age'
     ];
+    // walaupun udah timestamp off
+    public $timestamps = false;
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,5 +45,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class);
     }
 }
