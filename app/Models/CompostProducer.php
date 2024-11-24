@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class CompostProducer extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'Name', 
+        'Location', 
+        'CompostTypesProduced',
+        'AverageCompostAmountPerTerm', 
+        'KitchenWasteProcessingCapacity',
+        'PointsBalance'
+    ];
+
+    public $timestamp = false;
+    protected $primaryKey = 'CompostProducerID';
+}
