@@ -19,6 +19,21 @@ return new class extends Migration
             $table->integer('Weight');
             $table->date('DateLogged');
         });
+
+        Schema::create('subscriptions', function (Blueprint $table) {
+            $table->id('SubscriptionID');
+            $table->unsignedBigInteger('SubscriberID');
+            $table->string('subscriber_type');
+            $table->unsignedBigInteger('ProviderID');
+            $table->string('provider_type');
+            $table->string('SubscriptionType');
+            $table->date('StartDate');
+            $table->date('EndDate');
+            $table->string('Status');
+
+            $table->index(['SubscriberID', 'subscriber_type']);
+            $table->index(['ProviderID', 'provider_type']);
+        });
     }
 
     /**
@@ -26,6 +41,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('waste_logs');
         Schema::dropIfExists('waste_logs');
     }
 };

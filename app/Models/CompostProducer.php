@@ -20,4 +20,14 @@ class CompostProducer extends Model
 
     public $timestamp = false;
     protected $primaryKey = 'CompostProducerID';
+
+    public function subscriptionsAsSubscriber()
+    {
+        return $this->morphMany(Subscription::class, 'subscriber');
+    }
+
+    public function subscriptionsAsProvider()
+    {
+        return $this->morphMany(Subscription::class, 'provider');
+    }
 }

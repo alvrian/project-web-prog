@@ -15,4 +15,14 @@ class RestaurantOwner extends Model
 
     public $timestamp = false;
     protected $primaryKey = 'RestaurantOwnerID';
+
+    public function subscriptionsAsSubscriber()
+    {
+        return $this->morphMany(Subscription::class, 'subscriber');
+    }
+
+    public function subscriptionsAsProvider()
+    {
+        return $this->morphMany(Subscription::class, 'provider');
+    }
 }

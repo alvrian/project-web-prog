@@ -15,4 +15,9 @@ class Farmer extends Model
     
     public $timestamp = false;
     protected $primaryKey = 'FarmerID';
+
+    public function subscriptionsAsProvider()
+    {
+        return $this->morphMany(Subscription::class, 'provider');
+    }
 }
