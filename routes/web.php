@@ -6,16 +6,23 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\CompostController;
 use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\WasteLogController;
 
 Route::get("/", [HomeController::class, 'index']);
 Route::get("/market", [HomeController::class, 'market']);
 Route::get("/aboutUs", [HomeController::class, 'aboutUS']);
 
-Route::get("/restaurant", [RestaurantController::class, 'index']);
+Route::prefix('restaurant')->group(function () {
+    Route::get('/', [RestaurantController::class, 'index'])->name('restaurant.index');
+
+    Route::get('/create-waste-log', [WasteLogController::class, 'create'])->name('waste_log.create');
+});
 
 Route::get("/compost", [CompostController::class, 'index']);
 
 Route::get("/farmer", [FarmerController::class, 'index']);
 
 Route::get("/account", [AccountController::class, 'index']);
+
+
 
