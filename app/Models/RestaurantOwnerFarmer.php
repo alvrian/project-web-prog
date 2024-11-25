@@ -4,8 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class RestaurantOwnerFarmer extends Model
+class RestaurantOwnerFarmer extends Pivot
 {
-    use HasFactory;
+    protected $table = 'restaurant_owner_farmer';
+
+    protected $fillable = [
+        'RestaurantOwnerID',
+        'FarmerID'
+    ];
 }

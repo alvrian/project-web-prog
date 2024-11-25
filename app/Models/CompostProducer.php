@@ -2,15 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class CompostProducer extends Model
 {
-    use HasFactory;
-
+    protected $table = 'compost_producer';
     protected $primaryKey = 'CompostProducerID';
-
+   protected $fillable = [
+        'Name',
+        'Location',
+        'CompostTypesProduced',
+        'AverageCompostAmountPerTerm',
+        'WasteProcessingCapacity',
+        'PointsBalance',
+        'AmountBalance'
+    ];
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class, 'ProviderID');
@@ -20,7 +26,6 @@ class CompostProducer extends Model
     {
         return $this->hasMany(PointsTransaction::class, 'ParticipantID');
     }
-
     public function farmers()
     {
         return $this->belongsToMany(Farmer::class, 'compost_producer_farmer', 'CompostProducerID', 'FarmerID');

@@ -21,9 +21,7 @@ return new class extends Migration
             $table->date('Date');
             $table->string('Status');
             $table->timestamps();
-
-            $table->foreign('ParticipantID')->references('RestaurantOwnerID')->on('restaurant_owner')->onDelete('cascade');
-        });
+    });
     }
 
     /**

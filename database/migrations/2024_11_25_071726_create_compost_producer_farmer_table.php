@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('FarmerID');
             $table->timestamps();
 
-            $table->foreign('CompostProducerID')->references('CompostProducerID')->on('compost_producer')->onDelete('cascade');
-            $table->foreign('FarmerID')->references('FarmerID')->on('farmer')->onDelete('cascade');
+            $table->foreign('CompostProducerID')->references('id')->on('compost_producer')->onDelete('cascade');
+            $table->foreign('FarmerID')->references('id')->on('farmer')->onDelete('cascade');
         });
     }
     /**

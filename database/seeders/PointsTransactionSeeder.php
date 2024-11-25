@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -8,7 +7,10 @@ use App\Models\PointsTransaction;
 use App\Models\RestaurantOwner;
 use App\Models\CompostProducer;
 use App\Models\Farmer;
+
 use Faker\Factory as Faker;
+use Exception;
+
 class PointsTransactionSeeder extends Seeder
 {
     /**
@@ -18,31 +20,36 @@ class PointsTransactionSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 20) as $index) {
+        $this->seedParticipantData(RestaurantOwner::class, 7, $faker);
+        $this->seedParticipantData(CompostProducer::class, 7, $faker);
+        $this->seedParticipantData(Farmer::class, 7, $faker);
+    }
 
-            $participantType = $faker->randomElement(['RestaurantOwner', 'Farmer', 'CompostProducer']);
-            $participantId = null;
+    /**
+     * Seed data for a specific participant type.
+     *
+     * @param string $participantType The class name of the participant type.
+     * @param int $count The number of records to seed.
+     * @param \Faker\Generator $faker The Faker instance.
+     */
+    private function seedParticipantData(string $participantType, int $count, $faker)
+    {
+        $participantModel = app($participantType);
 
+        foreach (range(1, $count) as $index) {
+            $participant = $participantModel::inRandomOrder()->first();
 
-            switch ($participantType) {
-                case 'RestaurantOwner':
-                    $participantId = RestaurantOwner::inRandomOrder()->first()->RestaurantOwnerID;
-                    break;
-                case 'Farmer':
-                    $participantId = Farmer::inRandomOrder()->first()->FarmerID;
-                    break;
-                case 'CompostProducer':
-                    $participantId = CompostProducer::inRandomOrder()->first()->CompostProducerID;
-                    break;
+            if (!$participant) {
+                throw new Exception("No participant found for type: " . $participantType);
             }
 
             PointsTransaction::create([
-                'ParticipantID' => $participantId,
+                'ParticipantID' => $participant->id,
                 'TransactionType' => $faker->randomElement(['Earned', 'Redeemed']),
-                'Points' => $faker->numberBetween(10, 100),
-                'Description' => $faker->sentence,
+                'Points' => $faker->numberBetween(10, 1000),
+                'Description' => $faker->sentence(),
                 'Date' => $faker->date(),
-                'Status' => $faker->randomElement(['Completed', 'Pending']),
+                'Status' => $faker->randomElement(['Completed', 'Pending', 'Failed']),
             ]);
         }
     }
