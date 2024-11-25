@@ -12,8 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('subscription', function (Blueprint $table) {
-            $table->id();
+            $table->engine = 'InnoDB';
+            $table->id('SubscriptionID');
+            $table->unsignedBigInteger('SubscriberID');
+            $table->unsignedBigInteger('ProviderID');
+            $table->string('SubscriptionType');
+            $table->date('StartDate');
+            $table->date('EndDate');
+            $table->string('Status');
+            $table->string('Reason');
+            $table->unsignedBigInteger('Price');
+            $table->unsignedBigInteger('PointEarned');
             $table->timestamps();
+
+            $table->foreign('SubscriberID')->references('RestaurantOwnerID')->on('restaurant_owner')->onDelete('cascade');
+            $table->foreign('ProviderID')->references('FarmerID')->on('farmer')->onDelete('cascade');
         });
     }
 

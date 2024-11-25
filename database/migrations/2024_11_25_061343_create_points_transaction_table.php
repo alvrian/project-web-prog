@@ -12,8 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('points_transaction', function (Blueprint $table) {
-            $table->id();
+            $table->engine = 'InnoDB';
+            $table->id('TransactionID');
+            $table->unsignedBigInteger('ParticipantID');
+            $table->string('TransactionType');
+            $table->integer('Points');
+            $table->text('Description')->nullable();
+            $table->date('Date');
+            $table->string('Status');
             $table->timestamps();
+
+            $table->foreign('ParticipantID')->references('RestaurantOwnerID')->on('restaurant_owner')->onDelete('cascade');
         });
     }
 

@@ -12,8 +12,48 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pickup_schedule', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
+            $table->unsignedBigInteger('SenderRestaurantOwnerID')->nullable();
+            $table->unsignedBigInteger('SenderCompostProducerID')->nullable();
+            $table->unsignedBigInteger('SenderFarmerID')->nullable();
+            $table->unsignedBigInteger('RecipientRestaurantOwnerID')->nullable();
+            $table->unsignedBigInteger('RecipientCompostProducerID')->nullable();
+            $table->unsignedBigInteger('RecipientFarmerID')->nullable();
+            $table->enum('PickupType', ['Waste Pickup', 'Compost Delivery']);
+            $table->dateTime('ScheduledDate');
+            $table->enum('Status', ['Scheduled', 'Completed', 'Missed']);
             $table->timestamps();
+
+            $table->foreign('SenderRestaurantOwnerID')
+                ->references('RestaurantOwnerID')->on('restaurant_owner')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('SenderCompostProducerID')
+                ->references('CompostProducerID')->on('compost_producer')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('SenderFarmerID')
+                ->references('FarmerID')->on('farmer')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('RecipientRestaurantOwnerID')
+                ->references('RestaurantOwnerID')->on('restaurant_owner')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('RecipientCompostProducerID')
+                ->references('CompostProducerID')->on('compost_producer')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('RecipientFarmerID')
+                ->references('FarmerID')->on('farmer')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

@@ -12,7 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('farmer', function (Blueprint $table) {
-            $table->id();
+            $table->engine = 'InnoDB';
+
+            $table->id('FarmerID');
+            $table->string('Name');
+            $table->string('Location');
+            $table->text('CropTypesProduced');
+            $table->string('HarvestSchedule');
+            $table->decimal('AverageCropAmount', 8, 2)->nullable();
+            $table->unsignedBigInteger('PointsBalance')->default(0);
+            $table->unsignedBigInteger('AmountBalance')->default(0);
             $table->timestamps();
         });
     }

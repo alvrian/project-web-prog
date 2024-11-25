@@ -11,19 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('waste_log', function (Blueprint $table) {
+        Schema::create('restaurant_owner_farmer', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->id('WasteLogID');
+            $table->engine = 'InnoDB';
+            $table->id();
             $table->unsignedBigInteger('RestaurantOwnerID');
-            $table->string('WasteType');
-            $table->decimal('Weight', 8, 2);
-            $table->date('DateLogged');
+            $table->unsignedBigInteger('FarmerID');
             $table->timestamps();
 
-            $table->foreign('RestaurantOwnerID')
-                ->references('RestaurantOwnerID')
-                ->on('restaurant_owner')
-                ->onDelete('cascade');
+            $table->foreign('RestaurantOwnerID')->references('RestaurantOwnerID')->on('restaurant_owner')->onDelete('cascade');
+            $table->foreign('FarmerID')->references('FarmerID')->on('farmer')->onDelete('cascade');
         });
     }
     /**
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('waste_log');
+        Schema::dropIfExists('restaurant_owner_farmer');
     }
 };

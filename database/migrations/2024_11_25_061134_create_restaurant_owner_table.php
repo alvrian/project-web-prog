@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('restaurant_owner', function (Blueprint $table) {
-            $table->id();
+            $table->engine = 'InnoDB';
+            $table->id('RestaurantOwnerID');
+            $table->string('Name');
+            $table->string('Location');
+            $table->string('Type');
+            $table->decimal('AverageFoodWastePerMonth', 8, 2)->nullable();
+            $table->unsignedBigInteger('PointsBalance')->default(0);
+            $table->unsignedBigInteger('AmountBalance')->default(0);
             $table->timestamps();
         });
     }
