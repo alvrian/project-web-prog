@@ -9,4 +9,9 @@ class AccountController extends Controller
     public function index (){
         return view ("accountMain");
     }
+
+    public function point(){
+        return view('accountPoints');
+    }
+
 }
