@@ -25,8 +25,8 @@ return new class extends Migration
             $table->unsignedBigInteger('PointEarned');
             $table->timestamps();
 
-            $table->foreign('SubscriberID')->references('RestaurantOwnerID')->on('restaurant_owner')->onDelete('cascade');
-            $table->foreign('ProviderID')->references('FarmerID')->on('farmer')->onDelete('cascade');
+            $table->foreign('SubscriberID')->references('id')->on('restaurant_owner')->onDelete('cascade');
+            $table->foreign('ProviderID')->references('id')->on('farmer')->onDelete('cascade');
         });
     }
 

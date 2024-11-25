@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('FarmerID');
             $table->timestamps();
 
-            $table->foreign('RestaurantOwnerID')->references('RestaurantOwnerID')->on('restaurant_owner')->onDelete('cascade');
-            $table->foreign('FarmerID')->references('FarmerID')->on('farmer')->onDelete('cascade');
+            $table->foreign('RestaurantOwnerID')->references('id')->on('restaurant_owner')->onDelete('cascade');
+            $table->foreign('FarmerID')->references('id')->on('farmer')->onDelete('cascade');
         });
     }
     /**

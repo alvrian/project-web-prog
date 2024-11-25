@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('RestaurantOwnerID')
-                ->references('RestaurantOwnerID')
+                ->references('id')
                 ->on('restaurant_owner')
                 ->onDelete('cascade');
         });

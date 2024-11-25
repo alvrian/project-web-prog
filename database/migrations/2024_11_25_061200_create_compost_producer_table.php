@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('compost_producer', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->id('CompostProducerID');
+            $table->id('id');
             $table->string('Name');
             $table->string('Location');
             $table->text('CompostTypesProduced');
