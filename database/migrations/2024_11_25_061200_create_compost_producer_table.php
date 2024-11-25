@@ -12,7 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('compost_producer', function (Blueprint $table) {
-            $table->id();
+            $table->engine = 'InnoDB';
+            $table->id('CompostProducerID');
+            $table->string('Name');
+            $table->string('Location');
+            $table->text('CompostTypesProduced');
+            $table->decimal('AverageCompostAmountPerTerm', 8, 2)->nullable();
+            $table->unsignedBigInteger('WasteProcessingCapacity');
+            $table->unsignedBigInteger('PointsBalance')->default(0);
+            $table->unsignedBigInteger('AmountBalance')->default(0);
             $table->timestamps();
         });
     }
