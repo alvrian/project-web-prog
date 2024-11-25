@@ -35,4 +35,23 @@ class CompostProducer extends Model
     {
         return $this->morphMany(PickupSchedule::class, 'participant');
     }
+    public function pointsTransactions()
+    {
+        return $this->morphMany(PointsTransaction::class, 'participant');
+    }
+
+    public function givenFeedbacks()
+    {
+        return $this->morphMany(Feedback::class, 'reviewer');
+    }
+
+    public function receivedFeedbacks()
+    {
+        return $this->morphMany(Feedback::class, 'reviewee');
+    }
+
+    public function catalogs()
+    {
+        return $this->morphMany(Catalog::class, 'item');
+    }
 }
