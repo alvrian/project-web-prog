@@ -15,7 +15,7 @@ class Subscription extends Model
         'SubscriptionType', 'StartDate', 'EndDate', 'Status'
     ];
 
-    protected $primaryKey = 'WasteLogID';
+    protected $primaryKey = 'SubscriptionID';
 
     public function subscriber()
     {

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('RestaurantOwnerID');
             $table->foreign('RestaurantOwnerID')->references('RestaurantOwnerID')->on('restaurant_owners');
             $table->string('WasteType');
-            $table->integer('Weight');
+            $table->decimal('Weight', 8, 2);
             $table->date('DateLogged');
         });
 
@@ -34,6 +34,17 @@ return new class extends Migration
             $table->index(['SubscriberID', 'subscriber_type']);
             $table->index(['ProviderID', 'provider_type']);
         });
+
+        Schema::create('pickup_schedules', function (Blueprint $table) {
+            $table->id('PickupID');
+            $table->unsignedBigInteger('ParticipantID');
+            $table->string('participant_type');
+            $table->string('PickupType');
+            $table->date('ScheduledDate');
+            $table->string('Status');
+            
+            $table->index(['PickupID', 'participant_type']);
+        });
     }
 
     /**
@@ -42,6 +53,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('waste_logs');
-        Schema::dropIfExists('waste_logs');
+        Schema::dropIfExists('subscriptions');
+        Schema::dropIfExists('pickup_schedules');
     }
 };

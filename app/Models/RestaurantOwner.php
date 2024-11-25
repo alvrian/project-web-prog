@@ -16,6 +16,11 @@ class RestaurantOwner extends Model
     public $timestamp = false;
     protected $primaryKey = 'RestaurantOwnerID';
 
+    public function wasteLogs()
+    {
+        return $this->hasMany(WasteLog::class, 'RestaurantOwnerID', 'RestaurantOwnerID');
+    }
+
     public function subscriptionsAsSubscriber()
     {
         return $this->morphMany(Subscription::class, 'subscriber');
@@ -24,5 +29,10 @@ class RestaurantOwner extends Model
     public function subscriptionsAsProvider()
     {
         return $this->morphMany(Subscription::class, 'provider');
+    }
+
+    public function pickupSchedules()
+    {
+        return $this->morphMany(PickupSchedule::class, 'participant');
     }
 }

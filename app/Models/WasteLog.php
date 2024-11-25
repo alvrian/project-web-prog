@@ -10,9 +10,13 @@ class WasteLog extends Model
     use HasFactory;
     public $timestamp = false;
 
-    protected $fillable = [
-        'WasteType', 'Weight',
-    ];
+    protected $fillable = ['RestaurantOwnerID', 'WasteType', 'Weight', 'DateLogged'];
+
+    
     protected $primaryKey = 'WasteLogID';
 
+    public function restaurantOwner()
+    {
+        return $this->belongsTo(RestaurantOwner::class, 'RestaurantOwnerID', 'RestaurantOwnerID');
+    }
 }
