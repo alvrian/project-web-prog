@@ -1,6 +1,6 @@
 <x-layout>
   <x-navbar/>
-  <div style = "background-color: #43553D;width: 100vw;min-height:93vh;position:relative;overflow:hidden;">
+  <div style = "background-color: #43553D;width: 100vw;min-height:93vh;position:relative;overflow:hidden;font-family:&quot;Inter&quot;, serif;">
     <div style = "background-color: white;width: 90vw;height:90vh;position:absolute;right:0;bottom:0;border-radius: 12px 0 0 0;padding:1rem">
       <div style = "height:82vh;width:78vw;position:absolute;bottom:0;right:0;">
         <div class = "d-flex flex-column" id = "box-top">
