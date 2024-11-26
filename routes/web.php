@@ -16,6 +16,8 @@ Route::prefix('restaurant')->group(function () {
     Route::get('/', [RestaurantController::class, 'index'])->name('restaurant.index');
 
     Route::get('/create-waste-log', [WasteLogController::class, 'create'])->name('waste_log.create');
+    Route::post('/create-waste-log', [WasteLogController::class, 'store'])->name('waste_log.store');
+
 });
 
 Route::get("/compost", [CompostController::class, 'index']);
