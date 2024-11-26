@@ -22,7 +22,11 @@ Route::get("/compost", [CompostController::class, 'index']);
 
 Route::get("/farmer", [FarmerController::class, 'index']);
 
-Route::get("/account", [AccountController::class, 'index']);
+Route::prefix('account')->group(function () {
+    Route::get("/", [AccountController::class, 'index']);
+    Route::get("/point", [AccountController::class, 'point']);
+});
+
 
 
 

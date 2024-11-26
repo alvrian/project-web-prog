@@ -1,6 +1,6 @@
 <x-layout>
   <x-navbar/>
-  <div style = "background-color: #43553D;width: 100vw;min-height:93vh;position:relative;overflow:hidden;">
+  <div style = "background-color: #43553D;width: 100vw;min-height:93vh;position:relative;overflow:hidden;font-family:&quot;Inter&quot;, serif;">
     <div style = "background-color: white;width: 90vw;height:90vh;position:absolute;right:0;bottom:0;border-radius: 12px 0 0 0;padding:1rem">
       <div style = "height:82vh;width:78vw;position:absolute;bottom:0;right:0;">
         <div class = "d-flex flex-column" id = "box-top">
@@ -18,12 +18,12 @@
               </span>
             </div>
             <div style = "margin-left:20vw;font-weight:700">
-            <span style = "font-size:18px;">
-                  Your Points
-              </span>
-              <span style="display: flex; align-items: center; gap: 5px;font-size:18px;">
-                  Rp. 1.000.000, 00
-              </span>
+                <span style = "font-size:18px;">
+                    Your Points
+                </span>
+                <span style="display: flex; align-items: center; gap: 5px;font-size:18px;color:black;">
+                    Rp. 1.000.000, 00
+                </span>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
               <span style = "margin-left: 0.5rem;font-size:18px;font-weight:500;margin-bottom:1rem;">
                 Summary
               </span>
-              <div style = "background-color:white;width:27vw;height:80vh;margin-left:0.5rem;margin-top:0.5rem;padding:2rem">
+              <div style = "background-color:white;width:27vw;height:80vh;margin-left:0.5rem;margin-top:0.5rem;padding:2rem" class = "dropend">
                 <span style = "font-weight:500;font-size:18px;">Progress Bar</span>
                 <div class="progress-stacked" style = "margin-top:2rem;margin-bottom: 2rem;">
                   <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
@@ -70,15 +70,12 @@
                   <span style = "width: 100%;display:block;color:red;font-weight:900;font-size: 18px;">&centerdot;<span style = "color:black;font-weight:400;font-size:16px;">&emsp;Cancelled&emsp;&emsp;&ensp;&nbsp;</span><span style = "color:black;font-weight:400;font-size:16px;">4/10</span></span>
                 </div>
                 <p class="d-inline-flex gap-1">
-                  <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Notes
+                  <a  href = "/account/point">
+                  <button class="btn btn-light dropdown-toggle" type="button">
+                    View Point Details
                   </button>
+                  </a>
                 </p>
-                <div class="collapse" id="collapseExample">
-                  <div class="card card-body">
-                  Perguruan tinggi Bina Nusantara Wahana tuk semaikan benih harapan Mendidik dan memberdayakan sesama Membangun nusa berkiprah untuk bangsa Berlambarkan kasih, cita dan karsa dengan rahmat
-                  </div>
-                </div>
       </div></div></div></div></div>
     <div style="position: absolute;left:4%;top:15%">
       <img src="{{ asset('images/account-picture-placeholder.png') }}" 

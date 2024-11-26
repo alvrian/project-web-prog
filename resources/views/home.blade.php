@@ -1,28 +1,23 @@
 <x-layout>
     <x-navbar/>
     <div class = "d-flex flex-column justify-content-center align-items-center gap-4" 
-    style = "padding: 1rem">
+    style = "padding: 1rem;font-family:&quot;Inter&quot;, serif;"">
         <div class = "d-flex flex-column justify-content-center align-items-center" style = "background-color: #838383;border-radius:12px;width: 85vw;height: 38rem;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);">
             <div id="carouselExampleSlidesOnly" class="carousel carousel-fade" data-bs-ride="carousel" >
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <div style = "background-color: #C6CE9D;width: 85vw;height: 38rem;border-radius:12px;color:white;margin:1rem;padding:2rem;">
-                            <h1 style = "font-weight:bold;">LOGO</h1>
-                            <h2>Rencananya Carousel</h2>
-                            <span>Hello im under water please help me</span>
+                        <div style = "background-color: #43553D;width: 85vw;height: 38rem;border-radius:12px;color:white;margin:1rem;padding:2rem;position: relative">
+                            <div style = "position: absolute; bottom: 40%;left: 5%">
+                                <h1 style = "font-family: &quot;Lexend&quot;,sans-serif;font-weight:600;font-size: 54px;">FarmByte: </h1>
+                                <h1 style = "font-family: &quot;Lexend&quot;,sans-serif;font-weight:600;font-size: 54px;">Cultivating Connections,</h1>
+                                <h1 style = "font-family: &quot;Lexend&quot;,sans-serif;font-weight:600;font-size: 54px;">Growing Sustainability.</h1>
+                            </div>
+                            <img src = "{{ asset('images/farmbyte-title.png') }}" alt = "FARMByte" 
+                                style = "position: absolute;right: 5%; bottom: 5%;"/>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div style = "background-color: #43553D;width: 85vw;height: 38rem;border-radius:12px;color:white;margin:1rem;padding:2rem;">
-                            <!-- <img src="..." class="d-block w-100" alt="..."> -->
-                            <h1 style = "font-weight:bold;">LOGO</h1>
-                            <h2>Rencananya Carousel</h2>
-                            <span>Hello im under water please help me</span>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div style = "background-color: #F1C0AF;width: 85vw;height: 38rem;border-radius:12px;color:white;margin:1rem;padding:2rem;">
-                            <!-- <img src="..." class="d-block w-100" alt="..."> -->
                             <h1 style = "font-weight:bold;">LOGO</h1>
                             <h2>Rencananya Carousel</h2>
                             <span>Hello im under water please help me</span>
@@ -31,7 +26,6 @@
                 </div>
             </div>
         </div>
-
         <span style = "width: 85vw;font-weight:bold;font-size: 24px;">What is FarmByte ?</span>
         <div class="card d-flex flex-row" style = "width:85vw;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);background-color:#F0EEEF;border: none;">
             <div class="card-body" style = "flex: 1;color: #3C4B33;">
