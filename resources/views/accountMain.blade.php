@@ -22,7 +22,7 @@
                     Your Points
                 </span>
                 <span style="display: flex; align-items: center; gap: 5px;font-size:18px;color:black;">
-                    Rp. 1.000.000, 00
+                    Rp. {{$total}}
                 </span>
             </div>
           </div>
@@ -37,10 +37,29 @@
             </span>
             <div style="background-color: white; width: 48vw; height: 80vh; border-radius: 15px 0 0 0; margin-top: 0.5rem; padding: 0.25rem 1rem; overflow-y: auto;">
               <ul class="list-group list-group-flush" style="height: 60vh; list-style: none;">
-              @for ($i = 1; $i <= 20; $i++)
-                <li class="list-group-item">Item {{ $i }}</li>
-              @endfor
-              <!-- buat nge push yang bawah -->
+                <ul class="list-group list-group-flush" style="height: 100%; list-style: none;">
+                  @if($data->isEmpty())
+                    <p>No Completed transactions found.</p>
+                  @else
+                    <ul class="list-group list-group-flush" style="height: 100%; list-style: none;">
+                      @foreach($data as $transaction)
+                          <li class="list-group-item" style = "height: 6vh;">
+                            <div class="row text-left">
+                                @if($transaction->TransactionType == "Earned")
+                                  <div class="col-3">+ {{ $transaction->Points }}</div>
+                                  <div class="col-3" style = "color: #7B986A;font-weight: 500;">Point {{$transaction->TransactionType}}</div>
+                                @elseif ($transaction->TransactionType == "Redeemed")
+                                  <div class="col-3">- {{ $transaction->Points }}</div>
+                                  <div class="col-3" style = "color: #BC0000;font-weight: 500;">Point {{$transaction->TransactionType}}</div>
+                                @endif
+                                <div class="col-3">{{$transaction->Date}}</div>
+                                <div class="col-3">{{$transaction->Status}}</div>
+                              </div>
+                          </li>
+                      @endforeach
+                    </ul>
+                  @endif
+                  </ul>
               @for ($i = 1; $i <= 10; $i++)
                 <li class="list-group-item" style = "border:none;"></li>
               @endfor
@@ -63,11 +82,27 @@
                     <div class="progress-bar bg-danger"></div>
                   </div>
                 </div>
-                <div class = "d-flex flex-column justify-content-center gap-1" style = "margin-bottom:2rem" >
-                  <span style = "font-weight:500;font-size:16px;">Total Transaction: <span>10</span></span>
-                  <span style = "width: 100%;display:block;color:green;font-weight:900;font-size: 18px;">&centerdot;<span style = "color:black;font-weight:400;font-size:16px;">&emsp;Done&emsp;&emsp;&emsp;&emsp;&ensp;</span><span style = "color:black;font-weight:400;font-size:16px;">3/10</span></span>
-                  <span style = "width: 100%;display:block;color:yellow;font-weight:900;font-size: 18px;">&centerdot;<span style = "color:black;font-weight:400;font-size:16px;">&emsp;In Progress&emsp;&emsp;</span><span style = "color:black;font-weight:400;font-size:16px;">4/10</span></span>
-                  <span style = "width: 100%;display:block;color:red;font-weight:900;font-size: 18px;">&centerdot;<span style = "color:black;font-weight:400;font-size:16px;">&emsp;Cancelled&emsp;&emsp;&ensp;&nbsp;</span><span style = "color:black;font-weight:400;font-size:16px;">4/10</span></span>
+                <div class="container" style="margin-bottom: 2rem;">
+                  <div class="text-left mb-3">
+                    <span class="fw-medium fs-5">Total Transaction: <span>10</span></span>
+                  </div>
+                  <div class="d-flex flex-column gap-2">
+                    <div class="d-flex align-items-center">
+                      <span class="fw-bold text-success fs-5">&centerdot;</span>
+                      <span class="text-black fw-normal fs-6 ms-1">Done</span>
+                      <span class="text-black fw-normal fs-6 ms-auto">3/10</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <span class="fw-bold text-warning fs-5">&centerdot;</span>
+                      <span class="text-black fw-normal fs-6 ms-1">In Progress</span>
+                      <span class="text-black fw-normal fs-6 ms-auto">4/10</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <span class="fw-bold text-danger fs-5">&centerdot;</span>
+                      <span class="text-black fw-normal fs-6 ms-1">Cancelled</span>
+                      <span class="text-black fw-normal fs-6 ms-auto">4/10</span>
+                    </div>
+                  </div>
                 </div>
                 <p class="d-inline-flex gap-1">
                   <a  href = "/account/point">
