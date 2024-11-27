@@ -4,6 +4,7 @@
     <div style = "background-color: white;width: 90vw;height:90vh;position:absolute;right:0;bottom:0;border-radius: 12px 0 0 0;">
         <div class =  "d-flex flex-row justify-content-between" style = "height: 100%;width: 90vw;">
             <div style = "width: 40%;padding:2rem;position: relative;">
+                <a href = "/account" style = "text-decoration: none;color: black;">< back</a>
                 <span style = "position: absolute;top:47%;font-size: 24px;font-weight: 600;color:#43553D;left: 15%;">Your Points</span>
                 <span style = "position: absolute;top:52%;font-size: 24px;font-weight: 400;left: 15%;">Rp. {{$total}}</span>
             </div><br>
