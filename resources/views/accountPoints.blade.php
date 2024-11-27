@@ -8,18 +8,59 @@
                 <span style = "position: absolute;top:52%;font-size: 24px;font-weight: 400;left: 15%;">Rp. {{$total}}</span>
             </div><br>
             <div  style = "width: 100%;padding:2rem;background-color: #F5F5F5;">
-                <span style = "font-size: 22px;font-weight: 600;">Transactions</span>
-                <div style = "background-color: white;width: 100%;height: 100%;overflow-x: hidden;overflow-y: auto;border-radius: 12px;margin-top: 1rem;">
-                  @if($data->isEmpty())
-                    <p>No transactions found.</p>
+                <span style = "font-size: 22px;font-weight: 600;display:block">Transactions</span><br>
+                <span style = "font-size: 18px;font-weight: 600;">Pending Transactions</span>
+                <div style = "background-color: white;width: 100%;height: 20%;overflow-x: hidden;overflow-y: auto;border-radius: 12px;padding: 0 1rem;margin-top:10px;">
+                  <ul class="list-group list-group-flush" style="height: 100%; list-style: none;">
+                  @if($pending->isEmpty())
+                    <p>No Completed transactions found.</p>
+                  @else
+                    <ul class="list-group list-group-flush" style="height: 100%; list-style: none;">
+                      @foreach($pending as $transaction)
+                          <li class="list-group-item" style = "height: 6vh;">
+                            @if($transaction->TransactionType == "Earned")
+                            <div class="row text-left">
+                                <div class="col-3">+ {{ $transaction->Points }}</div>
+                                <div class="col-3" style = "color: #7B986A;font-weight: 500;">Earned</div>
+                                <div class="col-3">{{$transaction->Date}}</div>
+                                <div class="col-3">{{$transaction->Status}}</div>
+                              </div>
+                            @elseif($transaction->TransactionType == "Redeemed")
+                            <div class="row text-left">
+                              <div class="col-3">+ {{ $transaction->Points }}</div>
+                              <div class="col-3" style = "color: #BC0000;font-weight: 500;">Redeemed</div>
+                              <div class="col-3">{{$transaction->Date}}</div>
+                              <div class="col-3">{{$transaction->Status}}</div>
+                            </div>
+                            @endif
+                          </li>
+                      @endforeach
+                    </ul>
+                  @endif
+                  </ul>
+                </div><br>
+                <span style = "font-size: 18px;font-weight: 600;">Completed Transactions</span>
+                <div style = "background-color: white;width: 100%;height: 60%;overflow-x: hidden;overflow-y: auto;border-radius: 12px;padding: 0 1rem;margin-top: 10px;">
+                  @if($pending->isEmpty())
+                    <p>No Completed transactions found.</p>
                   @else
                   <ul class="list-group list-group-flush" style="height: 100%; list-style: none;">
-                    @foreach($data as $transaction)
-                        <li class="list-group-item" style = "height: 5vh;">
+                    @foreach($completed as $transaction)
+                        <li class="list-group-item" style = "height: 6vh;">
                           @if($transaction->TransactionType == "Earned")
-                            <span>+ {{ $transaction->Points }} Earned {{$transaction->Date}}</span>
+                            <div class="row text-left">
+                              <div class="col-3">+ {{ $transaction->Points }}</div>
+                              <div class="col-3" style = "color: #7B986A;font-weight: 500;">Earned</div>
+                              <div class="col-3">{{$transaction->Date}}</div>
+                              <div class="col-3">{{$transaction->Status}}</div>
+                            </div>
                           @elseif($transaction->TransactionType == "Redeemed")
-                            <span>- {{ $transaction->Points }} Redeemed {{$transaction->Date}}</span>
+                              <div class="row text-left">
+                                <div class="col-3">+ {{ $transaction->Points }}</div>
+                                <div class="col-3" style = "color: #BC0000;font-weight: 500;">Redeemed</div>
+                                <div class="col-3">{{$transaction->Date}}</div>
+                                <div class="col-3">{{$transaction->Status}}</div>
+                              </div>
                           @endif
                         </li>
                     @endforeach
