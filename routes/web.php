@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RestaurantController;
@@ -8,9 +9,21 @@ use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\WasteLogController;
 
-Route::get("/", [HomeController::class, 'index']);
-Route::get("/market", [HomeController::class, 'market']);
-Route::get("/aboutUs", [HomeController::class, 'aboutUS']);
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
 
 Route::prefix('restaurant')->group(function () {
     Route::get('/', [RestaurantController::class, 'index'])->name('restaurant.index');
@@ -20,15 +33,16 @@ Route::prefix('restaurant')->group(function () {
 
 });
 
-Route::get("/compost", [CompostController::class, 'index']);
-
-Route::get("/farmer", [FarmerController::class, 'index']);
-
-Route::prefix('account')->group(function () {
+Route::prefix('account')->middleware(['auth', 'verified'])->name('account')->group(function () {
     Route::get("/", [AccountController::class, 'index']);
     Route::get("/point", [AccountController::class, 'point']);
 });
 
+Route::get("/", [HomeController::class, 'index'])->name('home');
 
+Route::get("/market", [HomeController::class, 'market']);
+Route::get("/aboutUs", [HomeController::class, 'aboutUS']);
 
+Route::get("/compost", [CompostController::class, 'index']);
 
+Route::get("/farmer", [FarmerController::class, 'index']);
