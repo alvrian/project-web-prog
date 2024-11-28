@@ -5,12 +5,12 @@
       <div style = "height:82vh;width:78vw;position:absolute;bottom:0;right:0;">
         <div class = "d-flex flex-column" id = "box-top">
           <span style = "font-size: 36px;font-weight:700;">
-            PT. Cahaya Wijaya
+            {{ auth()->user()->name}}
           </span>
           <div class = "d-flex flex-row ">
             <div>
               <span style = "font-size:18px;font-weight:500">
-                Compost Producer
+                {{auth()->user()->role}}
               </span>
               <span style="display: flex;align-items: center; gap: 5px;font-size:18px">
                 <img src="{{ asset('images/star.png') }}" style="width: 18px; height: 18px;" alt="Star"/> 

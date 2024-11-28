@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 class AccountController extends Controller
 {
     public function index (){
-        $id = 10; //change later to account id
+        $user = auth()->user();
+
+        $id = $user->id;
+        //change later to account id
         $data = PointsTransaction::where('ParticipantID', $id)->orderBy('Date', 'desc')->get();
         $earn = $data->where('TransactionType', 'Earned')->where('Status', 'Completed')->sum('Points');
         $spend = $data->where('TransactionType', 'Redeemed')->where('Status', 'Completed')->sum('Points');
@@ -19,10 +22,9 @@ class AccountController extends Controller
     }
 
     public function point(){
-        // $user = auth()->user();
-        // dd($user);
+        $user = auth()->user();
 
-        $id = 10; //change later to account id
+        $id = $user->id; //change later to account id
         $data = PointsTransaction::where('ParticipantID', $id)->orderBy('Date', 'desc')->get();
 
         $earn = $data->where('TransactionType', 'Earned')->where('Status', 'Completed')->sum('Points');
