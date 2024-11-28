@@ -38,7 +38,7 @@ Route::prefix('account')->middleware(['auth', 'verified'])->name('account')->gro
     Route::get("/point", [AccountController::class, 'point']);
 });
 
-Route::get("/", [HomeController::class, 'index']);
+Route::get("/", [HomeController::class, 'index'])->name('home');
 
 Route::get("/market", [HomeController::class, 'market']);
 Route::get("/aboutUs", [HomeController::class, 'aboutUS']);
