@@ -31,25 +31,25 @@ class PickupScheduleSeeder extends Seeder
 
             switch ($senderType) {
                 case 'RestaurantOwner':
-                    $pickupSchedule->SenderRestaurantOwnerID = RestaurantOwner::inRandomOrder()->first()->id;
+                    $pickupSchedule->SenderRestaurantOwnerID = RestaurantOwner::inRandomOrder()->first()->user_id;
                     break;
                 case 'CompostProducer':
-                    $pickupSchedule->SenderCompostProducerID = CompostProducer::inRandomOrder()->first()->id;
+                    $pickupSchedule->SenderCompostProducerID = CompostProducer::inRandomOrder()->first()->user_id;
                     break;
                 case 'Farmer':
-                    $pickupSchedule->SenderFarmerID = Farmer::inRandomOrder()->first()->id;
+                    $pickupSchedule->SenderFarmerID = Farmer::inRandomOrder()->first()->user_id;
                     break;
             }
 
             switch ($recipientType) {
                 case 'RestaurantOwner':
-                    $pickupSchedule->RecipientRestaurantOwnerID = RestaurantOwner::inRandomOrder()->first()->id;
+                    $pickupSchedule->RecipientRestaurantOwnerID = RestaurantOwner::inRandomOrder()->first()->user_id;
                     break;
                 case 'CompostProducer':
-                    $pickupSchedule->RecipientCompostProducerID = CompostProducer::inRandomOrder()->first()->id;
+                    $pickupSchedule->RecipientCompostProducerID = CompostProducer::inRandomOrder()->first()->user_id;
                     break;
                 case 'Farmer':
-                    $pickupSchedule->RecipientFarmerID = Farmer::inRandomOrder()->first()->id;
+                    $pickupSchedule->RecipientFarmerID = Farmer::inRandomOrder()->first()->user_id;
                     break;
             }
 
