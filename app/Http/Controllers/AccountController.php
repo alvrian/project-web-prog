@@ -2,15 +2,33 @@
 
 namespace App\Http\Controllers;
 use App\Models\PointsTransaction;
+use App\Models\RestaurantOwner;
+use App\Models\Farmer;
+use App\Models\CompostProducer;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
     public function index (){
         $user = auth()->user();
-
         $id = $user->id;
-        //change later to account id
+        $temp = null;
+        if($user->role == "compost_producer"){
+            $temp = CompostProducer::where('user_id', $id)->first();
+        }else if($user->role == "farmer"){
+            $temp = Farmer::where('user_id', $id)->first();   
+        }else if($user->role == "restaurant_owner"){
+            $temp = RestaurantOwner::where('user_id', $id)->first();
+        }
+        $tempArray = $temp->toArray();
+        $is_null = false;
+        foreach ($tempArray as $key => $value) {
+            if (is_null($value)) {
+                $is_null = true;
+                break;
+            }
+        }
+        
         $data = PointsTransaction::where('ParticipantID', $id)->orderBy('Date', 'desc')->get();
         $earn = $data->where('TransactionType', 'Earned')->where('Status', 'Completed')->sum('Points');
         $spend = $data->where('TransactionType', 'Redeemed')->where('Status', 'Completed')->sum('Points');
@@ -18,7 +36,7 @@ class AccountController extends Controller
         $total = number_format($total, 2, '.', ',');
 
         
-        return view ("accountMain", compact('total', 'data'));
+        return view ("accountMain", compact('total', 'data', 'is_null'));
     }
 
     public function point(){

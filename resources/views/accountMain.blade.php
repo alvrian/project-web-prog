@@ -1,5 +1,30 @@
 <x-layout>
   <x-navbar/>
+  @if($is_null)
+    <div class = "d-flex justify-content-center align-items-center" style = "background-color: #43553D;height:93vh;font-family:&quot;Inter&quot;, serif;">
+      <div style = "background-color: white; min-height: 35vh;min-width: 30vw;border-radius: 12px;padding:1rem;">
+        <h5 style = "display:block;text-align:center;">Complete Your Personal Information</h5>
+        <form method = "POST" action = "#">
+          @csrf
+          @if(auth()->user()->role == "farmer")
+          <div class="mb-3">
+            <label for="userLocation" class="form-label">Location</label>
+            <input type="text" class="form-control" id="userLocation" name="location" aria-describedby="locationHelp" required>
+            <div id="locationHelp" class="form-text">Please enter your location (city, state, etc.).</div>
+          </div>
+          @endif  
+        </form>
+      </div>
+    </div>
+    <div style = "position: absolute;bottom:0%;right:0;">
+        @auth
+        <form method="POST" action="{{ route('logout') }}" class="inline-block" style = "padding: 1rem;">
+          @csrf
+          <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+        @endauth
+      </div>
+  @else
   <div style = "background-color: #43553D;width: 100vw;min-height:93vh;position:relative;overflow:hidden;font-family:&quot;Inter&quot;, serif;">
     <div style = "background-color: white;width: 90vw;height:90vh;position:absolute;right:0;bottom:0;border-radius: 12px 0 0 0;padding:1rem">
       <div style = "height:82vh;width:78vw;position:absolute;bottom:0;right:0;">
@@ -124,4 +149,5 @@
       </div>
     </div>
   </div>
+  @endif
 </x-layout>
