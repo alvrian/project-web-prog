@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id('id');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('Name');
-            $table->string('Location');
-            $table->text('CropTypesProduced');
-            $table->string('HarvestSchedule');
+            $table->string('Location')->nullable();
+            $table->text('CropTypesProduced')->nullable();
+            $table->string('HarvestSchedule')->nullable();
             $table->decimal('AverageCropAmount', 8, 2)->nullable();
             $table->unsignedBigInteger('PointsBalance')->default(0);
             $table->unsignedBigInteger('AmountBalance')->default(0);

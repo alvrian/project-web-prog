@@ -50,7 +50,7 @@ class RegisteredUserController extends Controller
             RestaurantOwner::create([
                 'user_id' => $user->id,
                 'Name' => $user->name,
-                'Location' => 'test',
+                // 'Location' => 'test',
                 'Type' => 'Restaurant',
                 'AverageFoodWastePerMonth' => 0,
                 'AmountBalance' => 0
@@ -61,10 +61,10 @@ class RegisteredUserController extends Controller
             Farmer::create([
                 'user_id' => $user->id,
                 'Name' => $user->name,
-                'Location' => 'test',
-                'CropTypesProduced' => 'test',
-                'HarvestSchedule' => '2024-01-01',
-                'AverageCropAmount' => 0,
+                // 'Location' => 'test',
+                // 'CropTypesProduced' => 'test',
+                // 'HarvestSchedule' => '2024-01-01',
+                // 'AverageCropAmount' => 0,
                 'PointsBalance' => 0,
                 'AmountBalance' => 0,
             ]);
@@ -75,9 +75,9 @@ class RegisteredUserController extends Controller
                 'user_id' => $user->id,
                 'Name' => $user->name,
                 'Location' => 'test',
-                'CompostTypesProduced' => 'test',
-                'AverageCompostAmountPerTerm' => 0,
-                'WasteProcessingCapacity' => 0,
+                // 'CompostTypesProduced' => 'test',
+                // 'AverageCompostAmountPerTerm' => 0,
+                // 'WasteProcessingCapacity' => 0,
                 'PointsBalance' => 0,
                 'AmountBalance' => 0
             ]);
