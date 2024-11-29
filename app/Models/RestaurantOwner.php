@@ -11,6 +11,8 @@ class RestaurantOwner extends Model
     protected $table = 'restaurant_owner';
     protected $primaryKey = 'RestaurantOwnerID';
 
+    protected $fillable = ['user_id', 'Name', 'Location', 'Type', 'AverageFoodWastePerMonth', 'PointsBalance', 'AmountBalance'];
+
     public function wasteLogs()
     {
         return $this->hasMany(WasteLog::class, 'RestaurantOwnerID');
@@ -34,5 +36,10 @@ class RestaurantOwner extends Model
     public function compostProducers()
     {
         return $this->belongsToMany(CompostProducer::class, 'compost_producer_farmer', 'RestaurantOwnerID', 'CompostProducerID');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

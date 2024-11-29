@@ -15,9 +15,11 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            RestaurantOwnerSeeder::class,
-            CompostProducerSeeder::class,
-            FarmerSeeder::class,
+            //jadi restoarant_owner, compost producer, sama farmer seeder digabungin jadi 1 di userSeeder
+            UserSeeder::class,
+            // RestaurantOwnerSeeder::class,
+            // CompostProducerSeeder::class,
+            // FarmerSeeder::class,
             CompostProducerFarmerSeeder::class,
             RestaurantOwnerFarmerSeeder::class,
             CatalogSeeder::class,

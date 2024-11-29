@@ -10,6 +10,7 @@ class CompostProducer extends Model
     protected $primaryKey = 'CompostProducerID';
    protected $fillable = [
         'Name',
+        'user_id',
         'Location',
         'CompostTypesProduced',
         'AverageCompostAmountPerTerm',
@@ -34,5 +35,10 @@ class CompostProducer extends Model
     public function restaurants()
     {
         return $this->belongsToMany(RestaurantOwner::class, 'restaurant_owner_compost_producer', 'CompostProducerID', 'RestaurantOwnerID');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
