@@ -15,9 +15,10 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            RestaurantOwnerSeeder::class,
-            CompostProducerSeeder::class,
-            FarmerSeeder::class,
+            UserSeeder::class,
+            // RestaurantOwnerSeeder::class,
+            // CompostProducerSeeder::class,
+            // FarmerSeeder::class,
             CompostProducerFarmerSeeder::class,
             RestaurantOwnerFarmerSeeder::class,
             CatalogSeeder::class,

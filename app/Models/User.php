@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function restaurantOwner()
     {
-        return $this->hasOne(RestaurantOwner::class);
+        return $this->hasOne(RestaurantOwner::class, 'id');
     }
 
     public function farmer()

@@ -19,6 +19,7 @@ class FarmerSeeder extends Seeder
             Farmer::create([
                 'Name' => $faker->name,
                 'Location' => $faker->address,
+                'user_id' => $index,
                 'CropTypesProduced' => $faker->words(4, true),
                 'HarvestSchedule' => $faker->dayOfWeek,
                 'AverageCropAmount' => $faker->randomFloat(2, 50, 200),
