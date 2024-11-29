@@ -20,9 +20,9 @@ class PointsTransactionSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $this->seedParticipantData(RestaurantOwner::class, 7, $faker);
-        $this->seedParticipantData(CompostProducer::class, 7, $faker);
-        $this->seedParticipantData(Farmer::class, 7, $faker);
+        $this->seedParticipantData(RestaurantOwner::class, 20, $faker);
+        $this->seedParticipantData(CompostProducer::class, 20, $faker);
+        $this->seedParticipantData(Farmer::class, 20, $faker);
     }
 
     /**
@@ -44,7 +44,7 @@ class PointsTransactionSeeder extends Seeder
             }
 
             PointsTransaction::create([
-                'ParticipantID' => $participant->id,
+                'ParticipantID' => $participant->user_id,
                 'TransactionType' => $faker->randomElement(['Earned', 'Redeemed']),
                 'Points' => $faker->numberBetween(10, 1000),
                 'Description' => $faker->sentence(),

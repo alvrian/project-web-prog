@@ -19,8 +19,8 @@ class SubscriptionSeeder extends Seeder
 
         foreach (range(1, 20) as $index) {
             Subscription::create([
-                'SubscriberID' => RestaurantOwner::inRandomOrder()->first()->id,
-                'ProviderID' => Farmer::inRandomOrder()->first()->id,
+                'SubscriberID' => RestaurantOwner::inRandomOrder()->first()->user_id,
+                'ProviderID' => Farmer::inRandomOrder()->first()->user_id,
                 'SubscriptionType' => $faker->randomElement(['Monthly', 'Annual']),
                 'StartDate' => $faker->date(),
                 'EndDate' => $faker->date(),
