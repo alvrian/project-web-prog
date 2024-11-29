@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
+            //jadi restoarant_owner, compost producer, sama farmer seeder digabungin jadi 1 di userSeeder
             UserSeeder::class,
             // RestaurantOwnerSeeder::class,
             // CompostProducerSeeder::class,
