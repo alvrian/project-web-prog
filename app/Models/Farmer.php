@@ -11,6 +11,8 @@ class Farmer extends Model
     protected $table = 'farmer';
     protected $primaryKey = 'FarmerID';
 
+    protected $fillable = ['Name', 'user_id','Location', 'CropTypesProduced', 'HarvestSchedule', 'AverageCropAmount', 'PointsBalance', 'AmountBalance'];
+
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class, 'ProviderID');
@@ -29,5 +31,10 @@ class Farmer extends Model
     public function compostProducers()
     {
         return $this->belongsToMany(CompostProducer::class, 'compost_producer_farmer', 'FarmerID', 'CompostProducerID');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('compost_producer', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id('id');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('Name');
             $table->string('Location');
             $table->text('CompostTypesProduced');

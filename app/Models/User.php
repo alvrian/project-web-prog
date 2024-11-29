@@ -47,8 +47,18 @@ class User extends Authenticatable
         ];
     }
 
-    public function tweets()
+    public function restaurantOwner()
     {
-        return $this->hasMany(Tweet::class);
+        return $this->hasOne(RestaurantOwner::class);
+    }
+
+    public function farmer()
+    {
+        return $this->hasOne(Farmer::class);
+    }
+
+    public function compostProducer()
+    {
+        return $this->hasOne(CompostProducer::class);
     }
 }
