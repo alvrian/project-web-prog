@@ -33,8 +33,8 @@ Route::prefix('restaurant')->group(function () {
 
 });
 
-Route::prefix('account')->middleware(['auth', 'verified'])->name('account')->group(function () {
-    Route::get("/", [AccountController::class, 'index']);
+Route::prefix('account')->middleware(['auth', 'verified'])->group(function () {
+    Route::get("/", [AccountController::class, 'index'])->name('account');
     Route::get("/point", [AccountController::class, 'point']);
 });
 
@@ -43,6 +43,8 @@ Route::get("/", [HomeController::class, 'index'])->name('home');
 Route::get("/market", [HomeController::class, 'market']);
 Route::get("/aboutUs", [HomeController::class, 'aboutUS']);
 
-Route::get("/compost", [CompostController::class, 'index']);
+Route::prefix("compost")->middleware(['auth', 'verified'])->group(function(){
+    Route::get("/", [CompostController::class, 'index']);
+});
 
 Route::get("/farmer", [FarmerController::class, 'index']);

@@ -26,32 +26,32 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('SenderRestaurantOwnerID')
-                ->references('id')->on('restaurant_owner')
+                ->references('user_id')->on('restaurant_owner')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
             $table->foreign('SenderCompostProducerID')
-                ->references('id')->on('compost_producer')
+                ->references('user_id')->on('compost_producer')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
             $table->foreign('SenderFarmerID')
-                ->references('id')->on('farmer')
+                ->references('user_id')->on('farmer')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
             $table->foreign('RecipientRestaurantOwnerID')
-                ->references('id')->on('restaurant_owner')
+                ->references('user_id')->on('restaurant_owner')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
             $table->foreign('RecipientCompostProducerID')
-                ->references('id')->on('compost_producer')
+                ->references('user_id')->on('compost_producer')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
             $table->foreign('RecipientFarmerID')
-                ->references('id')->on('farmer')
+                ->references('user_id')->on('farmer')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
