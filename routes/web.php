@@ -36,6 +36,7 @@ Route::prefix('restaurant')->group(function () {
 Route::prefix('account')->middleware(['auth', 'verified'])->group(function () {
     Route::get("/", [AccountController::class, 'index'])->name('account');
     Route::get("/point", [AccountController::class, 'point']);
+    Route::post("/complete", [AccountController::class, 'complete'])->name('complete');
 });
 
 Route::get("/", [HomeController::class, 'index'])->name('home');

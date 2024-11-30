@@ -74,7 +74,7 @@ class RegisteredUserController extends Controller
             CompostProducer::create([
                 'user_id' => $user->id,
                 'Name' => $user->name,
-                'Location' => 'test',
+                // 'Location' => 'test',
                 // 'CompostTypesProduced' => 'test',
                 // 'AverageCompostAmountPerTerm' => 0,
                 // 'WasteProcessingCapacity' => 0,

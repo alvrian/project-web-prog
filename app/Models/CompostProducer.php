@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class CompostProducer extends Model
 {
     protected $table = 'compost_producer';
-    protected $primaryKey = 'CompostProducerID';
+    protected $primaryKey = 'user_id';
+    public $incrementing = false;
    protected $fillable = [
         'Name',
         'user_id',

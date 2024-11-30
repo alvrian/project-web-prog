@@ -56,4 +56,39 @@ class AccountController extends Controller
         return view('accountPoints', compact('completed', 'total', 'pending'));
     }
 
+    public function complete(Request $res){
+        $user = auth()->user();
+        $id = $user->id;
+        $role = $user->role;
+
+        if($role == "farmer"){
+            $temp = Farmer::where('user_id', $id)->first();
+            $temp->update([
+                'Location' => $res->location,
+                'CropTypesProduced' => $res->CropTypesProduced,
+                'HarvestSchedule' => $res->DayOfWeek,
+                'AverageCropAmount' =>  $res->AverageCropAmount
+            ]);
+        }elseif($role == "compost_producer") {
+            $temp = CompostProducer::where('user_id', $id)->first();
+            // dd($res);
+            $temp->update([
+                'Location' => $res->location,
+                'CompostTypesProduced' => $res->CompostTypesProduced,
+                'AverageCompostAmountPerTerm' => $res->Average,
+                'WasteProcessingCapacity' =>  $res->capacity
+            ]);
+        }elseif($role == "restaurant_owner"){
+            $temp = RestaurantOwner::where('user_id', $id)->first();
+
+            $temp->update([
+                'Location' => $res->location
+            ]);
+        }else{
+            return response()->json(['error' => 'Farmer not found'], 404);
+        }
+
+        return redirect()->route('home');
+    }
+
 }
