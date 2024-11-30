@@ -9,8 +9,8 @@ class Farmer extends Model
 {
     use HasFactory;
     protected $table = 'farmer';
-    protected $primaryKey = 'FarmerID';
-
+    protected $primaryKey = 'user_id';
+    public $incrementing = false;
     protected $fillable = ['Name', 'user_id','Location', 'CropTypesProduced', 'HarvestSchedule', 'AverageCropAmount', 'PointsBalance', 'AmountBalance'];
 
     public function subscriptions()

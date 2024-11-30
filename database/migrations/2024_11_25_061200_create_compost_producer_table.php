@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('Name');
             $table->string('Location')->nullable();
-            $table->text('CompostTypesProduced');
+            $table->text('CompostTypesProduced')->nullable();
             $table->decimal('AverageCompostAmountPerTerm', 8, 2)->nullable();
             $table->unsignedBigInteger('WasteProcessingCapacity')->nullable();
             $table->unsignedBigInteger('PointsBalance')->default(0);

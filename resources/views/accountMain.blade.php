@@ -1,5 +1,82 @@
 <x-layout>
   <x-navbar/>
+  @if($is_null)
+    <div class = "d-flex justify-content-center align-items-center" style = "background-color: #43553D;height:93vh;font-family:&quot;Inter&quot;, serif;">
+      <div style = "background-color: white; min-height: 35vh;min-width: 30vw;border-radius: 12px;padding:1rem;">
+        <h5 style = "display:block;text-align:center;font-weight: bold;">Complete Your Personal Information</h5><br>
+        <form method = "POST" action = "{{ route('complete') }}">
+          @csrf
+          @if(auth()->user()->role == "farmer")
+            <div class="mb-3" style = "font-size: 14px;">
+              <label for="userLocation" class="form-label">Location</label>
+              <input type="text" class="form-control" id="userLocation" name="location" aria-describedby="locationHelp" required placeholder = "Enter name of City">
+              <br>
+              <label for="CropTypesProduced" class="form-label">Crop Types Produced</label>
+              <input type="text" class="form-control" id="CropTypesProduced" name="CropTypesProduced" required>
+              <br>
+              <div class="mb-3">
+                <label for="DayOfWeek" class="form-label">Select Day of the Week</label>
+                <select class="form-select" id="DayOfWeek" name="DayOfWeek" required>
+                  <option value="" disabled selected>Select a day</option>
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="AverageCropAmount" class="form-label">Average Crop Amount</label>
+                <input type="number" step="0.01" class="form-control" id="AverageCropAmount" name="AverageCropAmount" required placeholder="Enter average crop amount">
+              </div>
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="btn" style = "width: 35%;background-color: black;color:white;border-radius: 8px;">Submit</button>
+              </div>
+            </div>
+          @elseif(auth()->user()->role == "compost_producer")
+            <div class="mb-3" style = "font-size: 14px;">
+                <label for="userLocation" class="form-label">Location</label>
+                <input type="text" class="form-control" id="userLocation" name="location" aria-describedby="locationHelp" required placeholder = "Enter name of City">
+                <br>
+                <label for="CompostTypesProduced" class="form-label">Crop Types Produced</label>
+                <input type="text" class="form-control" id="CompostTypesProduced" name="CompostTypesProduced" required>
+                <br>
+                <div class="mb-3">
+                  <label for="Average" class="form-label">Average Compost Amount per Term</label>
+                  <input type="number" step="0.01" class="form-control" id="Average" name="Average" required placeholder="Enter average crop amount">
+                </div>
+                <div class="mb-3">
+                  <label for="capacity" class="form-label">Waste Processing Capacity</label>
+                  <input type="number" step="0.01" class="form-control" id="capacity" name="capacity" required placeholder="Enter average crop amount">
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn" style = "width: 35%;background-color: black;color:white;border-radius: 8px;">Submit</button>
+                </div>
+              </div>
+          @elseif(auth()->user()->role == "restaurant_owner")
+            <div class="mb-3" style = "font-size: 14px;">
+                <label for="userLocation" class="form-label">Location</label>
+                <input type="text" class="form-control" id="userLocation" name="location" aria-describedby="locationHelp" required placeholder = "Enter name of City">
+                <br>
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn" style = "width: 35%;background-color: black;color:white;border-radius: 8px;">Submit</button>
+                </div>
+            </div>
+          @endif  
+        </form>
+      </div>
+    </div>
+    <div style = "position: absolute;bottom:0%;right:0;">
+        @auth
+        <form method="POST" action="{{ route('logout') }}" class="inline-block" style = "padding: 1rem;">
+          @csrf
+          <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+        @endauth
+      </div>
+  @else
   <div style = "background-color: #43553D;width: 100vw;min-height:93vh;position:relative;overflow:hidden;font-family:&quot;Inter&quot;, serif;">
     <div style = "background-color: white;width: 90vw;height:90vh;position:absolute;right:0;bottom:0;border-radius: 12px 0 0 0;padding:1rem">
       <div style = "height:82vh;width:78vw;position:absolute;bottom:0;right:0;">
@@ -124,4 +201,5 @@
       </div>
     </div>
   </div>
+  @endif
 </x-layout>

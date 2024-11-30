@@ -9,8 +9,8 @@ class RestaurantOwner extends Model
 {
     use HasFactory;
     protected $table = 'restaurant_owner';
-    protected $primaryKey = 'RestaurantOwnerID';
-
+    protected $primaryKey = 'user_id';
+    public $incrementing = false;
     protected $fillable = ['user_id', 'Name', 'Location', 'Type', 'AverageFoodWastePerMonth', 'PointsBalance', 'AmountBalance'];
 
     public function wasteLogs()
