@@ -25,7 +25,7 @@
                 <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
             </div>
             <div class="col-md-2">
-                <button type="submit" class="btn btn-primary w-100">Filter</button>
+                <button type="submit" class="btn btn-success w-100">Filter</button>
             </div>
         </div>
     </form>
@@ -42,7 +42,7 @@
                             <strong>Type:</strong> {{ $crop->crop_type }}<br>
                             <strong>Available:</strong> {{ $crop->availability_start->format('M d, Y') }} - {{ $crop->availability_end->format('M d, Y') }}
                         </p>
-                        <a href="{{ route('crops.show', $crop->id) }}" class="btn btn-primary">View Details</a>
+                        <a href="{{ route('crops.show', $crop->id) }}" class="btn btn-light">View Details</a>
                     </div>
                 </div>
             </div>
