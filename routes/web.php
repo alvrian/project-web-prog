@@ -70,5 +70,6 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function(){
     Route::get('orders/{crop}/create', [OrderController::class, 'create'])->name('orders.create');
     Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
 
-    Route::resource('prices', PriceController::class);
+    Route::post('/prices', [PriceController::class, 'store'])->name('prices.store');
+
 });

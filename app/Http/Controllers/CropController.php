@@ -66,6 +66,19 @@ class CropController extends Controller
             $query->orderBy($sort, $order);
         }
 
+        $crops = Crop::with('prices')
+        ->when($request->has('crop_type'), function ($query) use ($request) {
+            $query->where('crop_type', $request->input('crop_type'));
+        })
+        ->when($request->has('start_date'), function ($query) use ($request) {
+            $query->whereDate('availability_start', '>=', $request->input('start_date'));
+        })
+        ->when($request->has('end_date'), function ($query) use ($request) {
+            $query->whereDate('availability_end', '<=', $request->input('end_date'));
+        })
+        ->get();
+
+
         $crops = $query->with('prices')->paginate(10);
         return view('crops.index', compact('crops'));
     }

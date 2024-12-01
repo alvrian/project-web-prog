@@ -29,10 +29,9 @@
             </div>
         </div>
     </form>
-    
 
     <div class="row">
-        @forelse($crops as $crop)
+        @foreach($crops as $crop)
             <div class="col-md-4 mb-3">
                 <div class="card">
                     <img src="{{ asset('storage/' . $crop->crop_image) }}" class="card-img-top" alt="{{ $crop->crop_name }}">
@@ -40,21 +39,87 @@
                         <h5 class="card-title">{{ $crop->crop_name }}</h5>
                         <p class="card-text">
                             <strong>Type:</strong> {{ $crop->crop_type }}<br>
-                            <strong>Available:</strong> {{ $crop->availability_start->format('M d, Y') }} - {{ $crop->availability_end->format('M d, Y') }}
+                            <strong>Available:</strong> {{ $crop->availability_start->format('M d, Y') }} - {{ $crop->availability_end->format('M d, Y') }}<br>
+                            <strong>Price:</strong> 
+                            @if($crop->prices)
+                                {{ $crop->prices->price_per_kg }} per kg
+                            @else
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#priceModal{{ $crop->id }}">
+                                    Set Price
+                                </button>
+                            @endif
                         </p>
-                        <a href="{{ route('crops.show', $crop->id) }}" class="btn btn-light">View Details</a>
+                        @if($crop->prices)
+                            <a href="{{ route('crops.show', $crop->id) }}" class="btn btn-light">View Details</a>
+                        @endif
                     </div>
                 </div>
             </div>
-        @empty
-            <p class="text-center">No crops available for the selected filters.</p>
-        @endforelse
-    </div>
 
-    <div class="d-flex justify-content-center">
-        {{ $crops->links() }}
+            <div class="modal fade" id="priceModal{{ $crop->id }}" tabindex="-1" aria-labelledby="priceModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="priceModalLabel">Set Price for {{ $crop->crop_name }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('prices.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="crop_id" value="{{ $crop->id }}">
+                                <div class="mb-3">
+                                    <label for="price_per_kg" class="form-label">Price per Kg</label>
+                                    <input type="number" name="price_per_kg" class="form-control" min="0" step="0.01" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Set Price</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
+    
 </div>
 
 
 </x-layout>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('form[id^="priceForm"]').forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formId = form.id;
+            const cropId = form.querySelector('input[name="crop_id"]').value;
+            const formData = new FormData(form);
+            
+            fetch('/prices', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('successMessage' + cropId).classList.remove('d-none');
+                    document.getElementById('errorMessage' + cropId).classList.add('d-none');
+                    setTimeout(() => {
+                        document.getElementById('priceModal' + cropId).modal('hide');
+                    }, 2000);
+                } else {
+                    document.getElementById('errorMessage' + cropId).innerText = data.message;
+                    document.getElementById('errorMessage' + cropId).classList.remove('d-none');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('errorMessage' + cropId).innerText = 'An error occurred. Please try again.';
+                document.getElementById('errorMessage' + cropId).classList.remove('d-none');
+            });
+        });
+    });
+});
+</script>
