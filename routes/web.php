@@ -8,6 +8,7 @@ use App\Http\Controllers\CompostController;
 use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\WasteLogController;
+use App\Http\Controllers\CompostEntryController;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -46,6 +47,10 @@ Route::get("/aboutUs", [HomeController::class, 'aboutUS']);
 
 Route::prefix("compost")->middleware(['auth', 'verified'])->group(function(){
     Route::get("/", [CompostController::class, 'index']);
+
+    Route::get('/create-compost', [CompostEntryController::class, 'create'])->name('compost.create');
+    Route::post('/create-compost', [CompostEntryController::class, 'store'])->name('compost.store');
+
 });
 
 Route::get("/farmer", [FarmerController::class, 'index']);
