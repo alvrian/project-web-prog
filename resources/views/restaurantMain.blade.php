@@ -22,9 +22,13 @@
           <span style="font-size: 18px;font-weight: 600;">Today</span><br>
           <div style="width: 60%;height: 100%;overflow-x:hidden;overflow-y: auto;">
             <ul class="list-group list-group-flush" style = "width: 100%;">  
-              @foreach ($dataToday as $d)
-                <li class="list-group-item">&centerdot; {{ \Carbon\Carbon::parse($d->ScheduledDate)->format('h:i A') }}</li>
-              @endforeach
+              @if($data)
+                @foreach ($dataToday as $d)
+                  <li class="list-group-item">&centerdot; {{ \Carbon\Carbon::parse($d->ScheduledDate)->format('h:i A') }}</li>
+                @endforeach
+              @else
+                <span>No pick up today</span>
+              @endif
             </ul>
           </div>
         </div>
