@@ -1,13 +1,10 @@
 <x-layout>
     <x-navbar/>
-    <div style = "padding: 1rem 2rem;">
-        <div class = "d-flex" style = "width: 100%;height: 30vh; background-color: red;">
-            <div style = "width: 60%;background-color:blue;">
 
-            </div>
-            <div style = "width: 35%;background-color: green;">
+    <div style="padding: 1rem 5rem;font-family:&quot;Inter&quot;, serif;">
+        <!-- component buat view pickup schedule -->
+        <x-pickup-schedule /><br> 
 
-            </div>
-        </div>
+        <h5>Lanjut isi sini apus nanti</h5>
     </div>
 </x-layout>
