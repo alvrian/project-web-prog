@@ -1,12 +1,15 @@
 <x-layout>
     <x-navbar/>
-    
+
 <div class="container">
-    <h1 class="text-center mb-4">Available Crops</h1>
+    <h1 class="text-center mb-4">My Available Crops</h1>
 
     <form action="{{ route('crops.index') }}" method="GET" class="mb-4">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <input type="text" name="search" class="form-control" placeholder="Search by name" value="{{ request('search') }}">
+            </div>
+            <div class="col-md-2">
                 <select name="crop_type" class="form-select">
                     <option value="">Select Crop Type</option>
                     <option value="Vegetables" {{ request('crop_type') == 'Vegetables' ? 'selected' : '' }}>Vegetables</option>
@@ -15,10 +18,10 @@
                     <option value="Other" {{ request('crop_type') == 'Other' ? 'selected' : '' }}>Other</option>
                 </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <input type="date" name="start_date" class="form-control" value="{{ request('start_date') }}">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
             </div>
             <div class="col-md-2">
@@ -26,6 +29,7 @@
             </div>
         </div>
     </form>
+    
 
     <div class="row">
         @forelse($crops as $crop)
