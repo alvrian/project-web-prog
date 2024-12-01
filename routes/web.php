@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CropController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -26,7 +27,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::prefix('restaurant')->group(function () {
+Route::prefix('restaurant-owner')->group(function () {
     Route::get('/', [RestaurantController::class, 'index'])->name('restaurant.index');
 
     Route::get('/create-waste-log', [WasteLogController::class, 'create'])->name('waste_log.create');
@@ -45,7 +46,7 @@ Route::get("/", [HomeController::class, 'index'])->name('home');
 Route::get("/market", [HomeController::class, 'market']);
 Route::get("/aboutUs", [HomeController::class, 'aboutUS']);
 
-Route::prefix("compost")->middleware(['auth', 'verified'])->group(function(){
+Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(function(){
     Route::get("/", [CompostController::class, 'index']);
 
     Route::get('/create-compost', [CompostEntryController::class, 'create'])->name('compost.create');
@@ -53,4 +54,10 @@ Route::prefix("compost")->middleware(['auth', 'verified'])->group(function(){
 
 });
 
-Route::get("/farmer", [FarmerController::class, 'index']);
+Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function(){
+    Route::get("/", [FarmerController::class, 'index']);
+
+    Route::get('/create-corp', [CropController::class, 'create'])->name('crop.create');
+    Route::post('/create-corp', [CropController::class, 'store'])->name('crop.store');
+
+});
