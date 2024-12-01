@@ -39,5 +39,29 @@ class CropController extends Controller
 
         return redirect()->back()->with('success', 'Crop data logged successfully!');
     }
+
+    public function index(Request $request)
+    {
+        $query = Crop::query();
+
+        if ($request->crop_type) {
+            $query->where('crop_type', $request->crop_type);
+        }
+
+        if ($request->start_date) {
+            $query->whereDate('availability_start', '>=', $request->start_date);
+        }
+        if ($request->end_date) {
+            $query->whereDate('availability_end', '<=', $request->end_date);
+        }
+
+        $crops = $query->with('prices')->paginate(10);
+        return view('crops.index', compact('crops'));
+    }
+
+    public function show(Crop $crop)
+    {
+        return view('crops.show', compact('crop'));
+    }
 }
 

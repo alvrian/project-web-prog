@@ -20,9 +20,24 @@ class Crop extends Model
         'availability_end',
     ];
 
+    protected $casts = [
+        'availability_start' => 'datetime',
+        'availability_end' => 'datetime',
+    ];
+
     public function farmer()
     {
         return $this->belongsTo(User::class, 'farmer_id');
+    }
+
+    public function prices()
+    {
+        return $this->hasOne(Price::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
 

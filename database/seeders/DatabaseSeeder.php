@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             SubscriptionSeeder::class,
             CompostEntrySeeder::class,
             CropSeeder::class,
+            OrdersTableSeeder::class,
+            PricesTableSeeder::class,
         ]);
     }
 }

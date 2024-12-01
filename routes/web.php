@@ -10,6 +10,9 @@ use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\WasteLogController;
 use App\Http\Controllers\CompostEntryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PriceController;
+
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -60,4 +63,12 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function(){
     Route::get('/create-corp', [CropController::class, 'create'])->name('crop.create');
     Route::post('/create-corp', [CropController::class, 'store'])->name('crop.store');
 
+    Route::resource('crops', CropController::class);
+    Route::get('crops/{crop}/details', [CropController::class, 'show'])->name('crops.show');
+
+    Route::resource('orders', OrderController::class)->except(['create', 'store']);
+    Route::get('orders/{crop}/create', [OrderController::class, 'create'])->name('orders.create');
+    Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
+
+    Route::resource('prices', PriceController::class);
 });
