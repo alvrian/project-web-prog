@@ -4,11 +4,11 @@
       <div class="d-flex justify-content-between"
         style="padding:1rem;height:100%;width:100%;border-radius:12px;border: 2px solid #b8b8b8;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.1);">
         <div class="d-flex justify-content-center align-items-center"
-          style="width: 40%;height: 100%;font-size: 18px;font-weight: 600;">This Month</div>
-        <div style="width: 60%;height: 100%;overflow-x:hidden;overflow-y: auto;">
-          <ul class="list-group list-group-flush" style="width: 75%;">
+          style="width: 35%;height: 100%;font-size: 22px;font-weight: 600;color: #43553D">This Month</div>
+        <div style="width: 65%;height: 100%;overflow-x:hidden;overflow-y: auto;">
+          <ul class="list-group list-group-flush" style="width: 100%;">
             @foreach ($data as $d)
-              <li class="list-group-item">&centerdot; {{$d->FormattedScheduledDate}}</li>
+              <li class="list-group-item">&centerdot; {{$d->FormattedScheduledDate}} for {{$d->recipient}}</li>
             @endforeach
           </ul>
         </div>
