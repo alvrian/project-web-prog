@@ -1,0 +1,714 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Local API server"
+        }
+    ],
+    "paths": {
+        "/compost/create": {
+            "get": {
+                "tags": [
+                    "Compost Entries"
+                ],
+                "summary": "Show the form to create a new compost entry",
+                "description": "Displays the form for logging a new compost entry.",
+                "operationId": "createCompostEntry",
+                "responses": {
+                    "200": {
+                        "description": "Form displayed successfully"
+                    }
+                }
+            }
+        },
+        "/compost": {
+            "post": {
+                "tags": [
+                    "Compost Entries"
+                ],
+                "summary": "Log a new compost entry",
+                "description": "Stores a new compost entry in the database.",
+                "operationId": "storeCompostEntry",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "compost_types_produced": {
+                                        "type": "string"
+                                    },
+                                    "average_compost_amount": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "kitchen_waste_capacity": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "date_logged": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Compost entry created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Compost data logged successfully!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Validation failed."
+                                        },
+                                        "details": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/crops": {
+            "get": {
+                "tags": [
+                    "Crops"
+                ],
+                "summary": "Get list of crops",
+                "description": "Retrieve all available crops.",
+                "operationId": "getCrops",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer"
+                                            },
+                                            "crop_name": {
+                                                "type": "string"
+                                            },
+                                            "crop_type": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Crops"
+                ],
+                "summary": "Create a new crop",
+                "description": "Logs crop data in the database.",
+                "operationId": "createCrop",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "farmer_id": {
+                                        "type": "integer"
+                                    },
+                                    "crop_name": {
+                                        "type": "string"
+                                    },
+                                    "crop_type": {
+                                        "type": "string"
+                                    },
+                                    "average_amount": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "harvest_cycles": {
+                                        "type": "integer"
+                                    },
+                                    "availability_start": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "availability_end": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "crop_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Crop data logged successfully"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/crops/store": {
+            "post": {
+                "tags": [
+                    "Crops"
+                ],
+                "summary": "Store crop data",
+                "description": "Stores crop data in the database.",
+                "operationId": "storeCrop",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "farmer_id": {
+                                        "type": "integer"
+                                    },
+                                    "crop_name": {
+                                        "type": "string"
+                                    },
+                                    "crop_type": {
+                                        "type": "string"
+                                    },
+                                    "average_amount": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "harvest_cycles": {
+                                        "type": "integer"
+                                    },
+                                    "availability_start": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "availability_end": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "crop_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Crop data stored successfully"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/crops/{id}": {
+            "get": {
+                "tags": [
+                    "Crops"
+                ],
+                "summary": "Get details of a specific crop",
+                "description": "Retrieve detailed information about a specific crop.",
+                "operationId": "getCrop",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the crop to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "crop_name": {
+                                            "type": "string"
+                                        },
+                                        "crop_type": {
+                                            "type": "string"
+                                        },
+                                        "price_per_kg": {
+                                            "type": "number",
+                                            "format": "float"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Crops"
+                ],
+                "summary": "Update an existing crop",
+                "description": "Updates crop details in the database.",
+                "operationId": "updateCrop",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the crop to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "crop_name": {
+                                        "type": "string"
+                                    },
+                                    "crop_type": {
+                                        "type": "string"
+                                    },
+                                    "average_amount": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "harvest_cycles": {
+                                        "type": "integer"
+                                    },
+                                    "price_per_kg": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "availability_start": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "availability_end": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "crop_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Crop updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Crop details updated successfully."
+                                        },
+                                        "crop_id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Validation failed."
+                                        },
+                                        "details": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Crop not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Crop not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/crops/{crop}/prices/create": {
+            "get": {
+                "tags": [
+                    "Prices"
+                ],
+                "summary": "Show the form to create a price for a crop",
+                "description": "Returns the view for setting a price for a specific crop.",
+                "operationId": "createPrice",
+                "parameters": [
+                    {
+                        "name": "crop",
+                        "in": "path",
+                        "description": "The ID of the crop",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Form view returned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Form for creating a price loaded successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Crop not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Crop not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/prices": {
+            "post": {
+                "tags": [
+                    "Prices"
+                ],
+                "summary": "Set a price for a crop",
+                "description": "Stores the price per kilogram for a specific crop.",
+                "operationId": "setPrice",
+                "requestBody": {
+                    "description": "Input data for setting the price",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "crop_id",
+                                    "price_per_kg"
+                                ],
+                                "properties": {
+                                    "crop_id": {
+                                        "description": "The ID of the crop",
+                                        "type": "integer"
+                                    },
+                                    "price_per_kg": {
+                                        "description": "Price per kilogram for the crop",
+                                        "type": "number",
+                                        "format": "float"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Price set successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Price set successfully!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error occurred",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occurred. Please try again."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/waste/create": {
+            "get": {
+                "tags": [
+                    "Waste Logs"
+                ],
+                "summary": "Show the form to create a new waste log",
+                "description": "Returns the view for creating a new waste log.",
+                "operationId": "createWasteLog",
+                "responses": {
+                    "200": {
+                        "description": "Form view for creating a waste log returned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Form for creating a waste log loaded successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/waste": {
+            "get": {
+                "tags": [
+                    "Waste Logs"
+                ],
+                "summary": "Get a list of waste logs for the authenticated restaurant owner",
+                "description": "Retrieves all waste logs for the currently authenticated restaurant owner.",
+                "operationId": "getWasteLogs",
+                "responses": {
+                    "200": {
+                        "description": "List of waste logs returned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer"
+                                            },
+                                            "RestaurantOwnerID": {
+                                                "type": "integer"
+                                            },
+                                            "WasteType": {
+                                                "type": "string"
+                                            },
+                                            "Weight": {
+                                                "type": "number",
+                                                "format": "float"
+                                            },
+                                            "DateLogged": {
+                                                "type": "string",
+                                                "format": "date"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Waste Logs"
+                ],
+                "summary": "Store a new waste log entry",
+                "description": "Validates and stores a new waste log entry.",
+                "operationId": "storeWasteLog",
+                "requestBody": {
+                    "description": "Data for the new waste log entry",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "WasteType",
+                                    "Weight",
+                                    "DateLogged"
+                                ],
+                                "properties": {
+                                    "WasteType": {
+                                        "type": "string",
+                                        "example": "Food waste"
+                                    },
+                                    "Weight": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 10.5
+                                    },
+                                    "DateLogged": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-12-02"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Waste log entry created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Food waste logged successfully!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Validation failed"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Compost Entries",
+            "description": "Compost Entries"
+        },
+        {
+            "name": "Crops",
+            "description": "Crops"
+        },
+        {
+            "name": "Prices",
+            "description": "Prices"
+        },
+        {
+            "name": "Waste Logs",
+            "description": "Waste Logs"
+        }
+    ]
+}

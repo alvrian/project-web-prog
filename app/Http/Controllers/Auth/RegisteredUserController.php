@@ -35,7 +35,7 @@ class RegisteredUserController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if($validated['role'] === 'restaurant_owner'){
+        if ($validated['role'] === 'restaurant_owner') {
             RestaurantOwner::create([
                 'user_id' => $user->id,
                 'Name' => $user->name,
@@ -57,7 +57,7 @@ class RegisteredUserController extends Controller
             ]);
         }
 
-        if($validated['role'] === 'farmer'){
+        if ($validated['role'] === 'farmer') {
             Farmer::create([
                 'user_id' => $user->id,
                 'Name' => $user->name,
@@ -70,7 +70,7 @@ class RegisteredUserController extends Controller
             ]);
         }
 
-        if($validated['role'] === 'compost_producer'){
+        if ($validated['role'] === 'compost_producer') {
             CompostProducer::create([
                 'user_id' => $user->id,
                 'Name' => $user->name,

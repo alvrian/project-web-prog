@@ -40,5 +40,3 @@ class Crop extends Model
         return $this->hasMany(Order::class);
     }
 }
-
-

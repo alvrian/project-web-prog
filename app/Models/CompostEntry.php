@@ -18,4 +18,3 @@ class CompostEntry extends Model
         'date_logged',
     ];
 }
-
