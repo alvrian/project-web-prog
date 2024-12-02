@@ -87,3 +87,4 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function(){
     Route::post('/prices', [PriceController::class, 'store'])->name('prices.store');
 
 });
+
