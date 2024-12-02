@@ -23,4 +23,8 @@ class PriceListCompost extends Model
     {
         return $this->belongsTo(CompostEntry::class);
     }
+    public function compostProducer()
+{
+    return $this->belongsTo(CompostProducer::class, 'compost_producer_id');
+}
 }

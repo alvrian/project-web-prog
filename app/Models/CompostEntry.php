@@ -25,7 +25,12 @@ class CompostEntry extends Model
     ];
 
     public function priceList()
+    {
+        return $this->hasOne(PriceListCompost::class, 'compost_entry_id');
+    }
+public function compostProducer()
 {
-    return $this->hasOne(PriceListCompost::class); // Adjust to your relationship structure
+    return $this->belongsTo(CompostProducer::class, 'compost_producer_id', 'user_id'); 
 }
+
 }

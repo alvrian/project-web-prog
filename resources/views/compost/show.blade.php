@@ -8,8 +8,11 @@
             <div class="col-md-6">
                 <h4>Details</h4>
                 <p>
+                    {{-- <strong>Producer Name:</strong> {{ $entry->compost_producer_name }}<br> --}}
+                    {{-- <strong>Producer Name:</strong> {{ $entry->compostProducer->compost_producer_name }}<br> --}}
                     <strong>Producer Name:</strong> {{ $entry->compost_producer_name }}<br>
-                    <strong>Type:</strong> {{ $entry->compost_types_produced }}<br>
+
+                    {{-- <strong>Type:</strong> {{ $entry->compost_types_produced }}<br>
                     <strong>Average Amount:</strong> {{ $entry->average_compost_amount }} kg<br>
                     <strong>Kitchen Waste Capacity:</strong> {{ $entry->kitchen_waste_capacity }} kg<br>
                     <strong>Date Logged:</strong> 
@@ -20,7 +23,7 @@
                         @endif
                         <br>
 
-                </p>
+                </p> --}}
 
                 @if($entry->priceList)
                     <h4>Price List</h4>
@@ -38,9 +41,15 @@
                 <a href="{{ route('compost.index') }}" class="btn btn-light">Back</a>
                 {{-- <a href="{{ route('compost.edit', $entry->id) }}" class="btn btn-warning">Edit</a> --}}
                 @if($entry->priceList)
-                    <a href="{{ route('subscriptions.create', $entry->id) }}" class="btn btn-success">Subscribe</a>
+                    {{-- <a href="{{ route('subscriptions.create', $entry->id) }}" class="btn btn-success">Subscribe</a> --}}
                 @endif
             </div>
         </div>
     </div>
 </x-layout>
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var entryData = @json($entry);
+        console.log(entryData);
+    });
+</script> --}}

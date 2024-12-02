@@ -6,6 +6,7 @@ use App\Models\CompostEntry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 
 class CompostEntryController extends Controller
 {
@@ -17,8 +18,6 @@ class CompostEntryController extends Controller
     public function store(Request $request)
     {
 
-        dd($request->all());
-        
         $request->validate([
             'compost_types_produced' => 'required|string|max:255',
             'average_compost_amount' => 'required|numeric|min:0',
@@ -50,15 +49,14 @@ class CompostEntryController extends Controller
     return view('compost.index', compact('compostEntries'));
 }
 
-    
-    
-public function show(CompostEntry $entry)
+public function show($id)
 {
+    $entry = CompostEntry::with('compostProducer', 'priceList')
+        ->where('compost_producer_id', $id)
+        ->firstOrFail();
+
     return view('compost.show', compact('entry'));
 }
-
-
-
 
 public function edit(CompostEntry $compostEntry)
 {
