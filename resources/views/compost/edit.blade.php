@@ -127,7 +127,7 @@
             </div>
 
             <div class="text-center mt-4 mb-4">
-                <a href="{{ route('compost.index') }}" class="btn btn-light me-3">Cancel</a>
+                <a href="{{ route('compost.show', $entry->compost_producer_id) }}" class="btn btn-secondary me-3">Cancel</a>
                 <button type="submit" class="btn btn-success">Update</button>
             </div>
 
