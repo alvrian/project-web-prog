@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             CropSeeder::class,
             OrdersTableSeeder::class,
             PricesTableSeeder::class,
+            PriceListCompostSeeder::class,
         ]);
     }
 }
