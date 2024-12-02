@@ -58,7 +58,7 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
 
     Route::resource('composts', CompostEntryController::class);
     Route::get('composts', [CompostEntryController::class, 'index'])->name('compost.index');
-    Route::get('composts/{compost}/details', [CompostEntryController::class, 'show'])->name('compost.show');
+    Route::get('composts/{id}', [CompostEntryController::class, 'show'])->name('compost.show');
     Route::get('composts/{id}/edit', [CompostEntryController::class, 'edit'])->name('compost.edit');
     Route::put('composts/{id}', [CompostEntryController::class, 'update'])->name('compost.update');
 

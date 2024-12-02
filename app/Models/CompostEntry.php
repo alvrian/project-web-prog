@@ -25,7 +25,7 @@ class CompostEntry extends Model
     ];
 
     public function priceList()
-    {
-        return $this->hasOne(PriceListCompost::class);
-    }
+{
+    return $this->hasOne(PriceListCompost::class); // Adjust to your relationship structure
+}
 }

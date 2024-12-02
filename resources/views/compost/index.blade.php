@@ -66,10 +66,11 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{ route('price.store') }}" method="POST">
+                                <form id="priceForm{{ $entry->id }}" action="{{ route('price.store') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="compost_entry_id" value="{{ $entry->id }}">
                                     <div class="mb-3">
+                                        dd($compostEntries);
                                         <label for="price_per_item" class="form-label">Price Per Item</label>
                                         <input type="number" name="price_per_item" class="form-control" min="0" step="0.01" required>
                                     </div>
@@ -91,6 +92,8 @@
                                     </div>
                                     <button type="submit" class="btn btn-success">Set Price</button>
                                 </form>
+                                <div id="successMessage{{ $entry->id }}" class="alert alert-success d-none">Price set successfully!</div>
+                                <div id="errorMessage{{ $entry->id }}" class="alert alert-danger d-none"></div>
                             </div>
                         </div>
                     </div>
@@ -99,3 +102,43 @@
         </div>
     </div>
 </x-layout>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('form[id^="priceForm"]').forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const compostId = form.querySelector('input[name="compost_entry_id"]').value;
+                const formData = new FormData(form);
+                fetch('/prices', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('successMessage' + compostId).classList.remove('d-none');
+                        document.getElementById('errorMessage' + compostId).classList.add('d-none');
+                        setTimeout(() => {
+                            const modal = new bootstrap.Modal(document.getElementById('priceModal' + compostId));
+                            modal.hide();
+                        }, 2000);
+                    } else {
+                        document.getElementById('errorMessage' + compostId).innerText = data.message;
+                        document.getElementById('errorMessage' + compostId).classList.remove('d-none');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('errorMessage' + compostId).innerText = 'An error occurred. Please try again.';
+                    document.getElementById('errorMessage' + compostId).classList.remove('d-none');
+                });
+            });
+        });
+    });
+    </script>
+    

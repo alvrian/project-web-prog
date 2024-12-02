@@ -16,6 +16,9 @@ class CompostEntryController extends Controller
 
     public function store(Request $request)
     {
+
+        dd($request->all());
+        
         $request->validate([
             'compost_types_produced' => 'required|string|max:255',
             'average_compost_amount' => 'required|numeric|min:0',
@@ -31,28 +34,31 @@ class CompostEntryController extends Controller
             'kitchen_waste_capacity' => $request->kitchen_waste_capacity,
             'date_logged' => $request->date_logged,
         ]);
+        
 
         return redirect()->route('compost.create')->with('success', 'Compost data logged successfully!');
     }
 
     public function index(Request $request)
-    {
-        $compostEntries = CompostEntry::with('priceList')
-            ->when($request->has('search'), function ($query) use ($request) {
-                $query->where('compost_producer_name', 'like', '%' . $request->input('search') . '%');
-            })
-            ->paginate(10);
-    
-        return view('compost.index', compact('compostEntries'));
-    }
+{
+    $compostEntries = CompostEntry::with('priceList')
+        ->when($request->has('search'), function ($query) use ($request) {
+            $query->where('compost_producer_name', 'like', '%' . $request->input('search') . '%');
+        })
+        ->paginate(10);
+
+    return view('compost.index', compact('compostEntries'));
+}
 
     
     
-    public function show(CompostEntry $compostEntry)
+public function show(CompostEntry $entry)
 {
-    $compostEntry->load('priceList');
-    return view('compost.show', compact('compostEntry'));
+    return view('compost.show', compact('entry'));
 }
+
+
+
 
 public function edit(CompostEntry $compostEntry)
 {
