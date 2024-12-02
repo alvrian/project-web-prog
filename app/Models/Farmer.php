@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Farmer extends Model
 {
     use HasFactory;
+
     protected $table = 'farmer';
     protected $primaryKey = 'user_id';
     public $incrementing = false;

@@ -8,10 +8,11 @@ use Carbon\Carbon;
 
 class RestaurantController extends Controller
 {
-    public function index (){
+    public function index()
+    {
         $user_id = auth()->user()->id;
         $data = PickupSchedule::where('SenderRestaurantOwnerID', $user_id)->where('Status', 'Scheduled')->orderBy('ScheduledDate', 'asc')->get();
-        $today = Carbon::today(); 
+        $today = Carbon::today();
 
         foreach ($data as $item) {
             $item->FormattedScheduledDate = Carbon::parse($item->ScheduledDate)->format('F, d Y, h:i A');

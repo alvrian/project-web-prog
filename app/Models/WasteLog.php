@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class WasteLog extends Model
 {
     use HasFactory;
+
     protected $table = 'waste_log';
 
     protected $fillable = [

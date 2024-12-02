@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Price extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'crop_id',
         'price_per_kg',
@@ -17,5 +18,4 @@ class Price extends Model
     {
         return $this->belongsTo(Crop::class);
     }
-
 }

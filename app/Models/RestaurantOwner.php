@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RestaurantOwner extends Model
 {
     use HasFactory;
+
     protected $table = 'restaurant_owner';
     protected $primaryKey = 'user_id';
     public $incrementing = false;
