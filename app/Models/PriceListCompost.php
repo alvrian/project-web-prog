@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PriceListCompost extends Model
 {
     use HasFactory;
+
     protected $table = 'compost_price_list';
 
     protected $fillable = [
@@ -24,7 +25,7 @@ class PriceListCompost extends Model
         return $this->belongsTo(CompostEntry::class);
     }
     public function compostProducer()
-{
-    return $this->belongsTo(CompostProducer::class, 'compost_producer_id');
-}
+    {
+        return $this->belongsTo(CompostProducer::class, 'compost_producer_id');
+    }
 }

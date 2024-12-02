@@ -2,7 +2,7 @@
     <x-navbar />
 
     <div class="container">
-        <h1 class="text-center mb-4">My Compost Catalog</h1>
+        <h1 class="text-center mt-4 mb-4">My Compost Catalog</h1>
 
         <form action="{{ route('compost.index') }}" method="GET" class="mb-4">
             <div class="row d-flex justify-content-center">
@@ -54,6 +54,9 @@
                             @if($entry->priceList)
                                 <a href="{{ route('compost.show', $entry->id) }}" class="btn btn-light">View Details</a>
                             @endif
+                            <script>
+                                console.log(@json($entry));
+                            </script>
                         </div>
                     </div>
                 </div>
