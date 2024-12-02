@@ -7,9 +7,13 @@
           style="width: 35%;height: 100%;font-size: 22px;font-weight: 600;color: #43553D">This Month</div>
         <div style="width: 65%;height: 100%;overflow-x:hidden;overflow-y: auto;">
           <ul class="list-group list-group-flush" style="width: 100%;">
+            @if($data->isEmpty())
+              <span>You have no pickup schedules for this month</span>
+            @else
             @foreach ($data as $d)
               <li class="list-group-item">&centerdot; {{$d->FormattedScheduledDate}} for {{$d->recipient}}</li>
             @endforeach
+            @endif
           </ul>
         </div>
       </div>
@@ -27,7 +31,7 @@
                 </li>
               @endforeach
             @else
-              <span>No pick up today</span>
+              <span>You have no pickup schedules for today</span>
             @endif
           </ul>
         </div>
