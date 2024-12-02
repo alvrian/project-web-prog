@@ -15,7 +15,9 @@
                     <strong>Price:</strong> {{ $crop->prices->price_per_kg }} per kg<br>
                     <strong>Available:</strong> {{ $crop->availability_start->format('M d, Y') }} - {{ $crop->availability_end->format('M d, Y') }}
                 </p>
-                <a href="{{ route('orders.create', $crop->id) }}" class="btn btn-success">Place Order</a>
+                <a href="{{ route('crops.index') }}" class="btn btn-light">Back</a>
+                <a href="{{ route('crops.edit', $crop->id) }}" class="btn btn-warning">Edit</a>
+                <a href="{{ route('orders.create', $crop->id) }}" class="btn btn-success">Subscribe</a>
             </div>
         </div>
     </div>
