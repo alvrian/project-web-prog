@@ -9,6 +9,8 @@ class CompostEntry extends Model
 {
     use HasFactory;
 
+    protected $table = 'compost_entries';
+    
     protected $fillable = [
         'compost_producer_id',
         'compost_producer_name',
@@ -17,4 +19,13 @@ class CompostEntry extends Model
         'kitchen_waste_capacity',
         'date_logged',
     ];
+
+    protected $casts = [
+        'date_logged' => 'datetime',
+    ];
+
+    public function priceList()
+    {
+        return $this->hasOne(PriceListCompost::class);
+    }
 }

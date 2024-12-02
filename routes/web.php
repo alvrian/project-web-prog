@@ -12,6 +12,7 @@ use App\Http\Controllers\WasteLogController;
 use App\Http\Controllers\CompostEntryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceController;
+use App\Http\Controllers\PriceListCompostController;
 
 
 Route::get('/welcome', function () {
@@ -55,8 +56,18 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
     Route::get('/create-compost', [CompostEntryController::class, 'create'])->name('compost.create');
     Route::post('/create-compost', [CompostEntryController::class, 'store'])->name('compost.store');
 
-});
+    Route::resource('composts', CompostEntryController::class);
+    Route::get('composts', [CompostEntryController::class, 'index'])->name('compost.index');
+    Route::get('composts/{compost}/details', [CompostEntryController::class, 'show'])->name('compost.show');
+    Route::get('composts/{id}/edit', [CompostEntryController::class, 'edit'])->name('compost.edit');
+    Route::put('composts/{id}', [CompostEntryController::class, 'update'])->name('compost.update');
 
+    Route::post('/prices', [PriceListCompostController::class, 'store'])->name('price.store');
+    });
+
+
+
+    
 Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function(){
     Route::get("/", [FarmerController::class, 'index']);
 

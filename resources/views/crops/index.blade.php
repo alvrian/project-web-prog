@@ -25,7 +25,10 @@
                 <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
             </div>
             <div class="col-md-2">
-                <button type="submit" class="btn btn-success w-100">Filter</button>
+                <button type="submit" class="btn btn-dark w-50">Filter</button>
+            </div>
+            <div class="col-md-2 mt-3">
+                <a href="{{ route('crop.create') }}" class="btn btn-success w-70">Insert New Crop</a>
             </div>
         </div>
     </form>

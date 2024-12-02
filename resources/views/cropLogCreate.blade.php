@@ -5,6 +5,7 @@
             <form id="cropForm" method="POST" action="{{ route('crop.store') }}" enctype="multipart/form-data" class="p-4 rounded shadow" style="background-color: #f9f9f9;">
                 @csrf
                 <h3 class="text-center mb-4" style="color: #4b5320;">Log Crop Data</h3>
+                <a href="{{ route('crops.index') }}" class="btn btn-light">Back</a>
 
                 <div class="mb-3">
                     <label for="farmerId" class="form-label">Farmer ID</label>
@@ -53,7 +54,6 @@
                     <small class="text-danger d-none" id="cropImageError">Please upload a valid image file.</small>
                 </div>
 
-                <!-- New Availability Fields -->
                 <div class="mb-3">
                     <label for="availabilityStart" class="form-label">Availability Start Date</label>
                     <input type="date" class="form-control" id="availabilityStart" name="availability_start" required>
