@@ -76,7 +76,11 @@ class CropController extends Controller
         ->when($request->has('end_date'), function ($query) use ($request) {
             $query->whereDate('availability_end', '<=', $request->input('end_date'));
         })
-        ->get();
+        ->get()
+        ->sortByDesc(function($crop) {
+            return is_null($crop->prices) || is_null($crop->prices->price_per_kg);
+        });
+    
 
 
         $crops = $query->with('prices')->paginate(10);
