@@ -33,7 +33,10 @@
     <div class="row">
         @foreach($crops as $crop)
             <div class="col-md-4 mb-3">
-                <div class="card">
+                <div class="card position-relative">
+                    @if(!$crop->prices || !$crop->prices->price_per_kg)
+                    <h5> <span class="badge bg-success float-end" style="font-weight: normal;">Need Attention</span></h5>
+                    @endif
                     <img src="{{ asset('storage/' . $crop->crop_image) }}" class="card-img-top" alt="{{ $crop->crop_name }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $crop->crop_name }}</h5>

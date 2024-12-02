@@ -65,8 +65,11 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function(){
 
     Route::resource('crops', CropController::class);
     Route::get('crops/{crop}/details', [CropController::class, 'show'])->name('crops.show');
+    Route::get('crops/{id}/edit', [CropController::class, 'edit'])->name('crops.edit');
+    Route::put('crops/{id}', [CropController::class, 'update'])->name('crops.update');
 
     Route::resource('orders', OrderController::class)->except(['create', 'store']);
+
     Route::get('orders/{crop}/create', [OrderController::class, 'create'])->name('orders.create');
     Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
 
