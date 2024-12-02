@@ -10,7 +10,7 @@ class CompostEntry extends Model
     use HasFactory;
 
     protected $table = 'compost_entries';
-    
+
     protected $fillable = [
         'compost_producer_id',
         'compost_producer_name',
@@ -26,6 +26,11 @@ class CompostEntry extends Model
 
     public function priceList()
     {
-        return $this->hasOne(PriceListCompost::class);
+        return $this->hasOne(PriceListCompost::class, 'compost_entry_id');
+    }
+
+    public function compostProducer()
+    {
+        return $this->belongsTo(CompostProducer::class, 'compost_producer_id', 'user_id');
     }
 }
