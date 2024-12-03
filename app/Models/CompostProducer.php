@@ -38,7 +38,6 @@ class CompostProducer extends Model
         );
     }
 
-
     public function restaurants()
     {
         return $this->belongsToMany(RestaurantOwner::class, 'restaurant_owner_compost_producer', 'CompostProducerID', 'RestaurantOwnerID');
@@ -48,4 +47,10 @@ class CompostProducer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function compostEntries()
+    {
+        return $this->hasMany(CompostEntry::class, 'compost_producer_id', 'user_id');
+    }
+
 }
