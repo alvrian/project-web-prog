@@ -58,6 +58,13 @@ class CompostEntryController extends Controller
         return view('compost.show', compact('entry'));
     }
 
+    public function showdetail($id)
+    {
+        $compostEntry = CompostEntry::with('priceList', 'compostProducer')->findOrFail($id);
+
+        return view('composters.show-detail', compact('compostEntry'));
+    }
+
     public function edit($id)
     {
         $entry = CompostEntry::with('priceList')->findOrFail($id);

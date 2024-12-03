@@ -40,7 +40,7 @@
                                         N/A
                                     @endif
                                 </p>
-                                <a  class="btn btn-light">View Details</a>
+                                <a href="{{ route('composters.show', $producer->user_id) }}" class="btn btn-light">View Details</a>
                             </div>
                         </div>
                     </div>
