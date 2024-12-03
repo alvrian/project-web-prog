@@ -7,8 +7,8 @@
   <div id="horizontal-scroll-container"
     style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0.5rem;">
     <div id="horizontal-list-item-1" style="flex: 0 0 100%; scroll-snap-align: start; padding: 0.5rem;">
-      <div class="row" style="height: 50vh" style="overflow-y:scroll;">
-        <div class="col-12 col-md-8" style="height: 100%;padding: 0 4px 0 4px;">
+      <div class="row" style="height: 55vh" style="overflow-y:scroll;">
+        <div class="col-12 col-md-7" style="height: 100%;padding: 0 4px 0 4px;">
           <div
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
             <div class="d-flex justify-content-between">
@@ -33,7 +33,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-4" style="height: contain;padding: 0 4px 0 4px;">
+        <div class="col-12 col-md-5" style="height: contain;padding: 0 4px 0 4px;">
           <div class="d-flex flex-column justify-content-between align-items-center"
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
             <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;">Schedule a Delivery or Pickup</span><br>
@@ -52,6 +52,15 @@
                 </select>
               </div>
               <div class="mb-3">
+                <label for="recipientType" class="form-label">Select Recipient Role</label>
+                <select class="form-select" id="type" name="RecipientType" required>
+                  <option value="" disabled selected>Select an option</option>
+                  <option value="restaurant_owner">Restaurant</option>
+                  <option value="compost_producer">Compost Producer</option>
+                  <option value="farmer">Farmer</option>
+                </select>
+              </div>
+              <div class="mb-3">
                 <label for="date" class="form-label">Date</label>
                 <input type="date" class="form-control" id="date" name="date" required>
                 <div class="invalid-feedback">The date must be later than today.</div>
@@ -63,8 +72,8 @@
       </div>
     </div>
     <div id="horizontal-list-item-2" style="flex: 0 0 100%; scroll-snap-align: start; padding: 0.5rem;margin-left: 10px;">
-      <div class="row" style="height: 50vh;">
-        <div class="col-12 col-md-8" style="height: 100%;padding: 0 4px 0 4px;">
+      <div class="row" style="height: 55vh;">
+        <div class="col-12 col-md-7" style="height: 100%;padding: 0 4px 0 4px;">
           <div
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
             <div class="d-flex justify-content-between">
@@ -89,7 +98,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-4" style="height: 100%;padding: 0 4px 0 4px;">
+        <div class="col-12 col-md-5" style="height: 100%;padding: 0 4px 0 4px;">
           <div class="d-flex flex-column justify-content-between align-items-center"
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
             <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;">Schedule a Delivery or Pickup</span><br>
@@ -108,6 +117,15 @@
                 </select>
               </div>
               <div class="mb-3">
+                <label for="recipientType" class="form-label">Select Recipient Role</label>
+                <select class="form-select" id="type" name="RecipientType" required>
+                  <option value="" disabled selected>Select an option</option>
+                  <option value="restaurant_owner">Restaurant</option>
+                  <option value="compost_producer">Compost Producer</option>
+                  <option value="farmer">Farmer</option>
+                </select>
+              </div>
+              <div class="mb-3">
                 <label for="date" class="form-label">Date</label>
                 <input type="date" class="form-control" id="date" name="date" required>
                 <div class="invalid-feedback">The date must be later than today.</div>
@@ -119,6 +137,15 @@
       </div>
     </div>
   </div>
+  @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @elseif(session('failed'))
+    <div class="alert alert-danger">
+        {{ session('failed') }}
+    </div>
+  @endif
 </div>
 
 <script>

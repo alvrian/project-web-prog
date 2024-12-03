@@ -23,7 +23,7 @@ class CompostProducerComponent extends Component
         foreach ($this->delivery as $item) {
             $temp = null;
 
-            $item->FormattedScheduledDate = Carbon::parse($item->ScheduledDate)->format('F, d Y, h:i A');
+            $item->FormattedScheduledDate = Carbon::parse($item->ScheduledDate)->format('F, d Y');
             if($item->RecipientRestaurantOwnerID){
                 $id = $item->RecipientRestaurantOwnerID;
                 $temp = RestaurantOwner::where('user_id', $id)->first();
@@ -39,7 +39,7 @@ class CompostProducerComponent extends Component
         }
         $this->pickup = PickupSchedule::where("PickupType", "Waste Pickup")->where("RecipientCompostProducerID", $user_id)->where('Status', 'Scheduled')->get();
         foreach ($this->pickup as $item) {
-            $item->FormattedScheduledDate = Carbon::parse($item->ScheduledDate)->format('F, d Y, h:i A');
+            $item->FormattedScheduledDate = Carbon::parse($item->ScheduledDate)->format('F, d Y');
             $temp = null;
 
             if($item->SenderRestaurantOwnerID){
