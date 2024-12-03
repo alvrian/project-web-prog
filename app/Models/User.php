@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -48,18 +50,18 @@ class User extends Authenticatable
         ];
     }
 
-    public function restaurantOwner()
+    public function restaurantOwner(): HasOne
     {
-        return $this->hasOne(RestaurantOwner::class, 'id');
+        return $this->hasOne(RestaurantOwner::class, 'user_id', 'id');
     }
 
-    public function farmer()
+    public function farmer(): HasOne
     {
-        return $this->hasOne(Farmer::class);
+        return $this->hasOne(Farmer::class, 'user_id', 'id');
     }
 
-    public function compostProducer()
+    public function compostProducer(): HasOne
     {
-        return $this->hasOne(CompostProducer::class);
+        return $this->hasOne(CompostProducer::class, 'user_id', 'id');
     }
 }

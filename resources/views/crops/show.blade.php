@@ -17,7 +17,7 @@
                 </p>
                 <a href="{{ route('crops.index') }}" class="btn btn-light">Back</a>
                 <a href="{{ route('crops.edit', $crop->id) }}" class="btn btn-warning">Edit</a>
-                <a href="{{ route('orders.create', $crop->id) }}" class="btn btn-success">Subscribe</a>
+                <a  class="btn btn-success">Subscribe</a>
             </div>
         </div>
     </div>

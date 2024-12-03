@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompostProducerController;
 use App\Http\Controllers\CropController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -67,7 +68,7 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
 
 
 
-    
+
 Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function(){
     Route::get("/", [FarmerController::class, 'index']);
 
@@ -85,6 +86,10 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function(){
     Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
 
     Route::post('/prices', [PriceController::class, 'store'])->name('prices.store');
+
+    Route::post('/subscribe-to-producers', [FarmerController::class, 'subscribeToProducers'])->name('subscribe.to.producers');
+    Route::get('/composter', [CompostProducerController::class, 'index'])->name('composters.index');
+
 
 });
 
