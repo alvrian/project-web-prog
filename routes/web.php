@@ -52,7 +52,7 @@ Route::get("/aboutUs", [HomeController::class, 'aboutUS']);
 
 Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(function(){
     Route::get("/", [CompostController::class, 'index']);
-
+    Route::post("/schedule", [CompostController::class, 'schedule'])->name('addSchedule');
     Route::get('/create-compost', [CompostEntryController::class, 'create'])->name('compost.create');
     Route::post('/create-compost', [CompostEntryController::class, 'store'])->name('compost.store');
 
