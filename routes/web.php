@@ -3,6 +3,7 @@
 use App\Http\Controllers\CompostProducerController;
 use App\Http\Controllers\CropController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RestaurantController;
@@ -90,7 +91,8 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function(){
     Route::post('/subscribe-to-producers', [FarmerController::class, 'subscribeToProducers'])->name('subscribe.to.producers');
     Route::get('/composter', [CompostProducerController::class, 'index'])->name('composters.index');
     Route::get('/composter/{id}', [CompostProducerController::class, 'show'])->name('composters.show');
-
+    Route::get('/compost/{id}/details', [CompostProducerController::class, 'showDetail'])->name('composters.show-detail');
+    Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscription.store');
 
 
 });

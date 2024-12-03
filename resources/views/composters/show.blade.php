@@ -29,8 +29,11 @@
                                     <li>12 months: ${{ $entry->priceList->price_per_subscription_12 ?? 'N/A' }}</li>
                                 </ul>
                                 </p>
+                                <a href="{{ route('composters.show-detail', $entry->id) }}" class="btn btn-dark">View Details</a>
                             </div>
+
                         </div>
+
                     </div>
                 @endforeach
             </div>
