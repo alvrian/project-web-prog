@@ -10,4 +10,8 @@ class CompostController extends Controller
     {
         return view("compostMain");
     }
+
+    public function schedulePickup (Request $req){
+        dd($req);
+    }
 }

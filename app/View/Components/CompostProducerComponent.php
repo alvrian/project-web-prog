@@ -19,7 +19,7 @@ class CompostProducerComponent extends Component
     public function __construct()
     {
         $user_id = auth()->user()->id;
-        $this->delivery = PickupSchedule::where("PickupType", "Compost Delivery")->where("SenderCompostProducerID", $user_id)->get();
+        $this->delivery = PickupSchedule::where("PickupType", "Compost Delivery")->where("SenderCompostProducerID", $user_id)->where('Status', 'Scheduled')->get();
         foreach ($this->delivery as $item) {
             $temp = null;
 
@@ -37,7 +37,7 @@ class CompostProducerComponent extends Component
             $item->RecipientName = $temp->Name;
             $item->location = $temp->Location;
         }
-        $this->pickup = PickupSchedule::where("PickupType", "Waste Pickup")->where("RecipientCompostProducerID", $user_id)->get();
+        $this->pickup = PickupSchedule::where("PickupType", "Waste Pickup")->where("RecipientCompostProducerID", $user_id)->where('Status', 'Scheduled')->get();
         foreach ($this->pickup as $item) {
             $item->FormattedScheduledDate = Carbon::parse($item->ScheduledDate)->format('F, d Y, h:i A');
             $temp = null;

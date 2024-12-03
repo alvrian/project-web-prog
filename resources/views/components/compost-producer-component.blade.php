@@ -7,11 +7,11 @@
   <div id="horizontal-scroll-container"
     style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0.5rem;">
     <div id="horizontal-list-item-1" style="flex: 0 0 100%; scroll-snap-align: start; padding: 0.5rem;">
-      <div class="row" style="height: 50vh" style = "overflow-y:auto;">
+      <div class="row" style="height: 50vh" style = "overflow-y:scroll;">
         <div class="col-12 col-md-8" style="height: 100%;padding: 0 4px 0 4px;">
           <div
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
-            <div class="d-flex justify-content-between" style = "overflow-y:auto;">
+            <div class="d-flex justify-content-between">
               <span style="font-size:20px;font-weight:600;">Waste Pick up Schedule</span>
               <span>2024</span>
             </div><br>
@@ -25,7 +25,7 @@
                     @foreach ($pickup as $d)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <span style = "padding-right:10px;width: 30%;">&bull; {{$d->FormattedScheduledDate}}    </span>
-                      <span style = "width: 70%;">Waste Pickup for <strong>{{ $d->RecipientName }}</strong> (Restaurant) at <em>{{$d->location}}</em></span>
+                      <span style = "width: 70%;">for <strong>{{ $d->RecipientName }}</strong> at <em>{{$d->location}}</em></span>
                     </li>
                   @endforeach
                   @endif
@@ -36,7 +36,7 @@
         <div class="col-12 col-md-4" style="height: contain;padding: 0 4px 0 4px;">
           <div class="d-flex flex-column justify-content-between align-items-center"
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
-            <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;">Schedule a
+            <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;">Schedule a Delivery
               Pickup</span><br>
             <form style="width: 100%;display:flex;flex-direction:column;height: 100%;justify-content: space-evenly;"
               method="POST" action="#">
@@ -88,7 +88,7 @@
           <div class="d-flex flex-column justify-content-between align-items-center"
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
             <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;">Schedule a
-              Delivery</span><br>
+              Delivery or Pickup</span><br>
             <form style="width: 100%;display:flex;flex-direction:column;height: 100%;justify-content: space-evenly;"
               method="POST" action="#">
               @csrf
