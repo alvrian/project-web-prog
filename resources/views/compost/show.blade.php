@@ -37,7 +37,7 @@
                 <a href="{{ route('compost.index') }}" class="btn btn-light">Back</a>
                 <a href="{{ route('compost.edit', $entry->id) }}" class="btn btn-warning">Edit</a>
                 @if($entry->priceList)
-                    {{-- <a href="{{ route('subscriptions.create', $entry->id) }}" class="btn btn-success">Subscribe</a> --}}
+                    <a class="btn btn-success">Subscribe</a>
                 @endif
             </div>
         </div>

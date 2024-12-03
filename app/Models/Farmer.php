@@ -29,9 +29,14 @@ class Farmer extends Model
         return $this->belongsToMany(RestaurantOwner::class, 'restaurant_owner_farmer', 'FarmerID', 'RestaurantOwnerID');
     }
 
-    public function compostProducers()
+    public function compostProducers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(CompostProducer::class, 'compost_producer_farmer', 'FarmerID', 'CompostProducerID');
+        return $this->belongsToMany(
+            CompostProducer::class,
+            'compost_producer_farmer',
+            'FarmerID',
+            'CompostProducerID'
+        );
     }
 
     public function user()

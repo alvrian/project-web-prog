@@ -28,10 +28,16 @@ class CompostProducer extends Model
     {
         return $this->hasMany(PointsTransaction::class, 'ParticipantID');
     }
-    public function farmers()
+    public function farmers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Farmer::class, 'compost_producer_farmer', 'CompostProducerID', 'FarmerID');
+        return $this->belongsToMany(
+            Farmer::class,
+            'compost_producer_farmer',
+            'CompostProducerID',
+            'FarmerID'
+        );
     }
+
 
     public function restaurants()
     {
