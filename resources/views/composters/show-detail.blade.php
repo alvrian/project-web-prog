@@ -57,7 +57,3 @@
         </ul>
     </div>
 @endif
-
-<script>
-    console.log("Compost Entries:", @json($compostEntries));
-</script>

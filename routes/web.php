@@ -89,9 +89,16 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function(){
     Route::post('/prices', [PriceController::class, 'store'])->name('prices.store');
 
     Route::post('/subscribe-to-producers', [FarmerController::class, 'subscribeToProducers'])->name('subscribe.to.producers');
-    Route::get('/composter', [CompostProducerController::class, 'index'])->name('composters.index');
-    Route::get('/composter/{id}', [CompostProducerController::class, 'show'])->name('composters.show');
-    Route::get('/compost/{id}/details', [CompostProducerController::class, 'showDetail'])->name('composters.show-detail');
+
+    Route::prefix('composters')->name('composters.')->group(function () {
+        Route::get('/', [CompostProducerController::class, 'index'])->name('index');
+        Route::get('/composterId={composterId}', [CompostProducerController::class, 'show'])->name('show');
+        Route::get('/composterId={composterId}/compostId{compostId}/details', [CompostProducerController::class, 'details'])->name('show-detail');
+    });
+//
+//    Route::get('/composter', [CompostProducerController::class, 'index'])->name('composters.index');
+//    Route::get('/composter/{id}', [CompostProducerController::class, 'show'])->name('composters.show');
+//    Route::get('/compost/{id}/details', [CompostProducerController::class, 'showDetail'])->name('composters.show-detail');
     Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscription.store');
 
 

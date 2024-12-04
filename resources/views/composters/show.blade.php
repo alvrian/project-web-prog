@@ -29,8 +29,8 @@
                                     <li>12 months: ${{ $entry->priceList->price_per_subscription_12 ?? 'N/A' }}</li>
                                 </ul>
                                 </p>
-                                <a href="{{ route('composters.show-detail', $entry->id) }}" class="btn btn-dark">View Details</a>
-{{--                                <a href="{{ route('composters.show-detail', ['id' => $entry->id]) }}" class="btn btn-primary">View Details</a>--}}
+                                <a href="{{ route('composters.show-detail', ['composterId' => $producer->id, 'compostId' => $entry->id]) }}" class="btn btn-dark">View Details</a>
+                                {{-- <a href="{{ route('composters.show-detail', ['id' => $entry->id]) }}" class="btn btn-primary">View Details</a>--}}
 
                             </div>
 
