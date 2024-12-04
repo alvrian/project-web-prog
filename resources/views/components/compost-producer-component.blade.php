@@ -37,8 +37,7 @@
         <div class="col-12 col-md-5" style="height: 100%;padding: 0 4px 0 4px;">
           <div class="d-flex flex-column justify-content-between align-items-center fs-7"
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;overflow-y:auto">
-            <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;">Schedule a Delivery
-              or Pickup</span><br>
+            <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;padding-bottom: 10px;">Add Schedule</span>
             <form id="scheduleForm"
               style="width: 100%;display:flex;flex-direction:column;height: 100%;justify-content: space-evenly;"
               method="POST" action="{{route('addSchedule')}}">
@@ -46,7 +45,7 @@
               <div class="mb-3 fs-6">
                 <div class="row">
                   <div class="col-12 col-md-6">
-                    <label for="email" class="form-label">email address</label>
+                    <label for="email" class="form-label">email</label>
                     <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
                       placeholder="enter your email" required>
                   </div>
@@ -112,8 +111,7 @@
         <div class="col-12 col-md-5" style="height: 100%;padding: 0 4px 0 4px;">
           <div class="d-flex flex-column justify-content-between align-items-center"
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;overflow-y:auto">
-            <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;">Schedule a Delivery
-              or Pickup</span><br>
+            <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;padding-bottom: 10px;">Add Schedule</span>
             <form id="scheduleForm"
               style="width: 100%;display:flex;flex-direction:column;height: 100%;justify-content: space-evenly;"
               method="POST" action="{{route('addSchedule')}}">
@@ -121,7 +119,7 @@
               <div class="mb-3 fs-6">
                 <div class="row">
                   <div class="col-12 col-md-6">
-                    <label for="email" class="form-label">email address</label>
+                    <label for="email" class="form-label">email</label>
                     <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
                       placeholder="enter your email" required>
                   </div>
@@ -228,5 +226,8 @@
   #horizontal-scroll-container::-webkit-scrollbar-thumb {
     display: none;
     /* Ensure the thumb doesn't appear */
+  }
+  @media screen {
+    
   }
 </style>
