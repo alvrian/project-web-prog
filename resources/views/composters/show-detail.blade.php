@@ -6,6 +6,7 @@
 
         <div class="card mb-4">
             <div class="card-body">
+
                 <h5 class="card-title">{{ $compostEntry->compost_types_produced }}</h5>
                 <p class="card-text">
                     <strong>Producer:</strong> {{ $compostEntry->compostProducer->Name ?? 'N/A' }}<br>
@@ -22,10 +23,7 @@
                 </p>
 
                 <div class="d-flex justify-content-between">
-                    <!-- Back Button -->
                     <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
-
-                    <!-- Subscribe Form -->
                     <form action="{{ route('subscription.store') }}" method="POST" class="d-flex">
                         @csrf
                         <input type="hidden" name="compost_entry_id" value="{{ $compostEntry->id }}">
@@ -59,3 +57,7 @@
         </ul>
     </div>
 @endif
+
+<script>
+    console.log("Compost Entries:", @json($compostEntries));
+</script>

@@ -44,6 +44,7 @@ class CompostEntryController extends Controller
         ->when($request->has('search'), function ($query) use ($request) {
             $query->where('compost_producer_name', 'like', '%' . $request->input('search') . '%');
         })
+            ->where('compost_producer_id', auth()->user()->id)
         ->paginate(10);
 
         return view('compost.index', compact('compostEntries'));
@@ -60,7 +61,9 @@ class CompostEntryController extends Controller
 
     public function showdetail($id)
     {
-        $compostEntry = CompostEntry::with('priceList', 'compostProducer')->findOrFail($id);
+//        $compostEntry = CompostEntry::with('priceList', 'compostProducer')->findOrFail($id);
+
+        $compostEntry = CompostEntry::with('price_list')->findOrFail($id);
 
         return view('composters.show-detail', compact('compostEntry'));
     }

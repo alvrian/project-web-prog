@@ -30,6 +30,8 @@
                                 </ul>
                                 </p>
                                 <a href="{{ route('composters.show-detail', $entry->id) }}" class="btn btn-dark">View Details</a>
+{{--                                <a href="{{ route('composters.show-detail', ['id' => $entry->id]) }}" class="btn btn-primary">View Details</a>--}}
+
                             </div>
 
                         </div>
@@ -40,3 +42,7 @@
         @endif
     </div>
 </x-layout>
+
+<script>
+    console.log("Compost Entries:", @json($compostEntries));
+</script>

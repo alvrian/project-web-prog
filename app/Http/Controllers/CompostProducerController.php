@@ -43,13 +43,15 @@ class CompostProducerController extends Controller
     }
     public function showDetail($id)
     {
+        // Find the CompostProducer by ID
         $compostProducer = CompostProducer::findOrFail($id);
 
-        $compostEntries = CompostEntry::with('priceList')
-            ->where('compost_producer_id', $id)
-            ->get();
+        // Fetch all CompostEntries for this producer using compost_producer_id
+        $compostEntries = CompostEntry::where('compost_producer_id', $compostProducer->id)->get();
 
+        // Return the view with both the compost producer and compost entries
         return view('composters.show-detail', compact('compostProducer', 'compostEntries'));
     }
+
 }
 
