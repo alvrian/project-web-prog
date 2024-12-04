@@ -33,9 +33,9 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-5" style="height: contain;padding: 0 4px 0 4px;">
+        <div class="col-12 col-md-5" style="height: 100%;padding: 0 4px 0 4px;">
           <div class="d-flex flex-column justify-content-between align-items-center"
-            style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
+            style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;overflow-y:auto">
             <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;">Schedule a Delivery or Pickup</span><br>
             <form id="scheduleForm" style="width: 100%;display:flex;flex-direction:column;height: 100%;justify-content: space-evenly;" method="POST" action="{{route('addSchedule')}}">
               @csrf
@@ -100,7 +100,7 @@
         </div>
         <div class="col-12 col-md-5" style="height: 100%;padding: 0 4px 0 4px;">
           <div class="d-flex flex-column justify-content-between align-items-center"
-            style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
+            style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;overflow-y:auto">
             <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;">Schedule a Delivery or Pickup</span><br>
             <form id="scheduleForm2" style="width: 100%;display:flex;flex-direction:column;height: 100%;justify-content: space-evenly;" method="POST" action="{{route('addSchedule')}}">
               @csrf
