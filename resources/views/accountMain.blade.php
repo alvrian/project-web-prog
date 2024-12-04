@@ -193,9 +193,9 @@
       <img src="{{ asset('images/account-picture-placeholder.png') }}" style="border-radius:10px;width: 15vw;min-width:100px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);"/>
       <div class="ml-10 flex items-baseline space-x-4">
         @auth
-        <form method="POST" action="{{ route('logout') }}" class="inline-block">
+        <form method="POST" action="{{ route('logout') }}" class="d-flex justify-content-end">
           @csrf
-          <button type="submit" class="btn btn-secondary">Logout</button>
+          <button type="submit" class="btn btn-danger mt-2">Logout</button>
         </form>
         @endauth
       </div>
