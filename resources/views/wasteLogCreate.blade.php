@@ -1,8 +1,10 @@
 <x-layout>
     <x-navbar/>
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #e9f0e4;">
+    <div class="container d-flex justify-content-center align-items-center"
+         style="min-height: 100vh; background-color: #e9f0e4;">
         <div class="col-md-6">
-            <form id="wasteForm" method="POST" action="{{ route('waste_log.store') }}" class="p-4 rounded shadow" style="background-color: #f9f9f9;">
+            <form id="wasteForm" method="POST" action="{{ route('waste_log.store') }}" class="p-4 rounded shadow"
+                  style="background-color: #f9f9f9;">
                 @csrf
                 <h3 class="text-center mb-4" style="color: #4b5320;">Log Waste Entry</h3>
 
@@ -34,25 +36,30 @@
 
                 <div class="mb-3">
                     <label for="weight" class="form-label">Weight (kg)</label>
-                    <input type="number" class="form-control" id="weight" name="Weight" placeholder="Enter Weight" required>
+                    <input type="number" class="form-control" id="weight" name="Weight" placeholder="Enter Weight"
+                           required>
                     <small class="text-danger d-none" id="weightError">Please enter the weight.</small>
                 </div>
 
                 <div class="mb-3">
                     <label for="dateLogged" class="form-label">Date Logged</label>
-                    <input type="date" class="form-control" id="dateLogged" name="DateLogged" value="{{ now()->format('Y-m-d') }}" required>
+                    <input type="date" class="form-control" id="dateLogged" name="DateLogged"
+                           value="{{ now()->format('Y-m-d') }}" required>
                     <small class="text-danger d-none" id="dateLoggedError">Please enter a date.</small>
                 </div>
 
                 <div class="text-center">
-                    <button type="button" id="submitBtn" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#confirmationModal" disabled>Submit</button>
+                    <button type="button" id="submitBtn" class="btn btn-success w-100" data-bs-toggle="modal"
+                            data-bs-target="#confirmationModal" disabled>Submit
+                    </button>
                 </div>
             </form>
 
         </div>
     </div>
 
-    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -71,12 +78,14 @@
     </div>
 
     <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
-        <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert"
+             aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
                     {{ session('success') }}
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
             </div>
         </div>
     </div>
@@ -124,16 +133,16 @@
                 return;
             }
             form.submit();
-    });
+        });
 
-    document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             const toastElement = document.getElementById('successToast');
             if (toastElement.querySelector('.toast-body').textContent.trim() !== '') {
                 const toast = new bootstrap.Toast(toastElement);
                 toast.show();
             }
         });
-</script>
+    </script>
 
     </script>
 </x-layout>

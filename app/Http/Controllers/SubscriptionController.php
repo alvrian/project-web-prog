@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Subscription;
 use App\Models\CompostEntry;
+use App\Models\Subscription;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
@@ -24,7 +25,7 @@ class SubscriptionController extends Controller
             return redirect()->back()->withErrors(['error' => 'Invalid subscription type or price unavailable.']);
         }
 
-        $subscriptionType = (int) $request->subscription_type;
+        $subscriptionType = (int)$request->subscription_type;
 
         $subscription = Subscription::create([
             'SubscriberID' => auth()->id(),

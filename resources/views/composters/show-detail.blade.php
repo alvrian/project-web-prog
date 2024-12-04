@@ -1,5 +1,5 @@
 <x-layout>
-    <x-navbar />
+    <x-navbar/>
 
     <div class="container">
         <h1 class="text-center mt-4 mb-4">Compost Details</h1>
@@ -24,7 +24,8 @@
 
                 <div class="d-flex justify-content-center">
                     <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
-                    <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#subscribeModal">
+                    <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal"
+                            data-bs-target="#subscribeModal">
                         Subscribe
                     </button>
                 </div>
@@ -32,7 +33,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="subscribeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+    <div class="modal fade" id="subscribeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="subscribeModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{ route('subscription.store') }}" method="POST">
@@ -53,16 +55,20 @@
                                 <option value="" disabled selected>Select a subscription</option>
                                 @if($compostEntry->priceList)
                                     @if($compostEntry->priceList->price_per_subscription_3)
-                                        <option value="3">3 Months - ${{ $compostEntry->priceList->price_per_subscription_3 }}</option>
+                                        <option value="3">3 Months -
+                                            ${{ $compostEntry->priceList->price_per_subscription_3 }}</option>
                                     @endif
                                     @if($compostEntry->priceList->price_per_subscription_6)
-                                        <option value="6">6 Months - ${{ $compostEntry->priceList->price_per_subscription_6 }}</option>
+                                        <option value="6">6 Months -
+                                            ${{ $compostEntry->priceList->price_per_subscription_6 }}</option>
                                     @endif
                                     @if($compostEntry->priceList->price_per_subscription_9)
-                                        <option value="9">9 Months - ${{ $compostEntry->priceList->price_per_subscription_9 }}</option>
+                                        <option value="9">9 Months -
+                                            ${{ $compostEntry->priceList->price_per_subscription_9 }}</option>
                                     @endif
                                     @if($compostEntry->priceList->price_per_subscription_12)
-                                        <option value="12">12 Months - ${{ $compostEntry->priceList->price_per_subscription_12 }}</option>
+                                        <option value="12">12 Months -
+                                            ${{ $compostEntry->priceList->price_per_subscription_12 }}</option>
                                     @endif
                                 @else
                                     <option value="" disabled>No subscription options available</option>
@@ -72,7 +78,8 @@
 
                         <div class="mb-3">
                             <label for="start_date" class="form-label">Start Date</label>
-                            <input type="date" id="start_date" name="StartDate" class="form-control" value="{{ now()->toDateString() }}" required>
+                            <input type="date" id="start_date" name="StartDate" class="form-control"
+                                   value="{{ now()->toDateString() }}" required>
                         </div>
 
                         <div class="mb-3">
@@ -101,8 +108,7 @@
     </div>
 
 
-
-@if(session('success'))
+    @if(session('success'))
         <div class="alert alert-success mt-4">
             {{ session('success') }}
         </div>
@@ -120,7 +126,7 @@
 </x-layout>
 
 <script>
-    document.getElementById('subscription_type').addEventListener('change', function() {
+    document.getElementById('subscription_type').addEventListener('change', function () {
         const subscriptionType = this.value;
         const priceList = @json($compostEntry->priceList);
 

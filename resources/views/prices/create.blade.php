@@ -1,4 +1,3 @@
-
 <x-layout>
     <h1>Add Price for Crop: {{ $crop->name }}</h1>
     <form action="{{ route('prices.store', $crop->id) }}" method="POST">

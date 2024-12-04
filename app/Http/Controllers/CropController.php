@@ -160,20 +160,19 @@ class CropController extends Controller
         }
 
         $crops = Crop::with('prices')
-        ->when($request->has('crop_type'), function ($query) use ($request) {
-            $query->where('crop_type', $request->input('crop_type'));
-        })
-        ->when($request->has('start_date'), function ($query) use ($request) {
-            $query->whereDate('availability_start', '>=', $request->input('start_date'));
-        })
-        ->when($request->has('end_date'), function ($query) use ($request) {
-            $query->whereDate('availability_end', '<=', $request->input('end_date'));
-        })
-
-        ->get()
-        ->sortByDesc(function ($crop) {
-            return is_null($crop->prices) || is_null($crop->prices->price_per_kg);
-        });
+            ->when($request->has('crop_type'), function ($query) use ($request) {
+                $query->where('crop_type', $request->input('crop_type'));
+            })
+            ->when($request->has('start_date'), function ($query) use ($request) {
+                $query->whereDate('availability_start', '>=', $request->input('start_date'));
+            })
+            ->when($request->has('end_date'), function ($query) use ($request) {
+                $query->whereDate('availability_end', '<=', $request->input('end_date'));
+            })
+            ->get()
+            ->sortByDesc(function ($crop) {
+                return is_null($crop->prices) || is_null($crop->prices->price_per_kg);
+            });
 
         $crops = $query->with('prices')->paginate(10);
         return view('crops.index', compact('crops'));
@@ -211,107 +210,108 @@ class CropController extends Controller
     {
         return view('crops.show', compact('crop'));
     }
-/**
- * @OA\Get(
- *     path="/farmer/crops/{id}/edit",
- *     operationId="editCrop",
- *     tags={"Crops"},
- *     summary="Show the form for editing a specific crop",
- *     description="Returns the view for editing a crop based on the provided ID.",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         description="ID of the crop to be edited",
- *         @OA\Schema(
- *             type="integer"
- *         )
- *     ),
- *     @OA\Response(
- *         response=200,
- *         description="Form view for editing the crop loaded successfully",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(property="message", type="string", example="Form for editing the crop loaded successfully.")
- *         )
- *     ),
- *     @OA\Response(
- *         response=404,
- *         description="Crop not found",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(property="error", type="string", example="Crop not found")
- *         )
- *     )
- * )
- */
+
+    /**
+     * @OA\Get(
+     *     path="/farmer/crops/{id}/edit",
+     *     operationId="editCrop",
+     *     tags={"Crops"},
+     *     summary="Show the form for editing a specific crop",
+     *     description="Returns the view for editing a crop based on the provided ID.",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the crop to be edited",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Form view for editing the crop loaded successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="Form for editing the crop loaded successfully.")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Crop not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Crop not found")
+     *         )
+     *     )
+     * )
+     */
     public function edit($id)
     {
         $crop = Crop::with('prices')->findOrFail($id);
         return view('crops.edit', compact('crop'));
     }
 
-/**
- * @OA\Put(
- *     path="/farmer/crops/{id}",
- *     operationId="updateCrop",
- *     tags={"Crops"},
- *     summary="Update an existing crop",
- *     description="Updates crop details in the database.",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         description="ID of the crop to update",
- *         @OA\Schema(
- *             type="integer"
- *         )
- *     ),
- *     @OA\RequestBody(
- *         required=true,
- *         @OA\MediaType(
- *             mediaType="application/json",
- *             @OA\Schema(
- *                 type="object",
- *                 @OA\Property(property="crop_name", type="string"),
- *                 @OA\Property(property="crop_type", type="string"),
- *                 @OA\Property(property="average_amount", type="number", format="float"),
- *                 @OA\Property(property="harvest_cycles", type="integer"),
- *                 @OA\Property(property="price_per_kg", type="number", format="float"),
- *                 @OA\Property(property="availability_start", type="string", format="date"),
- *                 @OA\Property(property="availability_end", type="string", format="date"),
- *                 @OA\Property(property="crop_image", type="string", format="binary")
- *             )
- *         )
- *     ),
- *     @OA\Response(
- *         response=200,
- *         description="Crop updated successfully",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(property="message", type="string", example="Crop details updated successfully."),
- *             @OA\Property(property="crop_id", type="integer", example="1")
- *         )
- *     ),
- *     @OA\Response(
- *         response=400,
- *         description="Validation error",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(property="error", type="string", example="Validation failed."),
- *             @OA\Property(property="details", type="array", @OA\Items(type="string"))
- *         )
- *     ),
- *     @OA\Response(
- *         response=404,
- *         description="Crop not found",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(property="error", type="string", example="Crop not found.")
- *         )
- *     )
- * )
- */
+    /**
+     * @OA\Put(
+     *     path="/farmer/crops/{id}",
+     *     operationId="updateCrop",
+     *     tags={"Crops"},
+     *     summary="Update an existing crop",
+     *     description="Updates crop details in the database.",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the crop to update",
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(property="crop_name", type="string"),
+     *                 @OA\Property(property="crop_type", type="string"),
+     *                 @OA\Property(property="average_amount", type="number", format="float"),
+     *                 @OA\Property(property="harvest_cycles", type="integer"),
+     *                 @OA\Property(property="price_per_kg", type="number", format="float"),
+     *                 @OA\Property(property="availability_start", type="string", format="date"),
+     *                 @OA\Property(property="availability_end", type="string", format="date"),
+     *                 @OA\Property(property="crop_image", type="string", format="binary")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Crop updated successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="Crop details updated successfully."),
+     *             @OA\Property(property="crop_id", type="integer", example="1")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation error",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Validation failed."),
+     *             @OA\Property(property="details", type="array", @OA\Items(type="string"))
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Crop not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="error", type="string", example="Crop not found.")
+     *         )
+     *     )
+     * )
+     */
 
     public function update(Request $request, $id)
     {

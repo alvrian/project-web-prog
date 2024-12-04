@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompostProducer;
+use App\Models\Farmer;
 use App\Models\PointsTransaction;
 use App\Models\RestaurantOwner;
-use App\Models\Farmer;
-use App\Models\CompostProducer;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -71,7 +71,7 @@ class AccountController extends Controller
                 'Location' => $res->location,
                 'CropTypesProduced' => $res->CropTypesProduced,
                 'HarvestSchedule' => $res->DayOfWeek,
-                'AverageCropAmount' =>  $res->AverageCropAmount
+                'AverageCropAmount' => $res->AverageCropAmount
             ]);
         } elseif ($role == "compost_producer") {
             $temp = CompostProducer::where('user_id', $id)->first();
@@ -80,7 +80,7 @@ class AccountController extends Controller
                 'Location' => $res->location,
                 'CompostTypesProduced' => $res->CompostTypesProduced,
                 'AverageCompostAmountPerTerm' => $res->Average,
-                'WasteProcessingCapacity' =>  $res->capacity
+                'WasteProcessingCapacity' => $res->capacity
             ]);
         } elseif ($role == "restaurant_owner") {
             $temp = RestaurantOwner::where('user_id', $id)->first();
