@@ -12,13 +12,13 @@
                     <strong>Type:</strong> {{ $entry->compost_types_produced }}<br>
                     <strong>Average Amount:</strong> {{ $entry->average_compost_amount }} kg<br>
                     <strong>Kitchen Waste Capacity:</strong> {{ $entry->kitchen_waste_capacity }} kg<br>
-                    <strong>Date Logged:</strong> 
-                        @if($entry->date_logged)
-                            {{ $entry->date_logged->format('M d, Y') }}
-                        @else
-                            <em>Not available</em>
-                        @endif
-                        <br>
+                    <strong>Date Logged:</strong>
+                    @if($entry->date_logged)
+                        {{ $entry->date_logged->format('M d, Y') }}
+                    @else
+                        <em>Not available</em>
+                    @endif
+                    <br>
                 </p>
 
                 @if($entry->priceList)

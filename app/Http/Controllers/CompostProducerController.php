@@ -13,22 +13,23 @@ class CompostProducerController extends Controller
     {
         $query = CompostProducer::query();
 
-        if ($request->has('name') && $request->input('name') != '') {
+        if ($request->filled('name')) {
             $query->where('Name', 'like', '%' . $request->input('name') . '%');
         }
 
-        if ($request->has('compost_type') && $request->input('compost_type') != '') {
+        if ($request->filled('compost_type')) {
             $query->where('CompostTypesProduced', 'like', '%' . $request->input('compost_type') . '%');
         }
 
         $compostProducers = $query->get();
+
         return view('composters.index', compact('compostProducers'));
     }
 
-    public function show($id)
+    public function show($composterId)
     {
         $producer = CompostProducer::with(['subscriptions', 'compostEntries.priceList'])
-            ->where('user_id', $id)
+            ->where('id', $composterId)
             ->first();
 
         if (!$producer) {
@@ -36,20 +37,20 @@ class CompostProducerController extends Controller
         }
 
         $compostEntries = CompostEntry::with('priceList')
-            ->where('compost_producer_id', $id)
+            ->where('compost_producer_id', $composterId)
             ->get();
 
         return view('composters.show', compact('producer', 'compostEntries'));
     }
-    public function showDetail($id)
+
+    public function details($composterId, $compostId)
     {
-        $compostProducer = CompostProducer::findOrFail($id);
+        $compostEntry = CompostEntry::with(['priceList', 'compostProducer'])
+            ->where('compost_producer_id', $composterId)
+            ->findOrFail($compostId);
 
-        $compostEntries = CompostEntry::with('priceList')
-            ->where('compost_producer_id', $id)
-            ->get();
-
-        return view('composters.show-detail', compact('compostProducer', 'compostEntries'));
+        return view('composters.show-detail', compact('compostEntry'));
     }
+
 }
 

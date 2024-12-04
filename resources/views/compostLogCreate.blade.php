@@ -1,20 +1,24 @@
 <x-layout>
-    <x-navbar />
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f0f0e4;">
+    <x-navbar/>
+    <div class="container d-flex justify-content-center align-items-center"
+         style="min-height: 100vh; background-color: #f0f0e4;">
         <div class="col-md-6">
-            <form id="compostForm" method="POST" action="{{ route('compost.store') }}" class="p-4 rounded shadow" style="background-color: #f9f9f9;">
+            <form id="compostForm" method="POST" action="{{ route('compost.store') }}" class="p-4 rounded shadow"
+                  style="background-color: #f9f9f9;">
                 @csrf
                 <h3 class="text-center mb-4" style="color: #4b5320;">Log Compost Data</h3>
 
                 <div class="mb-3">
                     <label for="compostProducerId" class="form-label">Compost Producer ID</label>
-                    <input type="text" id="compostProducerId" class="form-control" value="{{ auth()->user()->id }}" disabled>
+                    <input type="text" id="compostProducerId" class="form-control" value="{{ auth()->user()->id }}"
+                           disabled>
                     <input type="hidden" name="compost_producer_id" value="{{ auth()->user()->id }}">
                 </div>
 
                 <div class="mb-3">
                     <label for="compostProducerName" class="form-label">Compost Producer Name</label>
-                    <input type="text" id="compostProducerName" class="form-control" value="{{ auth()->user()->name }}" disabled>
+                    <input type="text" id="compostProducerName" class="form-control" value="{{ auth()->user()->name }}"
+                           disabled>
                 </div>
 
                 <div class="mb-3">
@@ -32,33 +36,40 @@
 
                 <div class="mb-3">
                     <label for="averageCompost" class="form-label">Average Amount Produced (kg)</label>
-                    <input type="number" class="form-control" id="averageCompost" name="average_compost_amount" placeholder="Enter average amount per term" required>
+                    <input type="number" class="form-control" id="averageCompost" name="average_compost_amount"
+                           placeholder="Enter average amount per term" required>
                     <small class="text-danger d-none" id="averageCompostError">Please enter the average amount.</small>
                 </div>
 
 
                 <div class="mb-3">
                     <label for="kitchenWasteCapacity" class="form-label">Kitchen Waste Processing Capacity (kg)</label>
-                    <input type="number" class="form-control" id="kitchenWasteCapacity" name="kitchen_waste_capacity" placeholder="Enter processing capacity per term" required>
-                    <small class="text-danger d-none" id="kitchenWasteCapacityError">Please enter the processing capacity.</small>
+                    <input type="number" class="form-control" id="kitchenWasteCapacity" name="kitchen_waste_capacity"
+                           placeholder="Enter processing capacity per term" required>
+                    <small class="text-danger d-none" id="kitchenWasteCapacityError">Please enter the processing
+                        capacity.</small>
                 </div>
 
 
                 <div class="mb-3">
                     <label for="dateLogged" class="form-label">Date Logged</label>
-                    <input type="date" class="form-control" id="dateLogged" name="date_logged" value="{{ now()->format('Y-m-d') }}" required>
+                    <input type="date" class="form-control" id="dateLogged" name="date_logged"
+                           value="{{ now()->format('Y-m-d') }}" required>
                     <small class="text-danger d-none" id="dateLoggedError">Please enter a valid date.</small>
                 </div>
 
                 <div class="text-center">
-                    <button type="button" id="submitBtn" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#confirmationModal" disabled>Submit</button>
+                    <button type="button" id="submitBtn" class="btn btn-success w-100" data-bs-toggle="modal"
+                            data-bs-target="#confirmationModal" disabled>Submit
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 
 
-    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -78,12 +89,14 @@
 
 
     <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
-        <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert"
+             aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
                     {{ session('success') }}
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
             </div>
         </div>
     </div>

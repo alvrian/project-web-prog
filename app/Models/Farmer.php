@@ -12,7 +12,7 @@ class Farmer extends Model
     protected $table = 'farmer';
     protected $primaryKey = 'user_id';
     public $incrementing = false;
-    protected $fillable = ['Name', 'user_id','Location', 'CropTypesProduced', 'HarvestSchedule', 'AverageCropAmount', 'PointsBalance', 'AmountBalance'];
+    protected $fillable = ['Name', 'user_id', 'Location', 'CropTypesProduced', 'HarvestSchedule', 'AverageCropAmount', 'PointsBalance', 'AmountBalance'];
 
     public function subscriptions()
     {

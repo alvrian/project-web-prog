@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Crop;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
 /**
  * @OA\Info(
  *     title="API Documentation",
@@ -17,7 +13,6 @@ use Illuminate\Support\Facades\Storage;
  *     description="Local API server"
  * )
  */
-
 class SwaggerDocController extends Controller
 {
 }

@@ -19,6 +19,7 @@ class CompostProducer extends Model
         'PointsBalance',
         'AmountBalance'
     ];
+
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class, 'ProviderID');
@@ -28,6 +29,7 @@ class CompostProducer extends Model
     {
         return $this->hasMany(PointsTransaction::class, 'ParticipantID');
     }
+
     public function farmers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(

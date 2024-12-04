@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\PriceListCompost;
 use App\Models\CompostEntry;
+use App\Models\PriceListCompost;
+use Illuminate\Http\Request;
 
 class PriceListCompostController extends Controller
 {
@@ -12,15 +12,16 @@ class PriceListCompostController extends Controller
     {
         return view('prices.create', compact('compostEntry'));
     }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
-        'compost_entry_id' => 'required|exists:compost_entries,id',
-        'price_per_item' => 'required|numeric|min:0',
-        'price_per_subscription_3' => 'required|numeric|min:0',
-        'price_per_subscription_6' => 'required|numeric|min:0',
-        'price_per_subscription_9' => 'required|numeric|min:0',
-        'price_per_subscription_12' => 'required|numeric|min:0',
+            'compost_entry_id' => 'required|exists:compost_entries,id',
+            'price_per_item' => 'required|numeric|min:0',
+            'price_per_subscription_3' => 'required|numeric|min:0',
+            'price_per_subscription_6' => 'required|numeric|min:0',
+            'price_per_subscription_9' => 'required|numeric|min:0',
+            'price_per_subscription_12' => 'required|numeric|min:0',
         ]);
 
         $priceList = new PriceListCompost($validated);
@@ -32,11 +33,11 @@ class PriceListCompostController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-        'price_per_item' => 'required|numeric|min:0',
-        'price_per_subscription_3' => 'required|numeric|min:0',
-        'price_per_subscription_6' => 'required|numeric|min:0',
-        'price_per_subscription_9' => 'required|numeric|min:0',
-        'price_per_subscription_12' => 'required|numeric|min:0',
+            'price_per_item' => 'required|numeric|min:0',
+            'price_per_subscription_3' => 'required|numeric|min:0',
+            'price_per_subscription_6' => 'required|numeric|min:0',
+            'price_per_subscription_9' => 'required|numeric|min:0',
+            'price_per_subscription_12' => 'required|numeric|min:0',
         ]);
 
         $priceList = PriceListCompost::findOrFail($id);

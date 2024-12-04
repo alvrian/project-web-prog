@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Subscription;
 use App\Models\CompostEntry;
+use App\Models\Subscription;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
@@ -24,19 +25,23 @@ class SubscriptionController extends Controller
             return redirect()->back()->withErrors(['error' => 'Invalid subscription type or price unavailable.']);
         }
 
+        $subscriptionType = (int)$request->subscription_type;
+
         $subscription = Subscription::create([
             'SubscriberID' => auth()->id(),
             'ProviderID' => $compostEntry->compost_producer_id,
-            'SubscriptionType' => $request->subscription_type,
+            'SubscriptionType' => $subscriptionType,
             'StartDate' => Carbon::now(),
-            'EndDate' => Carbon::now()->addMonths($request->subscription_type),
+            'EndDate' => Carbon::now()->addMonths($subscriptionType),
             'Status' => 'Active',
-            'Reason' => null,
+            'Reason' => '',
             'Price' => $price,
             'PointEarned' => round($price / 10),
         ]);
 
-        return redirect()->back()->with('success', 'Subscription created successfully!');
+        return redirect()->route('composters.index')->with('success', 'Subscription created successfully!');
+
     }
+
 }
 
