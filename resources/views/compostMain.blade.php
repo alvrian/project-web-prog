@@ -38,22 +38,24 @@
                 </div>
                 <div class = "col-5" style = "border-left: 1px solid grey">
                   <div><strong>Action</strong></div>
-                  <form method = "POST" action = "{{route('compost.subsManagePause')}}">
-                    @csrf
-                    <input type="hidden" name="subscriptionID" value={{$d->SubscriptionID}}>
-                    <button class="btn mt-2" type="submit" style = "background-color: #DFBE5C;color:white;" 
-                      @if($d->Status == 'Postponed') disabled @endif>
-                      Pause
-                    </button>
-                  </form>
-                  <form method = "POST" action = "{{route('compost.subsManageResume')}}">
-                  @csrf
-                    <input type="hidden" name="subscriptionID" value={{$d->SubscriptionID}}>
-                    <button class="btn mt-2" style = "background-color:#43553D;color:white;" type="submit" 
-                      @if($d->Status == 'Active') disabled @endif>
-                      Resume
-                    </button>
-                  </form>
+                  <form method="POST" action="{{ route('compost.subsManagePause') }}" class="pauseForm" data-subscription-id="{{ $d->SubscriptionID }}">
+    @csrf
+    <input type="hidden" name="subscriptionID" value="{{ $d->SubscriptionID }}">
+    <button class="btn mt-2" type="submit" style="background-color: #DFBE5C; color:white;"
+        @if($d->Status == 'Postponed') disabled @endif>
+        Pause
+    </button>
+</form>
+
+<form method="POST" action="{{ route('compost.subsManageResume') }}" class="resumeForm" data-subscription-id="{{ $d->SubscriptionID }}">
+    @csrf
+    <input type="hidden" name="subscriptionID" value="{{ $d->SubscriptionID }}">
+    <button class="btn mt-2" style="background-color:#43553D; color:white;" type="submit"
+        @if($d->Status == 'Active') disabled @endif>
+        Resume
+    </button>
+</form>
+
                 </div>
               </div>
             </div>
@@ -91,4 +93,23 @@
       background-color: white;
     }
   </style>
+<script>
+document.querySelectorAll('.pauseForm').forEach(function(form) {
+    form.addEventListener('submit', function() {
+        let subscriptionId = form.getAttribute('data-subscription-id');
+        // Disable the resume button for this subscription ID
+        document.querySelector(`.resumeForm[data-subscription-id="${subscriptionId}"] button`).disabled = true;
+    });
+});
+
+document.querySelectorAll('.resumeForm').forEach(function(form) {
+    form.addEventListener('submit', function() {
+        let subscriptionId = form.getAttribute('data-subscription-id');
+        // Disable the pause button for this subscription ID
+        document.querySelector(`.pauseForm[data-subscription-id="${subscriptionId}"] button`).disabled = true;
+    });
+});
+
+</script>
+
 </x-layout>

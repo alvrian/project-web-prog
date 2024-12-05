@@ -25,16 +25,19 @@ class CompostController extends Controller
     }
     public function subsManagementResume(Request $req){
         $temp = Subscription::where("SubscriptionID", $req->subscriptionID)->first();
-
+        $temp->update([
+            "Status" => "Active"
+        ]);
+        return redirect()->back();
     }
     public function subsManagementPause(Request $req){
         $temp = Subscription::where("SubscriptionID", $req->subscriptionID)->first();
-        // dd($temp->Status);
+        // dd($req);
         $temp->update([
             "Status" => "Postponed"
         ]);
 
-        return route("compost.home");
+        return redirect()->back();
     }
     public function schedule(Request $req)
     {
