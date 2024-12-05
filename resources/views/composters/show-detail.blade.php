@@ -15,10 +15,14 @@
                     <strong>Subscription Prices:</strong>
                 </p>
                 <ul class="list-group">
-                    <li class="list-group-item">3 months: ${{ $compostEntry->priceList->price_per_subscription_3 ?? 'N/A' }}</li>
-                    <li class="list-group-item">6 months: ${{ $compostEntry->priceList->price_per_subscription_6 ?? 'N/A' }}</li>
-                    <li class="list-group-item">9 months: ${{ $compostEntry->priceList->price_per_subscription_9 ?? 'N/A' }}</li>
-                    <li class="list-group-item">12 months: ${{ $compostEntry->priceList->price_per_subscription_12 ?? 'N/A' }}</li>
+                    <li class="list-group-item">3 months:
+                        ${{ $compostEntry->priceList->price_per_subscription_3 ?? 'N/A' }}</li>
+                    <li class="list-group-item">6 months:
+                        ${{ $compostEntry->priceList->price_per_subscription_6 ?? 'N/A' }}</li>
+                    <li class="list-group-item">9 months:
+                        ${{ $compostEntry->priceList->price_per_subscription_9 ?? 'N/A' }}</li>
+                    <li class="list-group-item">12 months:
+                        ${{ $compostEntry->priceList->price_per_subscription_12 ?? 'N/A' }}</li>
                 </ul>
                 <div class="d-flex justify-content-center mt-3">
                     <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Back</a>
@@ -39,6 +43,7 @@
                         <input type="hidden" name="compost_entry_id" value="{{ $compostEntry->id }}">
                         <input type="hidden" name="ProviderID" value="{{ $compostEntry->compost_producer_id }}">
                         <input type="hidden" name="SubscriberID" value="{{ auth()->id() }}">
+                        <input type="hidden" name="Products" value="{{ $compostEntry->id }}">
 
                         <div class="modal-header">
                             <h5 class="modal-title" id="subscribeModalLabel">Confirm Subscription</h5>
@@ -53,7 +58,8 @@
                                     @if($compostEntry->priceList)
                                         @foreach (['3' => 'price_per_subscription_3', '6' => 'price_per_subscription_6', '9' => 'price_per_subscription_9', '12' => 'price_per_subscription_12'] as $months => $field)
                                             @if($compostEntry->priceList->$field)
-                                                <option value="{{ $months }}">{{ $months }} Months - ${{ $compostEntry->priceList->$field }}</option>
+                                                <option value="{{ $months }}">{{ $months }} Months -
+                                                    ${{ $compostEntry->priceList->$field }}</option>
                                             @endif
                                         @endforeach
                                     @else
@@ -77,7 +83,8 @@
                                 <label for="price" class="form-label">Price</label>
                                 <input type="text" id="price" class="form-control" readonly>
                                 <div class="form-check form-switch mt-2">
-                                    <input class="form-check-input" type="checkbox" id="redeem_points" name="redeem_points" value="1">
+                                    <input class="form-check-input" type="checkbox" id="redeem_points"
+                                           name="redeem_points" value="1">
                                     <label class="form-check-label" for="redeem_points">Redeem Points</label>
                                 </div>
                                 <div id="points_info" class="mt-3" style="display: none;">
@@ -86,7 +93,8 @@
                                         <input type="number" id="points_used" name="points_used" class="form-control"
                                                min="0" max="{{ $totalPoints }}" placeholder="Enter points">
                                     </div>
-                                    <p class="text-muted">You have <strong>{{ $totalPoints }}</strong> points available.</p>
+                                    <p class="text-muted">You have <strong>{{ $totalPoints }}</strong> points available.
+                                    </p>
                                     <div id="points_warning" class="text-danger small" style="display: none;">
                                         Insufficient points balance.
                                     </div>
@@ -102,7 +110,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel
+                            </button>
                             <button type="submit" class="btn btn-primary">Confirm Subscription</button>
                         </div>
                     </form>

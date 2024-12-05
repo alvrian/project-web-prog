@@ -37,25 +37,31 @@ class SubscriptionController extends Controller
             $user->points_balance -= $pointsUsed;
             $user->save();
 
-            $price -= $pointsUsed;
+            $price -= $pointsUsed / 100; // Assuming 1 point = $0.01
             $price = max($price, 0);
         }
 
-        $subscriptionType = (int)$request->subscription_type;
-        Subscription::create([
-            'SubscriberID' => $user->id,
-            'ProviderID' => $compostEntry->compost_producer_id,
-            'SubscriptionType' => $subscriptionType,
-            'StartDate' => now(),
-            'EndDate' => now()->addMonths($subscriptionType),
-            'Status' => 'Active',
-            'Reason' => $request->Reason ?? '',
-            'Price' => $price,
-            'PointEarned' => round($price / 10),
-        ]);
+        try {
+            $subscription = Subscription::create([
+                'SubscriberID' => $user->id,
+                'ProviderID' => $compostEntry->compost_producer_id,
+                'SubscriptionType' => (int)$request->subscription_type,
+                'StartDate' => now(),
+                'EndDate' => now()->addMonths((int)$request->subscription_type),
+                'Status' => 'Active',
+                'Reason' => $request->Reason ?? '',
+                'Products' => [$compostEntry->id],
+                'Price' => $price,
+                'PointEarned' => round($price / 10),
+            ]);
 
-        return redirect()->route('composters.index')->with('success', 'Subscription created successfully!');
+            return redirect()->route('composters.index')->with('success', 'Subscription created successfully!');
+        } catch (\Exception $e) {
+            Log::error('Failed to create subscription: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Failed to create subscription.']);
+        }
     }
+
 
 }
 
