@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\PickupSchedule;
+use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class CompostController extends Controller
 {
     public function index()
-    {
-        return view("compostMain");
+    {   
+        $id = auth()->user()->id;
+        $data = Subscription::where('SubscriberID', $id)->get();
+        // dd($data);
+        return view("compostMain", compact("data"));
     }
-
+    public function subsManagement(Request $req){
+        
+    }
     public function schedule(Request $req)
     {
         $temp = User::where('email', $req->email)->first();
@@ -78,9 +84,5 @@ class CompostController extends Controller
             }
         }
         return redirect()->route('compost.home')->with('success', 'a new schedule has been added');
-    }
-
-    public function subsManagement(Request $req){
-        
     }
 }
