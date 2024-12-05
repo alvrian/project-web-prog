@@ -27,11 +27,13 @@ class SubscriptionSeeder extends Seeder
                 'EndDate' => $faker->date(),
                 'Status' => $faker->randomElement(['Active', 'Expired']),
                 'Reason' => $faker->sentence,
+                "Products" => [1, 2, 3],
                 'Price' => $faker->numberBetween(100, 1000),
                 'PointEarned' => $faker->numberBetween(10, 50)
             ]);
         }
         foreach (range(21, 30) as $index) {
+            $products = ["waste pickup"];
             Subscription::create([
                 'SubscriberID' => CompostProducer::inRandomOrder()->first()->user_id,
                 'ProviderID' => RestaurantOwner::inRandomOrder()->first()->user_id,
@@ -40,6 +42,7 @@ class SubscriptionSeeder extends Seeder
                 'EndDate' => $faker->date(),
                 'Status' => $faker->randomElement(['Active', 'Expired', 'Postponed']),
                 'Reason' => $faker->sentence,
+                "Products" => $products,
                 'Price' => $faker->numberBetween(100, 1000),
                 'PointEarned' => $faker->numberBetween(10, 50)
             ]);

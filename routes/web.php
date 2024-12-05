@@ -57,6 +57,8 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
     Route::post("/schedule", [CompostController::class, 'schedule'])->name('addSchedule');
     Route::get('/create-compost', [CompostEntryController::class, 'create'])->name('compost.create');
     Route::post('/create-compost', [CompostEntryController::class, 'store'])->name('compost.store');
+    Route::post("/sub-manage-resume", [CompostController::class, "subsManagementResume"])->name('compost.subsManageResume');
+    Route::post("/sub-manage-pause", [CompostController::class, "subsManagementPause"])->name('compost.subsManagePause');
 
     Route::resource('composts', CompostEntryController::class);
     Route::get('composts', [CompostEntryController::class, 'index'])->name('compost.index');
