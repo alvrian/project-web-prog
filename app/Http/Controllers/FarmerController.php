@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompostEntry;
+use App\Models\Farmer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FarmerController extends Controller
 {
@@ -27,5 +30,27 @@ class FarmerController extends Controller
         $farmer->compostProducers()->sync($request->producer_ids);
 
         return redirect()->route('producers.index')->with('success', 'Subscriptions updated successfully.');
+    }
+
+    public function details($composterId, $compostId)
+    {
+        $farmer = Farmer::where('user_id', Auth::id())->firstOrFail();
+        $totalPoints = $farmer->totalPoints();
+
+        $compostEntry = CompostEntry::with(['priceList', 'compostProducer'])
+            ->where('compost_producer_id', $composterId)
+            ->findOrFail($compostId);
+
+        return view('composters.show-detail', compact('compostEntry', 'totalPoints'));
+    }
+
+
+    public function showPoints()
+    {
+        $farmer = Farmer::where('user_id', Auth::id())->firstOrFail();
+
+        $totalPoints = $farmer->totalPoints();
+
+        return view('farmer.points', compact('totalPoints'));
     }
 }

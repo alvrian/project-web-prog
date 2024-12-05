@@ -43,4 +43,11 @@ class Farmer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function totalPoints()
+    {
+        $earned = $this->pointsTransactions()->where('TransactionType', 'Earned')->where('Status', 'Completed')->sum('Points');
+        $redeemed = $this->pointsTransactions()->where('TransactionType', 'Redeemed')->where('Status', 'Completed')->sum('Points');
+        return $earned - $redeemed;
+    }
 }

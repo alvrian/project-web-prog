@@ -94,4 +94,36 @@ class AccountController extends Controller
 
         return redirect()->route('home');
     }
+
+    public function redeemPoints(Request $request)
+    {
+        $request->validate([
+            'points' => 'required|integer|min:1',
+            'description' => 'required|string|max:255',
+        ]);
+
+        $user = auth()->user();
+        $farmer = Farmer::where('user_id', $user->id)->firstOrFail();
+        $totalPoints = $farmer->totalPoints();
+
+        if ($request->points > $totalPoints) {
+            return redirect()->back()->withErrors(['error' => 'Insufficient points to redeem.']);
+        }
+
+        PointsTransaction::create([
+            'ParticipantID' => $farmer->id,
+            'TransactionType' => 'Redeemed',
+            'Points' => $request->points,
+            'Description' => $request->description,
+            'Date' => now(),
+            'Status' => 'Completed',
+        ]);
+
+        return redirect()->route('account.points')->with('success', 'Points redeemed successfully!');
+    }
+
 }
+
+
+
+
