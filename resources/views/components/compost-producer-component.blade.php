@@ -92,18 +92,18 @@
             <div>
               <ul class="list-group list-group-flush" style="width: 100%;">
                 @if($delivery->isEmpty())
-          <li class="list-group-item text-center" style="font-style: italic; color: gray;">
-            You have no delivery schedules for this month
-          </li>
-        @else
-      @foreach ($delivery as $d)
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-      <span style="padding-right:10px;width: 30%;">&bull; {{$d->FormattedScheduledDate}}</span>
-      <span style="width: 70%;">for <strong>{{ $d->RecipientName }}</strong> at
-      <em>{{$d->location}}</em></span>
-      </li>
-    @endforeach
-    @endif
+                  <li class="list-group-item text-center" style="font-style: italic; color: gray;">
+                    You have no delivery schedules for this month
+                  </li>
+                @else
+                @foreach ($delivery as $d)
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span style="padding-right:10px;width: 30%;">&bull; {{$d->FormattedScheduledDate}}</span>
+                  <span style="width: 70%;">for <strong>{{ $d->RecipientName }}</strong> at
+                  <em>{{$d->location}}</em></span>
+                  </li>
+                @endforeach
+                @endif
               </ul>
             </div>
           </div>

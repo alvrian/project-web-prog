@@ -10,7 +10,8 @@ class Subscription extends Model
     use HasFactory;
 
     protected $table = 'subscription';
-
+    protected $primaryKey = "SubscriberID";
+    
     protected $fillable = [
         'SubscriberID',
         'ProviderID',
@@ -19,7 +20,12 @@ class Subscription extends Model
         'EndDate',
         'Status',
         'Reason',
+        'Products',
         'Price',
         'PointEarned'
+    ];
+
+    protected $casts = [
+        'Products' => 'array', // Automatically casts the JSON column to/from an array
     ];
 }

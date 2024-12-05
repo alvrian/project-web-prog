@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('EndDate');
             $table->string('Status');
             $table->string('Reason');
+            $table->json('Products')->nullable();
             $table->unsignedBigInteger('Price');
             $table->unsignedBigInteger('PointEarned');
             $table->timestamps();
