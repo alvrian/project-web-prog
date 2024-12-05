@@ -79,4 +79,8 @@ class CompostController extends Controller
         }
         return redirect()->route('compost.home')->with('success', 'a new schedule has been added');
     }
+
+    public function subsManagement(Request $req){
+        
+    }
 }
