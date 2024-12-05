@@ -8,7 +8,7 @@
             <div class="card-body">
 
                 <h5 class="card-title">{{ $compostEntry->compost_types_produced }}</h5>
-                <p class="card-text ">
+                <p class="card-text">
                     <strong>Producer:</strong> {{ $compostEntry->compostProducer->Name ?? 'N/A' }}<br>
                     <strong>Average Amount:</strong> {{ $compostEntry->average_compost_amount ?? 'N/A' }}<br>
                     <strong>Kitchen Waste Capacity:</strong> {{ $compostEntry->kitchen_waste_capacity ?? 'N/A' }}<br>
@@ -90,25 +90,34 @@
                         <div class="mb-3">
                             <label for="price" class="form-label">Price</label>
                             <input type="text" id="price" class="form-control" readonly>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="redeem_points" name="redeem_points"
+                                       value="1">
+                                <label class="form-check-label" for="redeem_points">Redeem Points</label>
+                            </div>
+                            <div id="points_info" style="display: none;">
+                                <div class="d-flex justify-content-between mb-4">
+                                    <div class="flex-fill me-3">
+                                        <label for="points_used" class="form-label">Points to Redeem</label>
+                                        <input type="number" id="points_used" name="points_used" class="form-control"
+                                               min="0" max="{{ $totalPoints }}" placeholder="Enter points to redeem"
+                                               required>
+                                        <div class="form-text text-muted">
+                                            You have {{ $totalPoints }} points available.
+                                        </div>
+                                    </div>
+                                    <div class="flex-fill ms-3">
+                                        <label for="final_price" class="form-label">Final Price</label>
+                                        <input type="text" id="final_price" class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="mb-3">
                             <label for="reason" class="form-label">Reason (Optional)</label>
                             <textarea id="reason" class="form-control" name="Reason"></textarea>
-                        </div>
-
-                        <div class="mb-3" id="points_info" style="display: none;">
-                            <label for="points_used" class="form-label">Points to Redeem</label>
-                            <input type="number" id="points_used" name="points_used" class="form-control" min="0"
-                                   max="{{ $totalPoints}}">
-                            <small class="form-text">You have {{ $totalPoints }} points available.</small>
-                        </div>
-
-                        <div class="mb-3" id="points_info" style="display: none;">
-                            <label for="points_used" class="form-label">Points to Redeem</label>
-                            <input type="number" id="points_used" name="points_used" class="form-control" min="0"
-                                   max="{{ $totalPoints }}">
-                            <small class="form-text">You have {{ $totalPoints }} points available.</small>
                         </div>
                     </div>
 
@@ -117,24 +126,9 @@
                         <button type="submit" class="btn btn-primary">Subscribe</button>
                     </div>
                 </form>
-
-                <script>
-                    const redeemPointsCheckbox = document.getElementById('redeem_points');
-                    const pointsInfoDiv = document.getElementById('points_info');
-
-                    redeemPointsCheckbox.addEventListener('change', function () {
-                        if (this.checked) {
-                            pointsInfoDiv.style.display = 'block';
-                        } else {
-                            pointsInfoDiv.style.display = 'none';
-                        }
-                    });
-                </script>
-
             </div>
         </div>
     </div>
-
 
     @if(session('success'))
         <div class="alert alert-success mt-4">
@@ -151,11 +145,11 @@
             </ul>
         </div>
     @endif
+
     <script>
         document.getElementById('subscription_type').addEventListener('change', function () {
             const subscriptionType = this.value;
             const priceList = @json($compostEntry->priceList);
-
             let endDate = new Date();
             let price = 0;
 
@@ -178,7 +172,10 @@
             const year = endDate.getFullYear();
             document.getElementById('end_date').value = `${day}/${month}/${year}`;
             document.getElementById('price').value = '$' + price;
+
+            updateFinalPrice(price);
         });
+
         const redeemPointsCheckbox = document.getElementById('redeem_points');
         const pointsInfoDiv = document.getElementById('points_info');
         const pointsInput = document.getElementById('points_used');
@@ -190,11 +187,20 @@
             } else {
                 pointsInfoDiv.style.display = 'none';
                 pointsInput.value = '';
+                const price = parseFloat(document.getElementById('price').value.replace('$', ''));
+                updateFinalPrice(price);
             }
         });
+
+        pointsInput.addEventListener('input', function () {
+            const pointsUsed = parseInt(this.value) || 0;
+            const price = parseFloat(document.getElementById('price').value.replace('$', ''));
+            updateFinalPrice(price, pointsUsed);
+        });
+
+        function updateFinalPrice(price, pointsUsed = 0) {
+            const finalPrice = price - pointsUsed;
+            document.getElementById('final_price').value = '$' + finalPrice.toFixed(2);
+        }
     </script>
 </x-layout>
-
-
-
-

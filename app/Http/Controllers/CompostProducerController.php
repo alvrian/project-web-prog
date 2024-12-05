@@ -46,7 +46,10 @@ class CompostProducerController extends Controller
     public function details($composterId, $compostId)
     {
         $user = auth()->user();
-        $totalPoints = $user->points_balance ?? 0;
+
+        if ($user->role === "farmer" && $user->farmer) {
+            $totalPoints = $user->farmer->PointsBalance;
+        }
 
         $compostEntry = CompostEntry::with(['priceList', 'compostProducer'])
             ->where('compost_producer_id', $composterId)
