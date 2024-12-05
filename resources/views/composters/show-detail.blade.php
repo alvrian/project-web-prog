@@ -96,6 +96,22 @@
                             <label for="reason" class="form-label">Reason (Optional)</label>
                             <textarea id="reason" class="form-control" name="Reason"></textarea>
                         </div>
+
+                        <!-- Toggle for Redeeming Points -->
+                        <div class="mb-3">
+                            <label for="redeem_points" class="form-label">Redeem Points</label>
+                            <input type="checkbox" id="redeem_points" name="redeem_points" value="1"
+                                   class="form-check-input">
+                            <small class="form-text">Check this to use your points for a discount.</small>
+                        </div>
+
+                        <!-- Points Info -->
+                        <div class="mb-3" id="points_info" style="display: none;">
+                            <label for="points_used" class="form-label">Points to Redeem</label>
+                            <input type="number" id="points_used" name="points_used" class="form-control" min="0"
+                                   max="{{ $totalPoints }}">
+                            <small class="form-text">You have {{ $totalPoints }} points available.</small>
+                        </div>
                     </div>
 
                     <div class="modal-footer">
@@ -103,6 +119,20 @@
                         <button type="submit" class="btn btn-primary">Subscribe</button>
                     </div>
                 </form>
+
+                <script>
+                    const redeemPointsCheckbox = document.getElementById('redeem_points');
+                    const pointsInfoDiv = document.getElementById('points_info');
+
+                    redeemPointsCheckbox.addEventListener('change', function () {
+                        if (this.checked) {
+                            pointsInfoDiv.style.display = 'block';
+                        } else {
+                            pointsInfoDiv.style.display = 'none';
+                        }
+                    });
+                </script>
+
             </div>
         </div>
     </div>
