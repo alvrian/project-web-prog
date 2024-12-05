@@ -16,6 +16,9 @@ class CompostController extends Controller
     public function schedule(Request $req)
     {
         $temp = User::where('email', $req->email)->first();
+        if(!$temp){
+            return redirect()->back()->with('failed', 'No Account found');
+        }
         $id = $temp->id;
         if ($temp && $temp->role !== $req->RecipientType) {
             return redirect()->back()->with('failed', 'Role mismatch. Please check the Recipient Type');

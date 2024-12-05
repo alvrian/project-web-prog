@@ -7,7 +7,7 @@
   <div id="horizontal-scroll-container"
     style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0.5rem;">
     <div id="horizontal-list-item-1" style="flex: 0 0 100%; scroll-snap-align: start; padding: 0.5rem;">
-      <div class="row" style="height: 55vh" style="overflow-y:scroll;">
+      <div class="row" style="height: 65vh" style="overflow-y:scroll;">
         <div class="col-12 col-md-7" style="height: 100%;padding: 0 4px 0 4px;">
           <div
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
@@ -18,15 +18,16 @@
             <div>
               <ul class="list-group list-group-flush" style="width: 100%;">
                 @if($pickup->isEmpty())
-                  <li class="list-group-item text-center" style="font-style: italic; color: gray;">
-                    You have no pickup schedules for this month
-                  </li>
+                    <li class="list-group-item text-center" style="font-style: italic; color: gray;">
+                      You have no pickup schedules for this month
+                    </li>
                 @else
                   @foreach ($pickup as $d)
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <span style="padding-right:10px;width: 30%;">&bull; {{$d->FormattedScheduledDate}}</span>
-                      <span style="width: 70%;">for <strong>{{ $d->RecipientName }}</strong> at <em>{{$d->location}}</em></span>
-                    </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span style="padding-right:10px;width: 30%;">&bull; {{$d->FormattedScheduledDate}}</span>
+                  <span style="width: 70%;">for <strong>{{ $d->RecipientName }}</strong> at
+                  <em>{{$d->location}}</em></span>
+                  </li>
                   @endforeach
                 @endif
               </ul>
@@ -34,14 +35,30 @@
           </div>
         </div>
         <div class="col-12 col-md-5" style="height: 100%;padding: 0 4px 0 4px;">
-          <div class="d-flex flex-column justify-content-between align-items-center"
+          <div class="d-flex flex-column justify-content-between align-items-center fs-7"
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;overflow-y:auto">
-            <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;">Schedule a Delivery or Pickup</span><br>
-            <form id="scheduleForm" style="width: 100%;display:flex;flex-direction:column;height: 100%;justify-content: space-evenly;" method="POST" action="{{route('addSchedule')}}">
+            <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;padding-bottom: 10px;">Add Schedule</span>
+            <form id="scheduleForm"
+              style="width: 100%;display:flex;flex-direction:column;height: 100%;justify-content: space-evenly;"
+              method="POST" action="{{route('addSchedule')}}">
               @csrf
-              <div class="mb-3">
-                <label for="email" class="form-label">email address</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="enter your email" required>
+              <div class="mb-3 fs-6">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <label for="email" class="form-label">email</label>
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+                      placeholder="enter your email" required>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label for="recipientType" class="form-label">Role</label>
+                    <select class="form-select" id="type" name="RecipientType" required>
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="restaurant_owner">Restaurant</option>
+                      <option value="compost_producer">Compost Producer</option>
+                      <option value="farmer">Farmer</option>
+                    </select>
+                  </div>
+                </div>
               </div>
               <div class="mb-3">
                 <label for="type" class="form-label">Select Type</label>
@@ -49,15 +66,6 @@
                   <option value="" disabled selected>Select an option</option>
                   <option value="Waste Pickup">Waste Pickup</option>
                   <option value="Compost Delivery">Compost Delivery</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="recipientType" class="form-label">Select Recipient Role</label>
-                <select class="form-select" id="type" name="RecipientType" required>
-                  <option value="" disabled selected>Select an option</option>
-                  <option value="restaurant_owner">Restaurant</option>
-                  <option value="compost_producer">Compost Producer</option>
-                  <option value="farmer">Farmer</option>
                 </select>
               </div>
               <div class="mb-3">
@@ -71,8 +79,9 @@
         </div>
       </div>
     </div>
-    <div id="horizontal-list-item-2" style="flex: 0 0 100%; scroll-snap-align: start; padding: 0.5rem;margin-left: 10px;">
-      <div class="row" style="height: 55vh;">
+    <div id="horizontal-list-item-2"
+      style="flex: 0 0 100%; scroll-snap-align: start; padding: 0.5rem;margin-left: 10px;">
+      <div class="row" style="height: 65vh;">
         <div class="col-12 col-md-7" style="height: 100%;padding: 0 4px 0 4px;">
           <div
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
@@ -83,17 +92,18 @@
             <div>
               <ul class="list-group list-group-flush" style="width: 100%;">
                 @if($delivery->isEmpty())
-                  <li class="list-group-item text-center" style="font-style: italic; color: gray;">
-                    You have no delivery schedules for this month
-                  </li>
-                @else
-                  @foreach ($delivery as $d)
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <span style="padding-right:10px;width: 30%;">&bull; {{$d->FormattedScheduledDate}}</span>
-                      <span style="width: 70%;">for <strong>{{ $d->RecipientName }}</strong> at <em>{{$d->location}}</em></span>
-                    </li>
-                  @endforeach
-                @endif
+          <li class="list-group-item text-center" style="font-style: italic; color: gray;">
+            You have no delivery schedules for this month
+          </li>
+        @else
+      @foreach ($delivery as $d)
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+      <span style="padding-right:10px;width: 30%;">&bull; {{$d->FormattedScheduledDate}}</span>
+      <span style="width: 70%;">for <strong>{{ $d->RecipientName }}</strong> at
+      <em>{{$d->location}}</em></span>
+      </li>
+    @endforeach
+    @endif
               </ul>
             </div>
           </div>
@@ -101,12 +111,28 @@
         <div class="col-12 col-md-5" style="height: 100%;padding: 0 4px 0 4px;">
           <div class="d-flex flex-column justify-content-between align-items-center"
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;overflow-y:auto">
-            <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;">Schedule a Delivery or Pickup</span><br>
-            <form id="scheduleForm2" style="width: 100%;display:flex;flex-direction:column;height: 100%;justify-content: space-evenly;" method="POST" action="{{route('addSchedule')}}">
+            <span style="font-size:20px;font-weight:600;display: block;width: 100%;text-align:left;padding-bottom: 10px;">Add Schedule</span>
+            <form id="scheduleForm"
+              style="width: 100%;display:flex;flex-direction:column;height: 100%;justify-content: space-evenly;"
+              method="POST" action="{{route('addSchedule')}}">
               @csrf
-              <div class="mb-3">
-                <label for="email" class="form-label">email address</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="enter your email" required>
+              <div class="mb-3 fs-6">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <label for="email" class="form-label">email</label>
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+                      placeholder="enter your email" required>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label for="recipientType" class="form-label">Role</label>
+                    <select class="form-select" id="type" name="RecipientType" required>
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="restaurant_owner">Restaurant</option>
+                      <option value="compost_producer">Compost Producer</option>
+                      <option value="farmer">Farmer</option>
+                    </select>
+                  </div>
+                </div>
               </div>
               <div class="mb-3">
                 <label for="type" class="form-label">Select Type</label>
@@ -114,15 +140,6 @@
                   <option value="" disabled selected>Select an option</option>
                   <option value="Waste Pickup">Waste Pickup</option>
                   <option value="Compost Delivery">Compost Delivery</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="recipientType" class="form-label">Select Recipient Role</label>
-                <select class="form-select" id="type" name="RecipientType" required>
-                  <option value="" disabled selected>Select an option</option>
-                  <option value="restaurant_owner">Restaurant</option>
-                  <option value="compost_producer">Compost Producer</option>
-                  <option value="farmer">Farmer</option>
                 </select>
               </div>
               <div class="mb-3">
@@ -139,11 +156,11 @@
   </div>
   @if(session('success'))
     <div class="alert alert-success">
-        {{ session('success') }}
+    {{ session('success') }}
     </div>
-    @elseif(session('failed'))
+  @elseif(session('failed'))
     <div class="alert alert-danger">
-        {{ session('failed') }}
+    {{ session('failed') }}
     </div>
   @endif
 </div>
@@ -194,12 +211,23 @@
   #horizontal-scroll-container {
     display: flex;
     overflow-x: auto;
+    overflow-y: auto;
     scroll-snap-type: x mandatory;
     padding: 0.5rem;
     scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   #horizontal-scroll-container::-webkit-scrollbar {
     display: none;
+    width: 0;
+  }
+
+  #horizontal-scroll-container::-webkit-scrollbar-thumb {
+    display: none;
+    /* Ensure the thumb doesn't appear */
+  }
+  @media screen {
+    
   }
 </style>

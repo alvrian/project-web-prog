@@ -8,7 +8,8 @@
   @else
   <div style="padding: 1rem 5rem;font-family:&quot;Inter&quot;, serif;">
     <x-compost-producer-component /><br>
-    
+    <span style = "font-size: 20px;font-weight: 600;">Your Subscriptions</span>
+    <x-compost-view-subs />
   </div>
   @endif
 </x-layout>
