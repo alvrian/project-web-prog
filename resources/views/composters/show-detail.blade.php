@@ -97,15 +97,13 @@
                             <textarea id="reason" class="form-control" name="Reason"></textarea>
                         </div>
 
-                        <!-- Toggle for Redeeming Points -->
-                        <div class="mb-3">
-                            <label for="redeem_points" class="form-label">Redeem Points</label>
-                            <input type="checkbox" id="redeem_points" name="redeem_points" value="1"
-                                   class="form-check-input">
-                            <small class="form-text">Check this to use your points for a discount.</small>
+                        <div class="mb-3" id="points_info" style="display: none;">
+                            <label for="points_used" class="form-label">Points to Redeem</label>
+                            <input type="number" id="points_used" name="points_used" class="form-control" min="0"
+                                   max="{{ $totalPoints}}">
+                            <small class="form-text">You have {{ $totalPoints }} points available.</small>
                         </div>
 
-                        <!-- Points Info -->
                         <div class="mb-3" id="points_info" style="display: none;">
                             <label for="points_used" class="form-label">Points to Redeem</label>
                             <input type="number" id="points_used" name="points_used" class="form-control" min="0"
@@ -153,34 +151,50 @@
             </ul>
         </div>
     @endif
+    <script>
+        document.getElementById('subscription_type').addEventListener('change', function () {
+            const subscriptionType = this.value;
+            const priceList = @json($compostEntry->priceList);
+
+            let endDate = new Date();
+            let price = 0;
+
+            if (subscriptionType === '3') {
+                endDate.setMonth(endDate.getMonth() + 3);
+                price = priceList.price_per_subscription_3;
+            } else if (subscriptionType === '6') {
+                endDate.setMonth(endDate.getMonth() + 6);
+                price = priceList.price_per_subscription_6;
+            } else if (subscriptionType === '9') {
+                endDate.setMonth(endDate.getMonth() + 9);
+                price = priceList.price_per_subscription_9;
+            } else if (subscriptionType === '12') {
+                endDate.setMonth(endDate.getMonth() + 12);
+                price = priceList.price_per_subscription_12;
+            }
+
+            const day = String(endDate.getDate()).padStart(2, '0');
+            const month = String(endDate.getMonth() + 1).padStart(2, '0');
+            const year = endDate.getFullYear();
+            document.getElementById('end_date').value = `${day}/${month}/${year}`;
+            document.getElementById('price').value = '$' + price;
+        });
+        const redeemPointsCheckbox = document.getElementById('redeem_points');
+        const pointsInfoDiv = document.getElementById('points_info');
+        const pointsInput = document.getElementById('points_used');
+
+        redeemPointsCheckbox.addEventListener('change', function () {
+            if (this.checked) {
+                pointsInfoDiv.style.display = 'block';
+                pointsInput.max = {{ $totalPoints }};
+            } else {
+                pointsInfoDiv.style.display = 'none';
+                pointsInput.value = '';
+            }
+        });
+    </script>
 </x-layout>
 
-<script>
-    document.getElementById('subscription_type').addEventListener('change', function () {
-        const subscriptionType = this.value;
-        const priceList = @json($compostEntry->priceList);
 
-        let endDate = new Date();
-        let price = 0;
 
-        if (subscriptionType === '3') {
-            endDate.setMonth(endDate.getMonth() + 3);
-            price = priceList.price_per_subscription_3;
-        } else if (subscriptionType === '6') {
-            endDate.setMonth(endDate.getMonth() + 6);
-            price = priceList.price_per_subscription_6;
-        } else if (subscriptionType === '9') {
-            endDate.setMonth(endDate.getMonth() + 9);
-            price = priceList.price_per_subscription_9;
-        } else if (subscriptionType === '12') {
-            endDate.setMonth(endDate.getMonth() + 12);
-            price = priceList.price_per_subscription_12;
-        }
 
-        const day = String(endDate.getDate()).padStart(2, '0');
-        const month = String(endDate.getMonth() + 1).padStart(2, '0');
-        const year = endDate.getFullYear();
-        document.getElementById('end_date').value = `${day}/${month}/${year}`;
-        document.getElementById('price').value = '$' + price;
-    });
-</script>

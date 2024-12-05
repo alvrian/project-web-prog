@@ -45,11 +45,14 @@ class CompostProducerController extends Controller
 
     public function details($composterId, $compostId)
     {
+        $user = auth()->user();
+        $totalPoints = $user->points_balance ?? 0;
+
         $compostEntry = CompostEntry::with(['priceList', 'compostProducer'])
             ->where('compost_producer_id', $composterId)
             ->findOrFail($compostId);
 
-        return view('composters.show-detail', compact('compostEntry'));
+        return view('composters.show-detail', compact('compostEntry', 'totalPoints'));
     }
 
 }
