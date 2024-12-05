@@ -46,4 +46,12 @@ class WasteLogController extends Controller
 
         return view('waste_log.index', compact('wasteLogs'));
     }
+
+    public function report()
+    {
+        
+        $wasteLogs = WasteLog::orderBy('DateLogged', 'desc')->get();
+        return view('restaurantWasteReport', compact('wasteLogs'));
+    }
+
 }

@@ -30,5 +30,7 @@ Route::prefix('account')->group(function () {
 });
 
 
+Route::get('/waste-report', [WasteLogController::class, 'report'])->name('restaurantWasteReport');
+
 
 
