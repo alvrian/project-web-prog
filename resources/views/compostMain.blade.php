@@ -33,29 +33,30 @@
                 <div class="col-4 text-muted">
                   <div>: {{ $d->providerEmail }}</div>
                   <div>: {{ $d->StartDate }} to {{ $d->EndDate }}</div>
-                  <div>: {{ $d->Products[0] }}</div>
+                  <div>: Waste Pickup</div>
                   <div>: {{ $d->Price }}</div>
                 </div>
                 <div class = "col-5" style = "border-left: 1px solid grey">
                   <div><strong>Action</strong></div>
+                  @if($d->Status == 'Active')
                   <form method="POST" action="{{ route('compost.subsManagePause') }}" class="pauseForm" data-subscription-id="{{ $d->SubscriptionID }}">
-    @csrf
-    <input type="hidden" name="subscriptionID" value="{{ $d->SubscriptionID }}">
-    <button class="btn mt-2" type="submit" style="background-color: #DFBE5C; color:white;"
-        @if($d->Status == 'Postponed') disabled @endif>
-        Pause
-    </button>
-</form>
-
-<form method="POST" action="{{ route('compost.subsManageResume') }}" class="resumeForm" data-subscription-id="{{ $d->SubscriptionID }}">
-    @csrf
-    <input type="hidden" name="subscriptionID" value="{{ $d->SubscriptionID }}">
-    <button class="btn mt-2" style="background-color:#43553D; color:white;" type="submit"
-        @if($d->Status == 'Active') disabled @endif>
-        Resume
-    </button>
-</form>
-
+                      @csrf
+                      <input type="hidden" name="subscriptionID" value="{{ $d->SubscriptionID }}">
+                      <button class="btn mt-2" type="submit" style="background-color: #DFBE5C; color:white;"
+                          @if($d->Status == 'Postponed') disabled @endif>
+                          Pause
+                      </button>
+                  </form>
+                  @elseif($d->Status == 'Postponed')
+                  <form method="POST" action="{{ route('compost.subsManageResume') }}" class="resumeForm" data-subscription-id="{{ $d->SubscriptionID }}">
+                      @csrf
+                      <input type="hidden" name="subscriptionID" value="{{ $d->SubscriptionID }}">
+                      <button class="btn mt-2" style="background-color:#43553D; color:white;" type="submit"
+                          @if($d->Status == 'Active') disabled @endif>
+                          Resume
+                      </button>
+                  </form>
+                  @endif
                 </div>
               </div>
             </div>
