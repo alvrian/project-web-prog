@@ -50,4 +50,11 @@ class Farmer extends Model
         $redeemed = $this->pointsTransactions()->where('TransactionType', 'Redeemed')->where('Status', 'Completed')->sum('Points');
         return $earned - $redeemed;
     }
+
+    public function PointsBalance()
+    {
+       return $this->pointsTransactions()->sum('points');
+    }
+
+
 }

@@ -1,10 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\CompostEntry;
+use App\Models\CompostProducer;
+use App\Models\Farmer;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class SubscriptionController extends Controller
@@ -14,7 +16,7 @@ class SubscriptionController extends Controller
         Log::info('Form Data:', $request->all());
 
         $validated = $request->validate([
-            'ProviderID' => 'required|exists:compost_producer,id',
+            'ProviderID' => 'required|exists:compost_producer,user_id',
             'SubscriberID' => 'required|exists:users,id',
             'ProductableType' => 'required|string',
             'ProductableID' => 'required|exists:compost_entries,id',
@@ -22,8 +24,8 @@ class SubscriptionController extends Controller
             'EndDate' => 'required|date|after:StartDate',
             'SubscriptionType' => 'required|in:3,6,9,12',
             'Reason' => 'nullable|string',
-            'points_used'=>'nullable|numeric',
-            'Price'=>'nullable|numeric',
+            'points_used' => 'nullable|numeric',
+            'Price' => 'nullable|numeric',
         ]);
 
         $compostEntry = CompostEntry::findOrFail($validated['ProductableID']);
@@ -43,6 +45,32 @@ class SubscriptionController extends Controller
         }
 
         $pointEarned = $price * 0.10;
+
+        $farmer = Farmer::find(Auth::id());
+        if (!$farmer) {
+            return back()->withErrors(['Farmer not found for the authenticated user.']);
+        }
+
+        $compostProducer = CompostProducer::find($validated['ProviderID']);
+        if (!$compostProducer) {
+            return back()->withErrors(['Provider not found.']);
+        }
+
+        $pointsUsed = $validated['points_used'];
+
+        if ($pointsUsed > 0) {
+            $pointsBalance = $farmer->PointsBalance();
+            if ($pointsUsed > $pointsBalance) {
+                return back()->withErrors(['points_used' => 'You do not have enough points to redeem.']);
+            }
+
+            $farmer->PointsBalance -= $pointsUsed;
+            $farmer->save();
+        }
+
+        $compostProducer->PointsBalance += $pointEarned;
+        $compostProducer->save();
+
         $reason = $request->reason ?? '';
 
         $subscription = Subscription::create([
@@ -58,10 +86,8 @@ class SubscriptionController extends Controller
             'PointEarned' => $pointEarned,
             'SubscriptionType' => $validated['SubscriptionType'],
         ]);
-
-        return redirect()->route('composters.index', ['id' => $validated['ProductableID']])
+        return redirect()->route('composters.index')
             ->with('success', 'Subscription created successfully!');
+
     }
-
-
 }
