@@ -14,15 +14,15 @@
                     <strong>Price Per Item:</strong> ${{ $compostEntry->priceList->price_per_item ?? 'N/A' }}<br>
                     <strong>Subscription Prices:</strong>
                 </p>
-                <ul class="list-group">
-                    <li class="list-group-item">3 months:
-                        ${{ $compostEntry->priceList->price_per_subscription_3 ?? 'N/A' }}</li>
-                    <li class="list-group-item">6 months:
-                        ${{ $compostEntry->priceList->price_per_subscription_6 ?? 'N/A' }}</li>
-                    <li class="list-group-item">9 months:
-                        ${{ $compostEntry->priceList->price_per_subscription_9 ?? 'N/A' }}</li>
-                    <li class="list-group-item">12 months:
-                        ${{ $compostEntry->priceList->price_per_subscription_12 ?? 'N/A' }}</li>
+                <ul>
+                    <ul class="mb-1">3 months:
+                        ${{ $compostEntry->priceList->price_per_subscription_3 ?? 'N/A' }}</ul>
+                    <ul class="mb-1">6 months:
+                        ${{ $compostEntry->priceList->price_per_subscription_6 ?? 'N/A' }}</ul>
+                    <ul class="mb-1">9 months:
+                        ${{ $compostEntry->priceList->price_per_subscription_9 ?? 'N/A' }}</ul>
+                    <ul class="mb-1">12 months:
+                        ${{ $compostEntry->priceList->price_per_subscription_12 ?? 'N/A' }}</ul>
                 </ul>
                 <div class="d-flex justify-content-center mt-3">
                     <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Back</a>
@@ -73,6 +73,12 @@
                                 <input type="date" id="start_date" name="StartDate" class="form-control"
                                        value="{{ now()->toDateString() }}" required>
                             </div>
+
+                            <div class="mb-3">
+                                <label for="EndDate" class="form-label">End Date</label>
+                                <input type="text" id="EndDate" class="form-control" readonly>
+                            </div>
+
 
                             <div class="mb-3">
                                 <label for="price" class="form-label">Price</label>
@@ -204,6 +210,24 @@
                 finalPriceInput.value = `$${finalPrice.toFixed(2)}`;
                 hiddenPriceInput.value = finalPrice.toFixed(2);
             }
+        });
+
+        document.getElementById('SubscriptionType').addEventListener('change', function () {
+            const subscriptionType = this.value;
+            let endDate = new Date();
+            if (subscriptionType === '3') {
+                endDate.setMonth(endDate.getMonth() + 3);
+            } else if (subscriptionType === '6') {
+                endDate.setMonth(endDate.getMonth() + 6);
+            } else if (subscriptionType === '9') {
+                endDate.setMonth(endDate.getMonth() + 9);
+            } else if (subscriptionType === '12') {
+                endDate.setMonth(endDate.getMonth() + 12);
+            }
+            const day = String(endDate.getDate()).padStart(2, '0');
+            const month = String(endDate.getMonth() + 1).padStart(2, '0');
+            const year = endDate.getFullYear();
+            document.getElementById('EndDate').value = `${day}/${month}/${year}`;
         });
 
     </script>
