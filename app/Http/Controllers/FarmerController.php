@@ -6,7 +6,7 @@ use App\Models\CompostEntry;
 use App\Models\Farmer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Subscription;
 class FarmerController extends Controller
 {
     public function index()
@@ -52,5 +52,22 @@ class FarmerController extends Controller
         $totalPoints = $farmer->totalPoints();
 
         return view('farmer.points', compact('totalPoints'));
+    }
+
+    public function subsManagementResume(Request $req){
+        $temp = Subscription::where("SubscriptionID", $req->subscriptionID)->first();
+        $temp->update([
+            "Status" => "Active"
+        ]);
+        return redirect()->back();
+    }
+    public function subsManagementPause(Request $req){
+        $temp = Subscription::where("SubscriptionID", $req->subscriptionID)->first();
+        // dd($req);
+        $temp->update([
+            "Status" => "Postponed"
+        ]);
+
+        return redirect()->back();
     }
 }

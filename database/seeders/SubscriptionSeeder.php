@@ -77,5 +77,25 @@ class SubscriptionSeeder extends Seeder
                 'PointEarned' => $faker->numberBetween(10, 50),
             ]);
         }
+
+        
+       foreach (range(31, 40) as $index) {
+        $provider = CompostProducer::inRandomOrder()->first();
+        $product = CompostEntry::inRandomOrder()->first();
+
+        Subscription::create([
+            'SubscriberID' => Farmer::inRandomOrder()->first()->user_id,
+            'ProviderID' => $provider->user_id,
+            'SubscriptionType' => $faker->randomElement([3, 6, 9, 12]),
+            'StartDate' => $faker->date(),
+            'EndDate' => $faker->date(),
+            'Status' => $faker->randomElement(['Active', 'Expired', 'Postponed']),
+            'Reason' => $faker->sentence,
+            'ProductableType' => 'compost_entries',
+            'ProductableID' => $product->id,
+            'Price' => $faker->numberBetween(100, 1000),
+            'PointEarned' => $faker->numberBetween(10, 50),
+        ]);
+    }
     }
 }
