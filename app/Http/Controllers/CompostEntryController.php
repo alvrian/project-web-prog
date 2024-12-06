@@ -59,8 +59,6 @@ class CompostEntryController extends Controller
 
     public function details($id)
     {
-//        $compostEntry = CompostEntry::with('priceList', 'compostProducer')->findOrFail($id);
-
         $compostEntry = CompostEntry::with('price_list')->findOrFail($id);
 
         return view('composters.show-detail', compact('compostEntry'));
@@ -77,7 +75,6 @@ class CompostEntryController extends Controller
     {
         $entry = CompostEntry::findOrFail($id);
 
-        // Validate input
         $request->validate([
             'compost_producer_name' => 'required|string|max:255',
             'compost_types_produced' => 'required|string|max:255',
@@ -91,7 +88,6 @@ class CompostEntryController extends Controller
             'price_per_subscription_12' => 'nullable|numeric|min:0',
         ]);
 
-        // Update compost entry
         $entry->update($request->only([
             'compost_producer_name',
             'compost_types_produced',
@@ -100,7 +96,6 @@ class CompostEntryController extends Controller
             'date_logged',
         ]));
 
-        // Update pricing details or create them if they don't exist
         if ($entry->priceList) {
             $entry->priceList->update($request->only([
                 'price_per_item',
