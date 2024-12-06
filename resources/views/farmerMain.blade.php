@@ -7,8 +7,9 @@
     </div>
     @else
     <div style="padding: 1rem 5rem;font-family:&quot;Inter&quot;, serif;">
-        hello, ini page main farmer
+        <span style="font-size: 20px;font-weight: 600;">Your Subscriptions</span>
         <x-farmer-subscription />
+        
     </div>
     @endif
 </x-layout>

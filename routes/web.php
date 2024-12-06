@@ -98,6 +98,7 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function () {
     Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscription.store');
     Route::get('/points', [FarmerController::class, 'showPoints'])->name('farmer.points');
 
-
+    Route::post("/sub-manage-resume", [CompostController::class, "subsManagementResume"])->name('farmer.subsManageResume');
+    Route::post("/sub-manage-pause", [CompostController::class, "subsManagementPause"])->name('farmer.subsManagePause');
 });
 
