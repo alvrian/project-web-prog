@@ -10,7 +10,7 @@ class Subscription extends Model
     use HasFactory;
 
     protected $table = 'subscription';
-    protected $primaryKey = "SubscriberID";
+    protected $primaryKey = "SubscriptionID";
 
     protected $fillable = [
         'SubscriberID',
@@ -20,9 +20,10 @@ class Subscription extends Model
         'EndDate',
         'Status',
         'Reason',
-        'Products',
+        'ProductableType',
+        'ProductableID',
         'Price',
-        'PointEarned'
+        'PointEarned',
     ];
 
     public function provider()
