@@ -155,11 +155,9 @@
                 const selectedOption = this.value;
                 basePrice = prices[selectedOption] || 0;
 
-                // Set price
                 priceInput.value = `$${basePrice.toFixed(2)}`;
                 hiddenPriceInput.value = basePrice.toFixed(2);
 
-                // Calculate end date
                 const startDate = new Date(startDateInput.value);
                 if (selectedOption) {
                     startDate.setMonth(startDate.getMonth() + parseInt(selectedOption));

@@ -22,6 +22,8 @@ class SubscriptionController extends Controller
             'EndDate' => 'required|date|after:StartDate',
             'SubscriptionType' => 'required|in:3,6,9,12',
             'Reason' => 'nullable|string',
+            'points_used'=>'nullable|numeric',
+            'Price'=>'nullable|numeric',
         ]);
 
         $compostEntry = CompostEntry::findOrFail($validated['ProductableID']);
@@ -50,7 +52,7 @@ class SubscriptionController extends Controller
             'ProductableID' => $validated['ProductableID'],
             'StartDate' => $validated['StartDate'],
             'EndDate' => $validated['EndDate'],
-            'Price' => $price,
+            'Price' => $validated['Price'],
             'Status' => 'Active',
             'Reason' => $reason,
             'PointEarned' => $pointEarned,
