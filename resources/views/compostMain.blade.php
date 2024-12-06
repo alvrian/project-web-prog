@@ -36,10 +36,10 @@
                   <div>: Waste Pickup</div>
                   <div>: {{ $d->Price }}</div>
                 </div>
-                <div class = "col-5" style = "border-left: 1px solid grey">
+                <div class = "col-5 row" style = "border-left: 1px solid grey">
                   <div><strong>Action</strong></div>
                   @if($d->Status == 'Active')
-                  <form method="POST" action="{{ route('compost.subsManagePause') }}" class="pauseForm" data-subscription-id="{{ $d->SubscriptionID }}">
+                  <form method="POST" action="{{ route('compost.subsManagePause') }}" class="pauseForm col-2" data-subscription-id="{{ $d->SubscriptionID }}">
                       @csrf
                       <input type="hidden" name="subscriptionID" value="{{ $d->SubscriptionID }}">
                       <button class="btn mt-2" type="submit" style="background-color: #DFBE5C; color:white;"
