@@ -39,6 +39,12 @@ Route::prefix('restaurant-owner')->group(function () {
     Route::get('/create-waste-log', [WasteLogController::class, 'create'])->name('waste_log.create');
     Route::post('/create-waste-log', [WasteLogController::class, 'store'])->name('waste_log.store');
 
+    Route::resource('waste-logs', WasteLogController::class);
+    Route::get('waste-logs', [WasteLogController::class, 'index'])->name('waste_log.index');
+    Route::get('waste-logs/{id}/details', [WasteLogController::class, 'show'])->name('waste_log.show');
+    Route::get('waste-logs/{id}/edit', [WasteLogController::class, 'edit'])->name('waste_log.edit');
+    Route::put('waste-logs/{id}', [WasteLogController::class, 'update'])->name('waste_log.update');
+
 });
 
 Route::prefix('account')->middleware(['auth', 'verified'])->group(function () {
