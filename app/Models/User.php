@@ -63,4 +63,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(CompostProducer::class, 'user_id', 'id');
     }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'SubscriberID');
+    }
+
+    public function providedSubscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'ProviderID');
+    }
 }

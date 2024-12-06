@@ -43,7 +43,8 @@
                         <input type="hidden" name="compost_entry_id" value="{{ $compostEntry->id }}">
                         <input type="hidden" name="ProviderID" value="{{ $compostEntry->compost_producer_id }}">
                         <input type="hidden" name="SubscriberID" value="{{ auth()->id() }}">
-                        <input type="hidden" name="Products" value="{{ $compostEntry->id }}">
+                        <input type="hidden" name="Products[]" value="{{ $compostEntry->id }}">
+                        <input type="hidden" name="EndDate" id="EndDate">
 
                         <div class="modal-header">
                             <h5 class="modal-title" id="subscribeModalLabel">Confirm Subscription</h5>
@@ -75,8 +76,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="end_date" class="form-label">End Date</label>
-                                <input type="text" id="end_date" class="form-control" readonly>
+                                <label for="EndDate" class="form-label">End Date</label>
+                                <input type="text" id="EndDate" class="form-control" readonly>
                             </div>
 
                             <div class="mb-3">
@@ -160,7 +161,7 @@
             const day = String(endDate.getDate()).padStart(2, '0');
             const month = String(endDate.getMonth() + 1).padStart(2, '0');
             const year = endDate.getFullYear();
-            document.getElementById('end_date').value = `${day}/${month}/${year}`;
+            document.getElementById('EndDate').value = `${year}-${month}-${day}`;
             document.getElementById('price').value = '$' + price;
 
             setDefaultPoints(price);

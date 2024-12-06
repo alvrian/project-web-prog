@@ -11,7 +11,7 @@ class Subscription extends Model
 
     protected $table = 'subscription';
     protected $primaryKey = "SubscriberID";
-    
+
     protected $fillable = [
         'SubscriberID',
         'ProviderID',
@@ -25,7 +25,20 @@ class Subscription extends Model
         'PointEarned'
     ];
 
-    protected $casts = [
-        'Products' => 'array', // Automatically casts the JSON column to/from an array
-    ];
+    public function provider()
+    {
+        return $this->belongsTo(User::class, 'ProviderID');
+    }
+
+    public function productable()
+    {
+        return $this->morphTo();
+    }
+
+
+    public function subscriber()
+    {
+        return $this->belongsTo(User::class, 'SubscriberID');
+    }
+
 }

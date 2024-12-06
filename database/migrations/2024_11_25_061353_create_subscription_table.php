@@ -21,7 +21,8 @@ return new class extends Migration
             $table->date('EndDate');
             $table->string('Status');
             $table->string('Reason');
-            $table->json('Products')->nullable();
+            $table->string('ProductableType');
+            $table->unsignedBigInteger('ProductableID')->nullable();
             $table->unsignedBigInteger('Price');
             $table->unsignedBigInteger('PointEarned');
             $table->timestamps();
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->foreign('ProviderID')->references('id')->on('users')->onDelete('cascade');
         });
     }
+
 
     /**
      * Reverse the migrations.
