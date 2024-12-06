@@ -26,7 +26,7 @@
                 </ul>
                 <div class="d-flex justify-content-center mt-3">
                     <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Back</a>
-                    <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-success mx-2" data-bs-toggle="modal"
                             data-bs-target="#subscribeModal">
                         Subscribe
                     </button>
@@ -75,12 +75,6 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="EndDate" class="form-label">End Date</label>
-                                <input type="text" id="EndDate" class="form-control" readonly>
-                            </div>
-
-
-                            <div class="mb-3">
                                 <label for="price" class="form-label">Price</label>
                                 <input type="text" id="price" class="form-control" readonly>
                                 <div class="form-check form-switch mt-2">
@@ -104,17 +98,12 @@
                                 </div>
                             </div>
                             <input type="hidden" name="Price" id="hidden_price">
-
-                            <div class="mb-3">
-                                <label for="Reason" class="form-label">Reason (Optional)</label>
-                                <textarea id="Reason" class="form-control" name="Reason" rows="2"></textarea>
-                            </div>
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel
                             </button>
-                            <button type="submit" class="btn btn-primary">Confirm Subscription</button>
+                            <button type="submit" class="btn btn-success">Confirm Subscription</button>
                         </div>
                     </form>
 
