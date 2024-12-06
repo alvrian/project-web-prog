@@ -10,7 +10,7 @@ class Subscription extends Model
     use HasFactory;
 
     protected $table = 'subscription';
-    protected $primaryKey = "SubscriberID";
+    protected $primaryKey = "SubscriptionID";
 
     protected $fillable = [
         'SubscriberID',
