@@ -20,9 +20,10 @@ class Subscription extends Model
         'EndDate',
         'Status',
         'Reason',
-        'Products',
+        'ProductableType',
+        'ProductableID',
         'Price',
-        'PointEarned'
+        'PointEarned',
     ];
 
     public function provider()

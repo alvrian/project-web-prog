@@ -14,19 +14,19 @@
                     <strong>Price Per Item:</strong> ${{ $compostEntry->priceList->price_per_item ?? 'N/A' }}<br>
                     <strong>Subscription Prices:</strong>
                 </p>
-                <ul class="list-group">
-                    <li class="list-group-item">3 months:
-                        ${{ $compostEntry->priceList->price_per_subscription_3 ?? 'N/A' }}</li>
-                    <li class="list-group-item">6 months:
-                        ${{ $compostEntry->priceList->price_per_subscription_6 ?? 'N/A' }}</li>
-                    <li class="list-group-item">9 months:
-                        ${{ $compostEntry->priceList->price_per_subscription_9 ?? 'N/A' }}</li>
-                    <li class="list-group-item">12 months:
-                        ${{ $compostEntry->priceList->price_per_subscription_12 ?? 'N/A' }}</li>
+                <ul>
+                    <ul class="mb-1">3 months:
+                        ${{ $compostEntry->priceList->price_per_subscription_3 ?? 'N/A' }}</ul>
+                    <ul class="mb-1">6 months:
+                        ${{ $compostEntry->priceList->price_per_subscription_6 ?? 'N/A' }}</ul>
+                    <ul class="mb-1">9 months:
+                        ${{ $compostEntry->priceList->price_per_subscription_9 ?? 'N/A' }}</ul>
+                    <ul class="mb-1">12 months:
+                        ${{ $compostEntry->priceList->price_per_subscription_12 ?? 'N/A' }}</ul>
                 </ul>
                 <div class="d-flex justify-content-center mt-3">
                     <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Back</a>
-                    <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-success mx-2" data-bs-toggle="modal"
                             data-bs-target="#subscribeModal">
                         Subscribe
                     </button>
@@ -40,10 +40,10 @@
                 <div class="modal-content">
                     <form action="{{ route('subscription.store') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="compost_entry_id" value="{{ $compostEntry->id }}">
                         <input type="hidden" name="ProviderID" value="{{ $compostEntry->compost_producer_id }}">
                         <input type="hidden" name="SubscriberID" value="{{ auth()->id() }}">
-                        <input type="hidden" name="Products[]" value="{{ $compostEntry->id }}">
+                        <input type="hidden" name="ProductableType" value="compost_entries">
+                        <input type="hidden" name="ProductableID" value="{{ $compostEntry->id }}">
                         <input type="hidden" name="EndDate" id="EndDate">
 
                         <div class="modal-header">
@@ -53,19 +53,18 @@
 
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="subscription_type" class="form-label">Subscription Type</label>
-                                <select name="subscription_type" id="subscription_type" class="form-select" required>
+                                <label for="SubscriptionType" class="form-label">Subscription Type</label>
+                                <select name="SubscriptionType" id="SubscriptionType" class="form-select" required>
                                     <option value="" disabled selected>Select a subscription</option>
-                                    @if($compostEntry->priceList)
-                                        @foreach (['3' => 'price_per_subscription_3', '6' => 'price_per_subscription_6', '9' => 'price_per_subscription_9', '12' => 'price_per_subscription_12'] as $months => $field)
-                                            @if($compostEntry->priceList->$field)
-                                                <option value="{{ $months }}">{{ $months }} Months -
-                                                    ${{ $compostEntry->priceList->$field }}</option>
-                                            @endif
-                                        @endforeach
-                                    @else
-                                        <option value="" disabled>No subscription options available</option>
-                                    @endif
+                                    <option value="3">3 Months -
+                                        ${{ $compostEntry->priceList->price_per_subscription_3 }}</option>
+                                    <option value="6">6 Months -
+                                        ${{ $compostEntry->priceList->price_per_subscription_6 }}</option>
+                                    <option value="9">9 Months -
+                                        ${{ $compostEntry->priceList->price_per_subscription_9 }}</option>
+                                    <option value="12">12 Months -
+                                        ${{ $compostEntry->priceList->price_per_subscription_12 }}</option>
+
                                 </select>
                             </div>
 
@@ -73,11 +72,6 @@
                                 <label for="start_date" class="form-label">Start Date</label>
                                 <input type="date" id="start_date" name="StartDate" class="form-control"
                                        value="{{ now()->toDateString() }}" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="EndDate" class="form-label">End Date</label>
-                                <input type="text" id="EndDate" class="form-control" readonly>
                             </div>
 
                             <div class="mb-3">
@@ -103,19 +97,16 @@
                                     <input type="text" id="final_price" class="form-control" readonly>
                                 </div>
                             </div>
-
-                            <div class="mb-3">
-                                <label for="reason" class="form-label">Reason (Optional)</label>
-                                <textarea id="reason" class="form-control" name="Reason" rows="3"></textarea>
-                            </div>
+                            <input type="hidden" name="Price" id="hidden_price">
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel
                             </button>
-                            <button type="submit" class="btn btn-primary">Confirm Subscription</button>
+                            <button type="submit" class="btn btn-success">Confirm Subscription</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -138,52 +129,49 @@
     @endif
 
     <script>
-        document.getElementById('subscription_type').addEventListener('change', function () {
-            const subscriptionType = this.value;
-            const priceList = @json($compostEntry->priceList);
-            let endDate = new Date();
-            let price = 0;
-
-            if (subscriptionType === '3') {
-                endDate.setMonth(endDate.getMonth() + 3);
-                price = priceList.price_per_subscription_3;
-            } else if (subscriptionType === '6') {
-                endDate.setMonth(endDate.getMonth() + 6);
-                price = priceList.price_per_subscription_6;
-            } else if (subscriptionType === '9') {
-                endDate.setMonth(endDate.getMonth() + 9);
-                price = priceList.price_per_subscription_9;
-            } else if (subscriptionType === '12') {
-                endDate.setMonth(endDate.getMonth() + 12);
-                price = priceList.price_per_subscription_12;
-            }
-
-            const day = String(endDate.getDate()).padStart(2, '0');
-            const month = String(endDate.getMonth() + 1).padStart(2, '0');
-            const year = endDate.getFullYear();
-            document.getElementById('EndDate').value = `${year}-${month}-${day}`;
-            document.getElementById('price').value = '$' + price;
-
-            setDefaultPoints(price);
-            updateFinalPrice(price);
-        });
-
         document.addEventListener('DOMContentLoaded', function () {
+            const subscriptionTypeSelect = document.getElementById('SubscriptionType');
+            const startDateInput = document.getElementById('start_date');
+            const endDateInput = document.getElementById('EndDate');
+            const priceInput = document.getElementById('price');
             const redeemPointsCheckbox = document.getElementById('redeem_points');
             const pointsInfo = document.getElementById('points_info');
             const pointsUsedInput = document.getElementById('points_used');
             const pointsWarning = document.getElementById('points_warning');
             const finalPriceInput = document.getElementById('final_price');
+            const hiddenPriceInput = document.getElementById('hidden_price');
+
             const maxPoints = {{ $totalPoints }};
             let basePrice = 0;
 
+            const prices = {
+                3: {{ $compostEntry->priceList->price_per_subscription_3 ?? '0' }},
+                6: {{ $compostEntry->priceList->price_per_subscription_6 ?? '0' }},
+                9: {{ $compostEntry->priceList->price_per_subscription_9 ?? '0' }},
+                12: {{ $compostEntry->priceList->price_per_subscription_12 ?? '0' }}
+            };
+
+            subscriptionTypeSelect.addEventListener('change', function () {
+                const selectedOption = this.value;
+                basePrice = prices[selectedOption] || 0;
+
+                priceInput.value = `$${basePrice.toFixed(2)}`;
+                hiddenPriceInput.value = basePrice.toFixed(2);
+
+                const startDate = new Date(startDateInput.value);
+                if (selectedOption) {
+                    startDate.setMonth(startDate.getMonth() + parseInt(selectedOption));
+                    endDateInput.value = startDate.toISOString().split('T')[0];
+                }
+
+                updateFinalPrice();
+            });
+
             redeemPointsCheckbox.addEventListener('change', function () {
                 pointsInfo.style.display = this.checked ? 'block' : 'none';
-                if (!this.checked) {
-                    pointsUsedInput.value = '';
-                    pointsWarning.style.display = 'none';
-                    finalPriceInput.value = `$${basePrice.toFixed(2)}`;
-                }
+                pointsUsedInput.value = '';
+                pointsWarning.style.display = 'none';
+                updateFinalPrice();
             });
 
             pointsUsedInput.addEventListener('input', function () {
@@ -199,24 +187,42 @@
                     finalPriceInput.value = 'N/A';
                 } else {
                     pointsWarning.style.display = 'none';
-                    const discount = pointsUsed / 100; // Assuming 1 point = $0.01
-                    const finalPrice = Math.max(basePrice - discount, 0);
-                    finalPriceInput.value = `$${finalPrice.toFixed(2)}`;
+                    updateFinalPrice(pointsUsed);
                 }
             });
 
-            const subscriptionTypeSelect = document.getElementById('subscription_type');
-            subscriptionTypeSelect.addEventListener('change', function () {
-                const selectedOption = this.value;
-                const prices = {
-                    3: {{ $compostEntry->priceList->price_per_subscription_3 ?? '0' }},
-                    6: {{ $compostEntry->priceList->price_per_subscription_6 ?? '0' }},
-                    9: {{ $compostEntry->priceList->price_per_subscription_9 ?? '0' }},
-                    12: {{ $compostEntry->priceList->price_per_subscription_12 ?? '0' }}
-                };
-                basePrice = prices[selectedOption] || 0;
-                finalPriceInput.value = `$${basePrice.toFixed(2)}`;
-            });
+            function updateFinalPrice(pointsUsed = 0) {
+                const discount = pointsUsed || 0;
+                const finalPrice = Math.max(basePrice - discount, 0);
+                finalPriceInput.value = `$${finalPrice.toFixed(2)}`;
+                hiddenPriceInput.value = finalPrice.toFixed(2);
+            }
         });
+
+        document.getElementById('SubscriptionType').addEventListener('change', function () {
+            const subscriptionType = this.value;
+            let endDate = new Date();
+            if (subscriptionType === '3') {
+                endDate.setMonth(endDate.getMonth() + 3);
+            } else if (subscriptionType === '6') {
+                endDate.setMonth(endDate.getMonth() + 6);
+            } else if (subscriptionType === '9') {
+                endDate.setMonth(endDate.getMonth() + 9);
+            } else if (subscriptionType === '12') {
+                endDate.setMonth(endDate.getMonth() + 12);
+            }
+            const day = String(endDate.getDate()).padStart(2, '0');
+            const month = String(endDate.getMonth() + 1).padStart(2, '0');
+            const year = endDate.getFullYear();
+            document.getElementById('EndDate').value = `${day}/${month}/${year}`;
+        });
+
     </script>
 </x-layout>
+
+@if(session('subscription_data'))
+    <script>
+        console.log('Subscription Data:', @json(session('subscription_data')));
+    </script>
+@endif
+
