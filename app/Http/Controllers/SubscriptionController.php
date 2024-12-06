@@ -13,7 +13,6 @@ class SubscriptionController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'compost_entry_id' => 'required|exists:compost_entries,id',
             'ProviderID' => 'required|exists:users,id',
             'SubscriberID' => 'required|exists:users,id',
             'subscription_type' => 'required|in:3,6,9,12',
@@ -21,19 +20,35 @@ class SubscriptionController extends Controller
             'EndDate' => 'required|date|after_or_equal:StartDate',
             'points_used' => 'nullable|integer|min:0',
             'Reason' => 'nullable|string|max:255',
-            'Products' => 'required|array',
+            'ProductableType' => 'required|in:crops,waste_log,compost_entries',
+            'ProductableID' => 'required|integer',
         ]);
 
-        $compostEntry = CompostEntry::with('priceList')->findOrFail($request->compost_entry_id);
+        $user = auth()->user();
+        $pointsUsed = $request->points_used ?? 0;
+
+        $product = null;
+        switch ($request->ProductableType) {
+            case 'crops':
+                $product = \App\Models\Crop::findOrFail($request->ProductableID);
+                break;
+            case 'waste_log':
+                $product = \App\Models\WasteLog::findOrFail($request->ProductableID);
+                break;
+            case 'compost_entries':
+                $product = CompostEntry::findOrFail($request->ProductableID);
+                break;
+            default:
+                return redirect()->back()->withErrors(['error' => 'Invalid product type.'])->withInput();
+        }
+
         $priceField = 'price_per_subscription_' . $request->subscription_type;
 
-        if (!isset($compostEntry->priceList->$priceField)) {
+        if (!isset($product->priceList->$priceField)) {
             return redirect()->back()->withErrors(['error' => 'Invalid subscription type or price unavailable.'])->withInput();
         }
 
-        $price = $compostEntry->priceList->$priceField;
-        $user = auth()->user();
-        $pointsUsed = $request->points_used ?? 0;
+        $price = $product->priceList->$priceField;
 
         if ($request->redeem_points && $pointsUsed > 0) {
             if ($pointsUsed > $user->points_balance) {
@@ -44,7 +59,7 @@ class SubscriptionController extends Controller
         }
 
         try {
-            \DB::transaction(function () use ($request, $compostEntry, $user, $price, $pointsUsed) {
+            \DB::transaction(function () use ($request, $user, $product, $price, $pointsUsed) {
                 if ($request->redeem_points && $pointsUsed > 0) {
                     $user->points_balance -= $pointsUsed;
                     $user->save();
@@ -52,23 +67,24 @@ class SubscriptionController extends Controller
 
                 $subscription = Subscription::create([
                     'SubscriberID' => $user->id,
-                    'ProviderID' => $compostEntry->compost_producer_id,
+                    'ProviderID' => $request->ProviderID,
                     'SubscriptionType' => (int)$request->subscription_type,
                     'StartDate' => $request->StartDate,
                     'EndDate' => $request->EndDate,
                     'Status' => 'Active',
                     'Reason' => $request->Reason ?? '',
-                    'Products' => [$compostEntry->id],
+                    'ProductableType' => $request->ProductableType,
+                    'ProductableID' => $product->id,
                     'Price' => $price,
                     'PointEarned' => round($price / 10),
                 ]);
 
-                if ($subscription->PointEarned > 0) {
+               if ($subscription->PointEarned > 0) {
                     PointsTransaction::create([
-                        'ParticipantID' => $compostEntry->compost_producer_id,
-                        'TransactionType' => 'Compost Delivery',
+                        'ParticipantID' => $request->ProviderID,
+                        'TransactionType' => 'Subscription Delivery',
                         'Points' => $subscription->PointEarned,
-                        'Description' => "Points earned for compost delivery to Farmer #{$user->id}",
+                        'Description' => "Points earned for subscription by Farmer #{$user->id}",
                         'Date' => now(),
                         'Status' => 'Completed',
                     ]);
