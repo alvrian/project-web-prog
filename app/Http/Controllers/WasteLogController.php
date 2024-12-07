@@ -80,4 +80,15 @@ class WasteLogController extends Controller
 
         return redirect()->route('waste_log.show', ['id' => $entry->id])->with('success', 'Waste Log details updated successfully.');
     }
+
+
+    public function list()
+    {
+        $wasteLogs = WasteLog::where('RestaurantOwnerID', '1')
+            ->orderBy('DateLogged', 'desc')
+            ->paginate(10);
+
+        return view('wasteReport', compact('wasteLogs'));
+    }
+
 }
