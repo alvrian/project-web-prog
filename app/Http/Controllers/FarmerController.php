@@ -97,9 +97,15 @@ class FarmerController extends Controller
     {
         $user = auth()->user();
 
-        $farmer = Farmer::findOrFail($farmerId);
-        $crop = Crop::findOrFail($cropId);
+        if ($user->role === "restaurant_owner") {
+            $totalPoints = $user->restaurantOwner->PointsBalance ?? 0;
+        }
 
-        return view('farmers.show-detail', compact('farmer', 'crop'));
+        $farmer = Farmer::findOrFail($farmerId);
+
+        $crop = Crop::with('priceList')->findOrFail($cropId);
+
+        return view('farmers.show-detail', compact('farmer', 'crop', 'totalPoints'));
     }
+
 }

@@ -1,5 +1,5 @@
 <x-layout>
-    <x-navbar />
+    <x-navbar/>
 
     <div class="container">
         <h1 class="text-center mt-4 mb-4">Crop Details</h1>
@@ -16,7 +16,7 @@
                     {{ $crop->availability_start ? $crop->availability_start->format('d M Y') : 'N/A' }}
                     to
                     {{ $crop->availability_end ? $crop->availability_end->format('d M Y') : 'N/A' }}<br>
-                    <strong>Price:</strong> ${{ $crop->prices->price_per_unit ?? 'N/A' }}
+                    <strong>Price:</strong> ${{ $crop->priceList->price_per_item ?? 'N/A' }}
                 </p>
                 <div class="d-flex justify-content-center mt-3">
                     <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">Back</a>
@@ -50,10 +50,14 @@
                                 <label for="SubscriptionType" class="form-label">Subscription Type</label>
                                 <select name="SubscriptionType" id="SubscriptionType" class="form-select" required>
                                     <option value="" disabled selected>Select a subscription</option>
-                                    <option value="3">3 Months - ${{ $crop->prices->price_per_subscription_3 ?? 'N/A' }}</option>
-                                    <option value="6">6 Months - ${{ $crop->prices->price_per_subscription_6 ?? 'N/A' }}</option>
-                                    <option value="9">9 Months - ${{ $crop->prices->price_per_subscription_9 ?? 'N/A' }}</option>
-                                    <option value="12">12 Months - ${{ $crop->prices->price_per_subscription_12 ?? 'N/A' }}</option>
+                                    <option value="3">3 Months -
+                                        ${{ $crop->priceList->price_per_subscription_3 ?? 'N/A' }}</option>
+                                    <option value="6">6 Months -
+                                        ${{ $crop->priceList->price_per_subscription_6 ?? 'N/A' }}</option>
+                                    <option value="9">9 Months -
+                                        ${{ $crop->priceList->price_per_subscription_9 ?? 'N/A' }}</option>
+                                    <option value="12">12 Months -
+                                        ${{ $crop->priceList->price_per_subscription_12 ?? 'N/A' }}</option>
                                 </select>
                             </div>
 
@@ -70,7 +74,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel
+                            </button>
                             <button type="submit" class="btn btn-success">Confirm Subscription</button>
                         </div>
                     </form>
@@ -103,10 +108,10 @@
             const priceInput = document.getElementById('price');
 
             const prices = {
-                3: {{ $crop->prices->price_per_subscription_3 ?? '0' }},
-                6: {{ $crop->prices->price_per_subscription_6 ?? '0' }},
-                9: {{ $crop->prices->price_per_subscription_9 ?? '0' }},
-                12: {{ $crop->prices->price_per_subscription_12 ?? '0' }}
+                3: {{ $crop->priceList->price_per_subscription_3 ?? '0' }},
+                6: {{ $crop->priceList->price_per_subscription_6 ?? '0' }},
+                9: {{ $crop->priceList->price_per_subscription_9 ?? '0' }},
+                12: {{ $crop->priceList->price_per_subscription_12 ?? '0' }}
             };
 
             subscriptionTypeSelect.addEventListener('change', function () {

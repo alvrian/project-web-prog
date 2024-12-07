@@ -45,4 +45,6 @@ class Crop extends Model
         return $this->hasOne(PriceListCrop::class, 'crop_id');
     }
 
+
+
 }
