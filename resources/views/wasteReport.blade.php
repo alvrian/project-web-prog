@@ -29,6 +29,8 @@
                                     <td>{{ $log->WasteType }}</td>
                                     <td>{{ number_format($log->Weight, 2) }}</td>
                                 </tr>
+                                <a href="{{ route('waste_log.show', $entry->id) }}" class="btn btn-light">View
+                                    Details</a>
 
                             @empty
                                 <tr>

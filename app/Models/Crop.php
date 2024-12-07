@@ -39,4 +39,10 @@ class Crop extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    public function priceList()
+    {
+        return $this->hasOne(PriceListCrop::class, 'crop_id');
+    }
+
 }
