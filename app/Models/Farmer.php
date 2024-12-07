@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Farmer extends Model
 {
     use HasFactory;
+
     protected $table = 'farmer';
-    protected $primaryKey = 'FarmerID';
+    protected $primaryKey = 'user_id';
+    public $incrementing = false;
+    protected $fillable = ['Name', 'user_id', 'Location', 'CropTypesProduced', 'HarvestSchedule', 'AverageCropAmount', 'PointsBalance', 'AmountBalance'];
 
     public function subscriptions()
     {
@@ -26,8 +29,25 @@ class Farmer extends Model
         return $this->belongsToMany(RestaurantOwner::class, 'restaurant_owner_farmer', 'FarmerID', 'RestaurantOwnerID');
     }
 
-    public function compostProducers()
+    public function compostProducers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(CompostProducer::class, 'compost_producer_farmer', 'FarmerID', 'CompostProducerID');
+        return $this->belongsToMany(
+            CompostProducer::class,
+            'compost_producer_farmer',
+            'FarmerID',
+            'CompostProducerID'
+        );
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function totalPoints()
+    {
+        $earned = $this->pointsTransactions()->where('TransactionType', 'Earned')->where('Status', 'Completed')->sum('Points');
+        $redeemed = $this->pointsTransactions()->where('TransactionType', 'Redeemed')->where('Status', 'Completed')->sum('Points');
+        return $earned - $redeemed;
     }
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('waste_log', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->id('WasteLogID');
+            $table->id('id');
             $table->unsignedBigInteger('RestaurantOwnerID');
             $table->string('WasteType');
             $table->decimal('Weight', 8, 2);

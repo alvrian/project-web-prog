@@ -2,11 +2,55 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompostEntry;
+use App\Models\Farmer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FarmerController extends Controller
 {
-    public function index (){
+    public function index()
+    {
         return view("farmerMain");
+    }
+
+    public function subscribeToProducers(Request $request)
+    {
+        $farmer = auth()->user()->farmer;
+
+        if (!$farmer) {
+            return redirect()->back()->with('error', 'You do not have access to this section.');
+        }
+
+        $request->validate([
+            'producer_ids' => 'required|array',
+            'producer_ids.*' => 'exists:compost_producer,user_id',
+        ]);
+
+        $farmer->compostProducers()->sync($request->producer_ids);
+
+        return redirect()->route('producers.index')->with('success', 'Subscriptions updated successfully.');
+    }
+
+    public function details($composterId, $compostId)
+    {
+        $farmer = Farmer::where('user_id', Auth::id())->firstOrFail();
+        $totalPoints = $farmer->totalPoints();
+
+        $compostEntry = CompostEntry::with(['priceList', 'compostProducer'])
+            ->where('compost_producer_id', $composterId)
+            ->findOrFail($compostId);
+
+        return view('composters.show-detail', compact('compostEntry', 'totalPoints'));
+    }
+
+
+    public function showPoints()
+    {
+        $farmer = Farmer::where('user_id', Auth::id())->firstOrFail();
+
+        $totalPoints = $farmer->totalPoints();
+
+        return view('farmer.points', compact('totalPoints'));
     }
 }

@@ -21,14 +21,17 @@ return new class extends Migration
             $table->date('EndDate');
             $table->string('Status');
             $table->string('Reason');
+            $table->string('ProductableType');
+            $table->unsignedBigInteger('ProductableID')->nullable();
             $table->unsignedBigInteger('Price');
             $table->unsignedBigInteger('PointEarned');
             $table->timestamps();
 
-            $table->foreign('SubscriberID')->references('id')->on('restaurant_owner')->onDelete('cascade');
-            $table->foreign('ProviderID')->references('id')->on('farmer')->onDelete('cascade');
+            $table->foreign('SubscriberID')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('ProviderID')->references('id')->on('users')->onDelete('cascade');
         });
     }
+
 
     /**
      * Reverse the migrations.

@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Subscription extends Model
 {
     use HasFactory;
+
     protected $table = 'subscription';
+    protected $primaryKey = "SubscriptionID";
 
     protected $fillable = [
         'SubscriberID',
@@ -18,7 +20,26 @@ class Subscription extends Model
         'EndDate',
         'Status',
         'Reason',
+        'ProductableType',
+        'ProductableID',
         'Price',
-        'PointEarned'
+        'PointEarned',
     ];
+
+    public function provider()
+    {
+        return $this->belongsTo(User::class, 'ProviderID');
+    }
+
+    public function productable()
+    {
+        return $this->morphTo();
+    }
+
+
+    public function subscriber()
+    {
+        return $this->belongsTo(User::class, 'SubscriberID');
+    }
+
 }

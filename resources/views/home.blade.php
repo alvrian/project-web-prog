@@ -51,7 +51,7 @@
         </div>
         <span style = "width: 85vw;font-weight:bold;font-size: 24px;">Work Together with Us</span>
         <div class = "d-flex justify-content-between " style = "width: 85vw;">
-                <a href = "/restaurant" style="text-decoration: none;">
+                <a href = "{{ route('restaurant.index') }}" style="text-decoration: none;">
                     <div class="card d-flex justify-content-center align-items-center" 
                     style="width: 25vw;height: 30rem;color:white;background-color:#43553D;border-radius:12px;max-width: 400px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);">
                         <img src = "{{ asset('images/home-restaurantLogo.png') }}" 
@@ -61,7 +61,7 @@
                         </span>
                     </div>
                 </a>
-                <a href = "/compost" style="text-decoration: none;">
+                <a href = "/compost-producer" style="text-decoration: none;">
                     <div class="card d-flex justify-content-center align-items-center" 
                     style="width: 25vw;height: 30rem;color:white;background-color:#43553D;border-radius:12px;max-width: 400px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);">
                         <img src = "{{ asset('images/home-compostLogo.png') }}" 

@@ -4,12 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -17,8 +19,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'username',
-        'age'
+        'name',
+        'email', 'password', 'role'
     ];
     // walaupun udah timestamp off
     public $timestamps = false;
@@ -47,8 +49,28 @@ class User extends Authenticatable
         ];
     }
 
-    public function tweets()
+    public function restaurantOwner(): HasOne
     {
-        return $this->hasMany(Tweet::class);
+        return $this->hasOne(RestaurantOwner::class, 'user_id', 'id');
+    }
+
+    public function farmer(): HasOne
+    {
+        return $this->hasOne(Farmer::class, 'user_id', 'id');
+    }
+
+    public function compostProducer(): HasOne
+    {
+        return $this->hasOne(CompostProducer::class, 'user_id', 'id');
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'SubscriberID');
+    }
+
+    public function providedSubscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'ProviderID');
     }
 }

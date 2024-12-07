@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class RestaurantOwner extends Model
 {
     use HasFactory;
+
     protected $table = 'restaurant_owner';
-    protected $primaryKey = 'RestaurantOwnerID';
+    protected $primaryKey = 'user_id';
+    public $incrementing = false;
+    protected $fillable = ['user_id', 'Name', 'Location', 'Type', 'AverageFoodWastePerMonth', 'PointsBalance', 'AmountBalance'];
 
     public function wasteLogs()
     {
@@ -34,5 +37,10 @@ class RestaurantOwner extends Model
     public function compostProducers()
     {
         return $this->belongsToMany(CompostProducer::class, 'compost_producer_farmer', 'RestaurantOwnerID', 'CompostProducerID');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
