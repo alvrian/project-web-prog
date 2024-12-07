@@ -35,7 +35,7 @@ require __DIR__ . '/auth.php';
 
 Route::prefix('restaurant-owner')->group(function () {
     Route::get('/', [RestaurantController::class, 'index'])->name('restaurant.index');
-
+    Route::get('/waste-report', [WasteLogController::class, 'list'])->name('waste_log.list');
     Route::get('/create-waste-log', [WasteLogController::class, 'create'])->name('waste_log.create');
     Route::post('/create-waste-log', [WasteLogController::class, 'store'])->name('waste_log.store');
 

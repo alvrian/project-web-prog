@@ -98,11 +98,14 @@ class WasteLogController extends Controller
         return view('waste_log.index', compact('wasteLogs'));
     }
 
-    public function report()
+
+    public function list()
     {
-        
-        $wasteLogs = WasteLog::orderBy('DateLogged', 'desc')->get();
-        return view('restaurantWasteReport', compact('wasteLogs'));
+        $wasteLogs = WasteLog::where('RestaurantOwnerID', '1')
+            ->orderBy('DateLogged', 'desc')
+            ->paginate(10);
+
+        return view('wasteReport', compact('wasteLogs'));
     }
 
 }
