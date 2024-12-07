@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             PricesTableSeeder::class,
             PriceListCompostSeeder::class,
             SubscriptionSeeder::class,
+            CropPriceListSeeder::class,
         ]);
     }
 }

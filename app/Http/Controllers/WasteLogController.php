@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Crop;
+use App\Models\RestaurantOwner;
 use App\Models\WasteLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -90,5 +91,43 @@ class WasteLogController extends Controller
 
         return view('wasteReport', compact('wasteLogs'));
     }
+
+    public function indexOwner(Request $request)
+    {
+        $query = RestaurantOwner::with('wasteLogs');
+
+        if ($request->filled('name')) {
+            $query->where('Name', 'like', '%' . $request->input('name') . '%');
+        }
+
+        $wasteLogs = $query->get();
+
+        return view('waste_logs.index', compact('wasteLogs'));
+    }
+
+    public function showOwner($ownerID)
+    {
+        $restaurantOwner = RestaurantOwner::with('wasteLogs')
+            ->where('id', $ownerID)
+            ->first();
+
+        if (!$restaurantOwner) {
+            return abort(404, 'Restaurant Owner not found.');
+        }
+
+        $wasteLogs = WasteLog::where('RestaurantOwnerID', $ownerID)->get();
+
+        return view('waste_logs.show', compact('restaurantOwner', 'wasteLogs'));
+    }
+
+    public function detailOwner($ownerID, $wastelogID)
+    {
+        $wasteLog = WasteLog::with('restaurantOwner')
+            ->where('RestaurantOwnerID', $ownerID)
+            ->findOrFail($wastelogID);
+
+        return view('waste_logs.show-detail', compact('wasteLog'));
+    }
+
 
 }

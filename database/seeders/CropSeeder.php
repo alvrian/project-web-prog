@@ -24,7 +24,10 @@ class CropSeeder extends Seeder
                 'availability_end' => $faker->dateTimeBetween('now', '+1 year')->format('Y-m-d'),
             ]);
         }
+
+
     }
+
 }
 
 

@@ -45,6 +45,12 @@ Route::prefix('restaurant-owner')->group(function () {
     Route::get('waste-logs/{id}/edit', [WasteLogController::class, 'edit'])->name('waste_log.edit');
     Route::put('waste-logs/{id}', [WasteLogController::class, 'update'])->name('waste_log.update');
 
+    Route::prefix('farmers')->name('farmers.')->group(function () {
+        Route::get('/', [FarmerController::class, 'indexFarmer'])->name('index');
+        Route::get('/farmerId={farmerId}', [FarmerController::class, 'showFarmer'])->name('show');
+        Route::get('/farmerId={farmerId}/cropId={cropId}/details', [FarmerController::class, 'detailsFarmer'])->name('show-detail');
+    });
+    Route::post('/subscribe', [SubscriptionController::class, 'storeROSubscribeCrop'])->name('subscription.store');
 });
 
 Route::prefix('account')->middleware(['auth', 'verified'])->group(function () {
@@ -73,6 +79,12 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
     Route::put('composts/{id}', [CompostEntryController::class, 'update'])->name('compost.update');
 
     Route::post('/prices', [PriceListCompostController::class, 'store'])->name('price.store');
+
+    Route::prefix('resto-owners')->name('resto-owners.')->group(function () {
+        Route::get('/', [WasteLogController::class, 'indexOwner'])->name('index');
+        Route::get('/ownerID={ownerID}', [WasteLogController::class, 'showOwner'])->name('show');
+        Route::get('/ownerID={ownerID}/wastelogID={wastelogID}/details', [WasteLogController::class, 'detailOwner'])->name('show-detail');
+    });
 });
 
 
@@ -101,7 +113,7 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function () {
         Route::get('/composterId={composterId}', [CompostProducerController::class, 'show'])->name('show');
         Route::get('/composterId={composterId}/compostId={compostId}/details', [CompostProducerController::class, 'details'])->name('show-detail');
     });
-    Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscription.store');
+    Route::post('/subscribe', [SubscriptionController::class, 'storeFarmerSubscribeCompost'])->name('subscription.store');
     Route::get('/points', [FarmerController::class, 'showPoints'])->name('farmer.points');
 
     Route::post("/sub-manage-resume", [FarmerController::class, "subsManagementResume"])->name('farmer.subsManageResume');

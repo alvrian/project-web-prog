@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CompostEntry;
+use App\Models\CompostProducer;
+use App\Models\Crop;
 use App\Models\Farmer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,4 +72,40 @@ class FarmerController extends Controller
 
         return redirect()->back();
     }
+    public function indexFarmer(Request $request)
+    {
+        $query = Farmer::query();
+
+        if ($request->filled('name')) {
+            $query->where('Name', 'like', '%' . $request->input('name') . '%');
+        }
+
+        $farmers = $query->get();
+
+        return view('farmers.index', compact('farmers'));
+    }
+
+    public function showFarmer($farmerId)
+    {
+        $farmer = Farmer::findOrFail($farmerId);
+        $crops = Crop::where('farmer_id', $farmerId)->get();
+
+        return view('farmers.show', compact('farmer', 'crops'));
+    }
+
+    public function detailsFarmer($farmerId, $cropId)
+    {
+        $user = auth()->user();
+
+        if ($user->role === "restaurant_owner") {
+            $totalPoints = $user->restaurantOwner->PointsBalance ?? 0;
+        }
+
+        $farmer = Farmer::findOrFail($farmerId);
+
+        $crop = Crop::with('priceList')->findOrFail($cropId);
+
+        return view('farmers.show-detail', compact('farmer', 'crop', 'totalPoints'));
+    }
+
 }
