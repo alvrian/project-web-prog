@@ -14,10 +14,10 @@ class Farmer extends Model
     public $incrementing = false;
     protected $fillable = ['Name', 'user_id', 'Location', 'CropTypesProduced', 'HarvestSchedule', 'AverageCropAmount', 'PointsBalance', 'AmountBalance'];
 
-    public function subscriptions()
-    {
-        return $this->hasMany(Subscription::class, 'ProviderID');
-    }
+//    public function subscriptions()
+//    {
+//        return $this->hasMany(Subscription::class, 'ProviderID');
+//    }
 
     public function pointsTransactions()
     {
@@ -41,7 +41,7 @@ class Farmer extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function totalPoints()
@@ -56,5 +56,9 @@ class Farmer extends Model
        return $this->pointsTransactions()->sum('points');
     }
 
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'ProviderID');
+    }
 
 }

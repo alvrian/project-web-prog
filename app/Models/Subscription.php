@@ -28,8 +28,9 @@ class Subscription extends Model
 
     public function provider()
     {
-        return $this->belongsTo(User::class, 'ProviderID');
+        return $this->belongsTo(Farmer::class, 'ProviderID');
     }
+
 
     public function productable()
     {

@@ -69,8 +69,29 @@
 
                             <div class="mb-3">
                                 <label for="price" class="form-label">Price</label>
+                                <p>{{ $crop->farmer_id }}</p>
                                 <input type="text" id="price" class="form-control" readonly>
+                                <div class="form-check form-switch mt-2">
+                                    <input class="form-check-input" type="checkbox" id="redeem_points"
+                                           name="redeem_points" value="1">
+                                    <label class="form-check-label" for="redeem_points">Redeem Points</label>
+                                </div>
+                                <div id="points_info" class="mt-3" style="display: none;">
+                                    <div class="mb-2">
+                                        <label for="points_used" class="form-label">Points to Redeem</label>
+                                        <input type="number" id="points_used" name="points_used" class="form-control"
+                                               min="0" max="{{ $totalPoints }}" placeholder="Enter points">
+                                    </div>
+                                    <p class="text-muted">You have <strong>{{ $totalPoints }}</strong> points available.</p>
+                                    <div id="points_warning" class="text-danger small" style="display: none;">
+                                        Insufficient points balance.
+                                    </div>
+                                    <label for="final_price" class="form-label mt-2">Final Price</label>
+                                    <input type="text" id="final_price" class="form-control" readonly>
+                                </div>
                             </div>
+
+                            <input type="hidden" name="Price" id="hidden_price">
                         </div>
 
                         <div class="modal-footer">
@@ -106,6 +127,15 @@
             const startDateInput = document.getElementById('start_date');
             const endDateInput = document.getElementById('EndDate');
             const priceInput = document.getElementById('price');
+            const redeemPointsCheckbox = document.getElementById('redeem_points');
+            const pointsInfo = document.getElementById('points_info');
+            const pointsUsedInput = document.getElementById('points_used');
+            const pointsWarning = document.getElementById('points_warning');
+            const finalPriceInput = document.getElementById('final_price');
+            const hiddenPriceInput = document.getElementById('hidden_price');
+
+            const maxPoints = {{ $totalPoints }};
+            let basePrice = 0;
 
             const prices = {
                 3: {{ $crop->priceList->price_per_subscription_3 ?? '0' }},
@@ -116,16 +146,68 @@
 
             subscriptionTypeSelect.addEventListener('change', function () {
                 const selectedOption = this.value;
-                const price = prices[selectedOption] || 0;
+                basePrice = prices[selectedOption] || 0;
 
-                priceInput.value = `$${price.toFixed(2)}`;
+                priceInput.value = `$${basePrice.toFixed(2)}`;
+                hiddenPriceInput.value = basePrice.toFixed(2);
 
                 const startDate = new Date(startDateInput.value);
                 if (selectedOption) {
                     startDate.setMonth(startDate.getMonth() + parseInt(selectedOption));
                     endDateInput.value = startDate.toISOString().split('T')[0];
                 }
+
+                updateFinalPrice();
             });
+
+            redeemPointsCheckbox.addEventListener('change', function () {
+                pointsInfo.style.display = this.checked ? 'block' : 'none';
+                pointsUsedInput.value = '';
+                pointsWarning.style.display = 'none';
+                updateFinalPrice();
+            });
+
+            pointsUsedInput.addEventListener('input', function () {
+                const pointsUsed = parseInt(this.value) || 0;
+
+                if (pointsUsed > maxPoints) {
+                    pointsWarning.style.display = 'block';
+                    pointsWarning.textContent = 'You cannot use more points than your current balance.';
+                    finalPriceInput.value = 'N/A';
+                } else if (pointsUsed < 0) {
+                    pointsWarning.style.display = 'block';
+                    pointsWarning.textContent = 'Points cannot be negative.';
+                    finalPriceInput.value = 'N/A';
+                } else {
+                    pointsWarning.style.display = 'none';
+                    updateFinalPrice(pointsUsed);
+                }
+            });
+
+            function updateFinalPrice(pointsUsed = 0) {
+                const discount = pointsUsed || 0;
+                const finalPrice = Math.max(basePrice - discount, 0);
+                finalPriceInput.value = `$${finalPrice.toFixed(2)}`;
+                hiddenPriceInput.value = finalPrice.toFixed(2);
+            }
+        });
+
+        document.getElementById('SubscriptionType').addEventListener('change', function () {
+            const subscriptionType = this.value;
+            let endDate = new Date();
+            if (subscriptionType === '3') {
+                endDate.setMonth(endDate.getMonth() + 3);
+            } else if (subscriptionType === '6') {
+                endDate.setMonth(endDate.getMonth() + 6);
+            } else if (subscriptionType === '9') {
+                endDate.setMonth(endDate.getMonth() + 9);
+            } else if (subscriptionType === '12') {
+                endDate.setMonth(endDate.getMonth() + 12);
+            }
+            const day = String(endDate.getDate()).padStart(2, '0');
+            const month = String(endDate.getMonth() + 1).padStart(2, '0');
+            const year = endDate.getFullYear();
+            document.getElementById('EndDate').value = `${day}/${month}/${year}`;
         });
     </script>
 </x-layout>

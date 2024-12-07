@@ -50,6 +50,7 @@ Route::prefix('restaurant-owner')->group(function () {
         Route::get('/farmerId={farmerId}', [FarmerController::class, 'showFarmer'])->name('show');
         Route::get('/farmerId={farmerId}/cropId={cropId}/details', [FarmerController::class, 'detailsFarmer'])->name('show-detail');
     });
+    Route::post('/subscribe', [SubscriptionController::class, 'storeROSubscribeCrop'])->name('subscription.store');
 });
 
 Route::prefix('account')->middleware(['auth', 'verified'])->group(function () {
@@ -106,7 +107,7 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function () {
         Route::get('/composterId={composterId}', [CompostProducerController::class, 'show'])->name('show');
         Route::get('/composterId={composterId}/compostId={compostId}/details', [CompostProducerController::class, 'details'])->name('show-detail');
     });
-    Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscription.store');
+    Route::post('/subscribe', [SubscriptionController::class, 'storeFarmerSubscribeCompost'])->name('subscription.store');
     Route::get('/points', [FarmerController::class, 'showPoints'])->name('farmer.points');
 
     Route::post("/sub-manage-resume", [FarmerController::class, "subsManagementResume"])->name('farmer.subsManageResume');
