@@ -45,6 +45,11 @@ Route::prefix('restaurant-owner')->group(function () {
     Route::get('waste-logs/{id}/edit', [WasteLogController::class, 'edit'])->name('waste_log.edit');
     Route::put('waste-logs/{id}', [WasteLogController::class, 'update'])->name('waste_log.update');
 
+    Route::prefix('farmers')->name('farmers.')->group(function () {
+        Route::get('/', [FarmerController::class, 'indexFarmer'])->name('index');
+        Route::get('/farmerId={farmerId}', [FarmerController::class, 'showFarmer'])->name('show');
+        Route::get('/farmerId={farmerId}/cropId={cropId}/details', [FarmerController::class, 'detailsFarmer'])->name('show-detail');
+    });
 });
 
 Route::prefix('account')->middleware(['auth', 'verified'])->group(function () {
