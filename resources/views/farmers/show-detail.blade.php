@@ -32,7 +32,7 @@
              aria-labelledby="subscribeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form action="{{ route('subscription.store') }}" method="POST">
+                    <form action="{{ route('subscription.storeROSubscribeFarmer') }}" method="POST">
                         @csrf
                         <input type="hidden" name="ProviderID" value="{{ $crop->farmer_id }}">
                         <input type="hidden" name="SubscriberID" value="{{ auth()->id() }}">
@@ -69,7 +69,6 @@
 
                             <div class="mb-3">
                                 <label for="price" class="form-label">Price</label>
-                                <p>{{ $crop->farmer_id }}</p>
                                 <input type="text" id="price" class="form-control" readonly>
                                 <div class="form-check form-switch mt-2">
                                     <input class="form-check-input" type="checkbox" id="redeem_points"

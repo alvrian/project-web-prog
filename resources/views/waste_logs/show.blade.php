@@ -31,7 +31,7 @@
                                     <li>12 months: ${{ $log->priceList->price_per_subscription_12 ?? 'N/A' }}</li>
                                 </ul>
                                 </p>
-                                <a href="{{ route('resto-owners.show-detail', ['ownerID' => $owner->user_id, 'wasteLogId' => $log->id]) }}"
+                                <a href="{{ route('resto-owners.show-detail', ['ownerID' => $owner->user_id, 'wastelogID' => $log->id]) }}"
                                    class="btn btn-dark">View Details</a>
                             </div>
                         </div>
