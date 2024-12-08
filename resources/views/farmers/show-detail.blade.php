@@ -32,7 +32,7 @@
              aria-labelledby="subscribeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form action="{{ route('subscription.store') }}" method="POST">
+                    <form action="{{ route('subscription.storeROSubscribeFarmer') }}" method="POST">
                         @csrf
                         <input type="hidden" name="ProviderID" value="{{ $crop->farmer_id }}">
                         <input type="hidden" name="SubscriberID" value="{{ auth()->id() }}">

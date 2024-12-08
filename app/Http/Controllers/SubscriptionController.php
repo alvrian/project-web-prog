@@ -5,6 +5,7 @@ use App\Models\CompostEntry;
 use App\Models\CompostProducer;
 use App\Models\Crop;
 use App\Models\Farmer;
+use App\Models\RestaurantOwner;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,21 +31,7 @@ class SubscriptionController extends Controller
         ]);
 
         $compostEntry = CompostEntry::findOrFail($validated['ProductableID']);
-        $priceList = $compostEntry->priceList;
-
-        $prices = [
-            3 => $priceList->price_per_subscription_3 ?? null,
-            6 => $priceList->price_per_subscription_6 ?? null,
-            9 => $priceList->price_per_subscription_9 ?? null,
-            12 => $priceList->price_per_subscription_12 ?? null,
-        ];
-
-        $price = $prices[$validated['SubscriptionType']] ?? null;
-
-        if (!$price) {
-            return back()->withErrors(['SubscriptionType' => 'Invalid subscription type or price unavailable.']);
-        }
-
+        $price = $validated['Price'];
         $pointEarned = $price * 0.10;
 
         $farmer = Farmer::find(Auth::id());
@@ -92,12 +79,12 @@ class SubscriptionController extends Controller
 
     }
 
-    public function storeROSubscribeCrop(Request $request)
+    public function storeROSubscribeFarmer(Request $request)
     {
         Log::info('Form Data:', $request->all());
 
         $validated = $request->validate([
-            'ProviderID' => 'required|exists:subscriptions,ProviderID',
+            'ProviderID' => 'required|exists:farmer,user_id',
             'SubscriberID' => 'required|exists:users,id',
             'ProductableType' => 'required|string',
             'ProductableID' => 'required|exists:crops,id',
@@ -109,59 +96,43 @@ class SubscriptionController extends Controller
         ]);
 
         $crop = Crop::with('priceList')->findOrFail($validated['ProductableID']);
-        $priceList = $crop->priceList;
-
-        $prices = [
-            3 => $priceList->price_per_subscription_3 ?? null,
-            6 => $priceList->price_per_subscription_6 ?? null,
-            9 => $priceList->price_per_subscription_9 ?? null,
-            12 => $priceList->price_per_subscription_12 ?? null,
-        ];
-
-        $price = $prices[$validated['SubscriptionType']] ?? null;
-
-        if (!$price) {
-            return back()->withErrors(['SubscriptionType' => 'Invalid subscription type or price unavailable.']);
-        }
-
+        $price = $validated['Price'];
         $pointEarned = $price * 0.10;
 
-        $farmer = Farmer::where('user_id', $validated['ProviderID'])->first();
-        if (!$farmer) {
-            Log::error("Provider with ID {$validated['ProviderID']} not found.");
-            return back()->withErrors(['ProviderID' => 'The selected provider is invalid.']);
+        $restaurantOwner = RestaurantOwner::find(Auth::id());
+        if (!$restaurantOwner) {
+            return back()->withErrors(['Restaurant Owner not found for the authenticated user.']);
         }
 
-        $provider = Farmer::find($validated['ProviderID']);
-        if (!$provider) {
-            Log::error("Provider with ID {$validated['ProviderID']} not found.");
-            return back()->withErrors(['ProviderID' => 'The selected provider is invalid.']);
+        $farmer = Farmer::find($validated['ProviderID']);
+        if (!$farmer) {
+            return back()->withErrors(['Provider not found.']);
         }
 
         $pointsUsed = $validated['points_used'] ?? 0;
         if ($pointsUsed > 0) {
-            $pointsBalance = $farmer->PointsBalance();
+            $pointsBalance = $restaurantOwner->PointsBalance();
             if ($pointsUsed > $pointsBalance) {
                 return back()->withErrors(['points_used' => 'You do not have enough points to redeem.']);
             }
 
-            $farmer->PointsBalance -= $pointsUsed;
-            $farmer->save();
+            $restaurantOwner->PointsBalance -= $pointsUsed;
+            $restaurantOwner->save();
         }
 
-        $provider->PointsBalance += $pointEarned;
-        $provider->save();
-
+        $farmer->PointsBalance += $pointEarned;
+        $farmer->save();
+        $reason = $request->reason ?? '';
         $subscription = Subscription::create([
             'ProviderID' => $validated['ProviderID'],
             'SubscriberID' => $validated['SubscriberID'],
-            'ProductableType' => 'crops',
+            'ProductableType' => $validated['ProductableType'],
             'ProductableID' => $validated['ProductableID'],
             'StartDate' => $validated['StartDate'],
             'EndDate' => $validated['EndDate'],
-            'Price' => $price,
+            'Price' => $validated['Price'],
             'Status' => 'Active',
-            'Reason' => $validated['Reason'] ?? '',
+            'Reason' => $reason,
             'PointEarned' => $pointEarned,
             'SubscriptionType' => $validated['SubscriptionType'],
         ]);
