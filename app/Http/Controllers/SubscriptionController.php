@@ -93,6 +93,7 @@ class SubscriptionController extends Controller
             'SubscriptionType' => 'required|in:3,6,9,12',
             'Reason' => 'nullable|string',
             'Price' => 'nullable|numeric',
+            'points_used' => 'nullable|numeric',
         ]);
 
         $crop = Crop::with('priceList')->findOrFail($validated['ProductableID']);
@@ -109,7 +110,8 @@ class SubscriptionController extends Controller
             return back()->withErrors(['Provider not found.']);
         }
 
-        $pointsUsed = $validated['points_used'] ?? 0;
+        $pointsUsed = $validated['points_used'];
+
         if ($pointsUsed > 0) {
             $pointsBalance = $restaurantOwner->PointsBalance();
             if ($pointsUsed > $pointsBalance) {

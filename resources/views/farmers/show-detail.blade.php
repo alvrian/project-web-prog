@@ -69,7 +69,6 @@
 
                             <div class="mb-3">
                                 <label for="price" class="form-label">Price</label>
-                                <p>{{ $crop->farmer_id }}</p>
                                 <input type="text" id="price" class="form-control" readonly>
                                 <div class="form-check form-switch mt-2">
                                     <input class="form-check-input" type="checkbox" id="redeem_points"

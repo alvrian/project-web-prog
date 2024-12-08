@@ -43,4 +43,9 @@ class RestaurantOwner extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function PointsBalance()
+    {
+        return $this->pointsTransactions()->sum('points');
+    }
 }

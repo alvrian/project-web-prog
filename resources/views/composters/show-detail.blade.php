@@ -220,10 +220,3 @@
 
     </script>
 </x-layout>
-
-@if(session('subscription_data'))
-    <script>
-        console.log('Subscription Data:', @json(session('subscription_data')));
-    </script>
-@endif
-
