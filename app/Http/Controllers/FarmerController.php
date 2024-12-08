@@ -96,6 +96,7 @@ class FarmerController extends Controller
     public function detailsFarmer($farmerId, $cropId)
     {
         $user = auth()->user();
+        $totalPoints = 0;
 
         if ($user->role === "restaurant_owner") {
             $totalPoints = $user->restaurantOwner->PointsBalance ?? 0;

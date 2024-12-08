@@ -18,8 +18,20 @@ class WasteLog extends Model
         'DateLogged'
     ];
 
+    protected $casts = [
+        'DateLogged' => 'datetime',
+    ];
+
+
     public function restaurantOwner()
     {
         return $this->belongsTo(RestaurantOwner::class, 'RestaurantOwnerID');
     }
+
+    public function priceList()
+    {
+        return $this->hasOne(PriceListWasteLog::class, 'WasteLogID');
+    }
+
+
 }
