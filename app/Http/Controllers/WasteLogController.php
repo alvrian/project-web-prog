@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompostEntry;
+use App\Models\Crop;
 use App\Models\RestaurantOwner;
 use App\Models\WasteLog;
 use Illuminate\Http\Request;
@@ -124,14 +126,16 @@ class WasteLogController extends Controller
     public function detailOwner($ownerID, $wastelogID)
     {
         $user = auth()->user();
-
         $totalPoints = 0;
 
-        if ($user->role === "restaurant_owner") {
-            $totalPoints = $user->restaurantOwner->PointsBalance ?? 0;
+        if ($user->role === "compost_producer") {
+            $totalPoints = $user->compostProducer->PointsBalance ?? 0;
         }
 
-        $wasteLog = WasteLog::findOrFail($wastelogID);
+
+        $wasteLog = WasteLog::with(['priceList', 'compostProducer'])
+            ->where('RestaurantOwnerID', $ownerID)
+            ->findOrFail($wastelogID);
 
         return view('waste_logs.show-detail', compact('wasteLog', 'totalPoints'));
     }

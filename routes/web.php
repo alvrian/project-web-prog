@@ -85,6 +85,7 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
         Route::get('/ownerID={ownerID}', [WasteLogController::class, 'showOwner'])->name('show');
         Route::get('/ownerID={ownerID}/wastelogID={wastelogID}/details', [WasteLogController::class, 'detailOwner'])->name('show-detail');
     });
+    Route::post('/CPsubRO', [SubscriptionController::class, 'storeCPSubscribeRO'])->name('subscription.storeCPSubscribeRO');
 });
 
 
