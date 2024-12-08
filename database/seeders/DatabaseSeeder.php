@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             CompostProducerFarmerSeeder::class,
             RestaurantOwnerFarmerSeeder::class,
             CatalogSeeder::class,
-            WasteLogSeeder::class,
+            PriceListWasteLogSeeder::class,
             PickupScheduleSeeder::class,
             PointsTransactionSeeder::class,
             CompostEntrySeeder::class,
@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             PriceListCompostSeeder::class,
             SubscriptionSeeder::class,
             CropPriceListSeeder::class,
+            PriceListWasteLogSeeder::class,
         ]);
     }
 }
