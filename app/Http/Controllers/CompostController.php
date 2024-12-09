@@ -39,6 +39,16 @@ class CompostController extends Controller
 
         return redirect()->back();
     }
+
+    public function subsManageCancel(Request $req)
+    {
+        $subscription = Subscription::findOrFail($req->subscriptionID);
+        
+        $subscription->delete();
+
+        return redirect()->back()->with('success', 'Subscription has been canceled');
+    }
+
     public function schedule(Request $req)
     {
         $temp = User::where('email', $req->email)->first();

@@ -38,6 +38,9 @@ Route::prefix('restaurant-owner')->group(function () {
     Route::get('/waste-report', [WasteLogController::class, 'list'])->name('waste_log.list');
     Route::get('/create-waste-log', [WasteLogController::class, 'create'])->name('waste_log.create');
     Route::post('/create-waste-log', [WasteLogController::class, 'store'])->name('waste_log.store');
+    Route::post("/sub-manage-resume", [RestaurantController::class, "subsManagementResume"])->name('restaurant.subsManageResume');
+    Route::post("/sub-manage-pause", [RestaurantController::class, "subsManagementPause"])->name('restaurant.subsManagePause');
+    Route::post('/restaurant/subscription/cancel', [RestaurantController::class, 'subsManageCancel'])->name('restaurant.subsManageCancel');
 
     Route::resource('waste-logs', WasteLogController::class);
     Route::get('waste-logs', [WasteLogController::class, 'index'])->name('waste_log.index');
@@ -71,6 +74,7 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
     Route::post('/create-compost', [CompostEntryController::class, 'store'])->name('compost.store');
     Route::post("/sub-manage-resume", [CompostController::class, "subsManagementResume"])->name('compost.subsManageResume');
     Route::post("/sub-manage-pause", [CompostController::class, "subsManagementPause"])->name('compost.subsManagePause');
+    Route::post('/subscription/cancel', [CompostController::class, 'subsManageCancel'])->name('compost.subsManageCancel');
 
     Route::resource('composts', CompostEntryController::class);
     Route::get('composts', [CompostEntryController::class, 'index'])->name('compost.index');
