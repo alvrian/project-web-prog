@@ -30,7 +30,7 @@
         <div class="col-4 text-muted">
           <div>: {{ $d->providerEmail }}</div>
           <div>: {{ $d->StartDate }} to {{ $d->EndDate }}</div>
-          <div>: Waste Pickup</div>
+          <div>: {{ $d->ProductableType }}</div>
           <div>: {{ $d->Price }}</div>
         </div>
         <div class="col-5 row" style="border-left: 1px solid grey">

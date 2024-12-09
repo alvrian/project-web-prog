@@ -7,7 +7,11 @@
   @else
     <div style="padding: 1rem 5rem;font-family:&quot;Inter&quot;, serif;">
     <x-restaurant-pick-up-schedule /><br>
-    <h5>Lanjut isi sini apus nanti</h5>
+
+    <div style="padding: 1rem 5rem;font-family:&quot;Inter&quot;, serif;">
+        <span style="font-size: 20px;font-weight: 600;">Your Subscriptions</span>
+        <x-farmer-subscription />
+        
     </div>
   @endif
 </x-layout>
