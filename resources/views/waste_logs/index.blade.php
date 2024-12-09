@@ -12,8 +12,8 @@
                                value="{{ request('restaurant_name') }}">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" name="waste_type" class="form-control" placeholder="Filter by Waste Type"
-                               value="{{ request('waste_type') }}">
+                        <input type="text" name="type" class="form-control" placeholder="Filter by Type"
+                               value="{{ request('type') }}">
                     </div>
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-dark w-100">Filter</button>

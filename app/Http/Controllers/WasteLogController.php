@@ -96,14 +96,19 @@ class WasteLogController extends Controller
     {
         $query = RestaurantOwner::query();
 
-        if ($request->filled('name')) {
-            $query->where('Name', 'like', '%' . $request->input('name') . '%');
+        if ($request->filled('restaurant_name')) {
+            $query->where('Name', 'like', '%' . $request->input('restaurant_name') . '%');
         }
-
+    
+        if ($request->filled('type')) {
+            $query->where('Type', 'like', '%' . $request->input('type') . '%');
+        }
+    
         $restaurantOwners = $query->get();
 
         return view('waste_logs.index', compact('restaurantOwners'));
     }
+    
 
     public function showOwner($ownerID)
     {
