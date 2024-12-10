@@ -83,14 +83,15 @@ class WasteLogController extends Controller
     }
 
 
-    public function list()
+    public function list($restaurantOwnerID)
     {
-        $wasteLogs = WasteLog::where('RestaurantOwnerID', '1')
+        $wasteLogs = WasteLog::where('RestaurantOwnerID', $restaurantOwnerID)
             ->orderBy('DateLogged', 'desc')
             ->paginate(10);
 
         return view('wasteReport', compact('wasteLogs'));
     }
+
 
     public function indexOwner(Request $request)
     {
@@ -99,16 +100,16 @@ class WasteLogController extends Controller
         if ($request->filled('restaurant_name')) {
             $query->where('Name', 'like', '%' . $request->input('restaurant_name') . '%');
         }
-    
+
         if ($request->filled('type')) {
             $query->where('Type', 'like', '%' . $request->input('type') . '%');
         }
-    
+
         $restaurantOwners = $query->get();
 
         return view('waste_logs.index', compact('restaurantOwners'));
     }
-    
+
 
     public function showOwner($ownerID)
     {

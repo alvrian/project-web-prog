@@ -10,16 +10,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\PriceListCompostController;
+use App\Http\Controllers\PriceListWasteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\WasteLogController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::get('/welcome', function () {
-    return view('welcome');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -35,7 +32,7 @@ require __DIR__ . '/auth.php';
 
 Route::prefix('restaurant-owner')->group(function () {
     Route::get('/', [RestaurantController::class, 'index'])->name('restaurant.index');
-    Route::get('/waste-report', [WasteLogController::class, 'list'])->name('waste_log.list');
+    Route::get('/waste-report/restaurant-ownerID={restaurantOwnerID}', [WasteLogController::class, 'list'])->name('waste_log.list');
     Route::get('/create-waste-log', [WasteLogController::class, 'create'])->name('waste_log.create');
     Route::post('/create-waste-log', [WasteLogController::class, 'store'])->name('waste_log.store');
     Route::post("/sub-manage-resume", [RestaurantController::class, "subsManagementResume"])->name('restaurant.subsManageResume');
@@ -54,6 +51,9 @@ Route::prefix('restaurant-owner')->group(function () {
         Route::get('/farmerId={farmerId}/cropId={cropId}/details', [FarmerController::class, 'detailsFarmer'])->name('show-detail');
     });
     Route::post('/ROsubF', [SubscriptionController::class, 'storeROSubscribeFarmer'])->name('subscription.storeROSubscribeFarmer');
+
+    Route::post('/prices', [PriceListWasteController::class, 'store'])->name('price.store');
+
 });
 
 Route::prefix('account')->middleware(['auth', 'verified'])->group(function () {
