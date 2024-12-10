@@ -72,6 +72,16 @@ class FarmerController extends Controller
 
         return redirect()->back();
     }
+
+    public function subsManageCancel(Request $req)
+    {
+        $subscription = Subscription::findOrFail($req->subscriptionID);
+        
+        $subscription->delete();
+
+        return redirect()->back()->with('success', 'Subscription has been canceled');
+    }
+    
     public function indexFarmer(Request $request)
     {
         $query = Farmer::query();

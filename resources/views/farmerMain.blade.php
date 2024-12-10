@@ -12,4 +12,15 @@
         
     </div>
     @endif
+
+
+<script>
+    function confirmCancellation(event, subscriptionId) {
+        event.preventDefault();
+        if (confirm("Are you sure you want to cancel this subscription?")) {
+            let form = document.querySelector('.cancelForm[data-subscription-id="' + subscriptionId + '"]');
+            form.submit();
+        }
+    }
+</script>
 </x-layout>
