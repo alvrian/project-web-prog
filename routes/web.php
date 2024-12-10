@@ -123,5 +123,6 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function () {
 
     Route::post("/sub-manage-resume", [FarmerController::class, "subsManagementResume"])->name('farmer.subsManageResume');
     Route::post("/sub-manage-pause", [FarmerController::class, "subsManagementPause"])->name('farmer.subsManagePause');
+    Route::post('/subscription/cancel', [FarmerController::class, 'subsManageCancel'])->name('farmer.subsManageCancel');
 });
 
