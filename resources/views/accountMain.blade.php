@@ -120,6 +120,14 @@
                     <ul class="list-group list-group-flush" style="height: 100%; list-style: none;">
                       @foreach($data as $transaction)
                           <li class="list-group-item" style = "height: 6vh;">
+                            @if($transaction->PickupType)
+                            <div class = "row text-left">
+                              <div class = "col-3">activities</div>
+                              <div class = "col-3">{{ $transaction->PickupType}}</div>
+                              <div class = "col-3">{{ $transaction->formattedDate}}</div>
+                              <div class = "col-3">Completed</div>
+                            </div>
+                            @else
                             <div class="row text-left">
                                 @if($transaction->TransactionType == "Earned")
                                   <div class="col-3">+ {{ $transaction->Points }}</div>
@@ -128,9 +136,10 @@
                                   <div class="col-3">- {{ $transaction->Points }}</div>
                                   <div class="col-3" style = "color: #BC0000;font-weight: 500;">Point {{$transaction->TransactionType}}</div>
                                 @endif
-                                <div class="col-3">{{$transaction->Date}}</div>
-                                <div class="col-3">{{$transaction->Status}}</div>
+                                  <div class="col-3">{{$transaction->formattedDate}}</div>
+                                  <div class="col-3">{{$transaction->Status}}</div>
                               </div>
+                            @endif
                           </li>
                       @endforeach
                     </ul>

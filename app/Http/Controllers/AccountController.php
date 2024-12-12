@@ -8,6 +8,7 @@ use App\Models\PickupSchedule;
 use App\Models\PointsTransaction;
 use App\Models\RestaurantOwner;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AccountController extends Controller
 {
@@ -25,8 +26,12 @@ class AccountController extends Controller
             $receiveData = PickupSchedule::where('RecipientCompostProducerID', $id)->where('Status', 'Completed')->get();
         } elseif ($user->role == "farmer") {
             $temp = Farmer::where('user_id', $id)->first();
+            $sendData = PickupSchedule::where('SenderFarmerID', $id)->where('Status', 'Completed')->get();
+            $receiveData = PickupSchedule::where('RecipientFarmerID', $id)->where('Status', 'Completed')->get();
         } elseif ($user->role == "restaurant_owner") {
             $temp = RestaurantOwner::where('user_id', $id)->first();
+            $sendData = PickupSchedule::where('SenderRestaurantOwnerID', $id)->where('Status', 'Completed')->get();
+            $receiveData = PickupSchedule::where('RecipientRestaurantOwnerID', $id)->where('Status', 'Completed')->get();
         }
         $tempArray = $temp->toArray();
         $is_null = false;
@@ -37,13 +42,24 @@ class AccountController extends Controller
             }
         }
         // dd($sendData);
-        $data = PointsTransaction::where('ParticipantID', $id)->orderBy('Date', 'desc')->get();
+        $dataPoint = PointsTransaction::where('ParticipantID', $id)->orderBy('Date', 'desc')->get();
+        foreach( $dataPoint as $d){
+            $d->formattedDate = Carbon::parse($d->Date)->format('F j, Y');
+        }
+        foreach($sendData as $d){
+            $d->formattedDate = Carbon::parse($d->ScheduledDate)->format('F j, Y');
+        }
+        foreach($receiveData as $d){
+            $d->formattedDate = Carbon::parse($d->ScheduledDate)->format('F j, Y');
+        }
+        
+        $data = $dataPoint->merge($sendData)->merge($receiveData)->sortByDesc('formattedDate');
         $earn = $data->where('TransactionType', 'Earned')->where('Status', 'Completed')->sum('Points');
         $spend = $data->where('TransactionType', 'Redeemed')->where('Status', 'Completed')->sum('Points');
         $total = $earn - $spend;
         $total = number_format($total, 2, '.', ',');
         $location = $temp->Location;
-
+        // dd($data);
         return view("accountMain", compact('total', 'data', 'is_null', 'location'));
     }
 
