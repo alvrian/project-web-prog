@@ -24,19 +24,21 @@ class WasteLogController extends Controller
             'DateLogged' => 'required|date',
         ]);
 
-        //TODO:
-        // make  auth
-        // $restaurantOwner = auth()->user()->restaurantOwner;
+        $restaurantOwnerID = auth()->user()->id;
 
         WasteLog::create([
-            //TODO:
-            'RestaurantOwnerID' => '1',
+
+            'RestaurantOwnerID' => $restaurantOwnerID,
             'WasteType' => $validated['WasteType'],
             'Weight' => $validated['Weight'],
             'DateLogged' => $validated['DateLogged'],
         ]);
 
-        return redirect()->route('waste_log.create')->with('success', 'Food waste logged successfully!');
+        $wasteLogs = WasteLog::where('RestaurantOwnerID',$restaurantOwnerID )
+            ->orderBy('DateLogged', 'desc')
+            ->paginate(10);
+
+        return view('wasteReport', compact('wasteLogs'));
     }
 
     public function index(Request $request)
@@ -67,30 +69,52 @@ class WasteLogController extends Controller
 
     public function update(Request $request, $id)
     {
-        $entry = WasteLog::findOrFail($id);
-
         $request->validate([
             'WasteType' => 'required|string|max:255',
             'Weight' => 'required|numeric|min:0',
+            'price_per_item' => 'required|numeric|min:0',
+            'price_per_subscription_3' => 'required|numeric|min:0',
+            'price_per_subscription_6' => 'required|numeric|min:0',
+            'price_per_subscription_9' => 'required|numeric|min:0',
+            'price_per_subscription_12' => 'required|numeric|min:0',
         ]);
 
-        $entry->update($request->only([
-            'WasteType',
-            'Weight',
-        ]));
+        $wasteLog = WasteLog::findOrFail($id);
+        $wasteLog->update($request->only(['WasteType', 'Weight']));
 
-        return redirect()->route('waste_log.show', ['id' => $entry->id])->with('success', 'Waste Log details updated successfully.');
+        $priceList = $wasteLog->priceList;
+
+        if (!$priceList) {
+            $priceList = new PriceList();
+            $priceList->WasteLogID = $wasteLog->id;
+        }
+
+        $priceList->price_per_kg = $request->price_per_item;
+        $priceList->price_per_subscription_3 = $request->price_per_subscription_3;
+        $priceList->price_per_subscription_6 = $request->price_per_subscription_6;
+        $priceList->price_per_subscription_9 = $request->price_per_subscription_9;
+        $priceList->price_per_subscription_12 = $request->price_per_subscription_12;
+
+        $priceList->save();
+
+        $restaurantOwnerID = $wasteLog->RestaurantOwnerID;
+        $wasteLogs = WasteLog::where('RestaurantOwnerID', $restaurantOwnerID)
+            ->orderBy('DateLogged', 'desc')
+            ->paginate(10);
+        return view('wasteReport', compact('wasteLogs'));
     }
 
 
-    public function list()
+
+    public function list($restaurantOwnerID)
     {
-        $wasteLogs = WasteLog::where('RestaurantOwnerID', '1')
+        $wasteLogs = WasteLog::where('RestaurantOwnerID', $restaurantOwnerID)
             ->orderBy('DateLogged', 'desc')
             ->paginate(10);
 
         return view('wasteReport', compact('wasteLogs'));
     }
+
 
     public function indexOwner(Request $request)
     {
@@ -99,16 +123,16 @@ class WasteLogController extends Controller
         if ($request->filled('restaurant_name')) {
             $query->where('Name', 'like', '%' . $request->input('restaurant_name') . '%');
         }
-    
+
         if ($request->filled('type')) {
             $query->where('Type', 'like', '%' . $request->input('type') . '%');
         }
-    
+
         $restaurantOwners = $query->get();
 
         return view('waste_logs.index', compact('restaurantOwners'));
     }
-    
+
 
     public function showOwner($ownerID)
     {

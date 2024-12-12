@@ -6,29 +6,19 @@
             <form id="wasteForm" method="POST" action="{{ route('waste_log.store') }}" class="p-4 rounded shadow"
                   style="background-color: #f9f9f9;">
                 @csrf
+                <button type="button" class="btn btn-light w-auto" onclick="window.history.back()">Back</button>
                 <h3 class="text-center mb-4" style="color: #4b5320;">Log Waste Entry</h3>
-
-                {{-- TODO: --}}
-
-                <div class="mb-3">
-                    <label for="RestaurantId" class="form-label">Restaurant ID</label>
-                    <input type="text" id="RestaurantId" class="form-control" value="1000" disabled>
-                    <input type="hidden" name="RestaurantId" value="1000">
-                </div>
-
-                <div class="mb-3">
-                    <label for="RestaurantName" class="form-label">Restaurant Name</label>
-                    <input type="text" id="RestaurantName" class="form-control" value="tes create" disabled>
-                    <input type="hidden" name="RestaurantName" value="tes create">
-                </div>
-
 
                 <div class="mb-3">
                     <label for="wasteType" class="form-label">Waste Type</label>
                     <select class="form-select" id="wasteType" name="WasteType" required>
                         <option value="" disabled selected>Select Waste Type</option>
-                        <option value="Food Waste">Food Waste</option>
-                        <option value="Plastic Waste">Food Waste Type 2</option>
+                        <option value="Fruit Waste">Fruit Waste</option>
+                        <option value="Vegetable Waste">Vegetable Waste</option>
+                        <option value="Coffee Grounds">Coffee Grounds</option>
+                        <option value="Tea Leaves">Tea Leaves</option>
+                        <option value="Eggshells">Eggshells</option>
+                        <option value="Food Scraps">Food Scraps</option>
                         <option value="Other">Other</option>
                     </select>
                     <small class="text-danger d-none" id="wasteTypeError">Please select a waste type.</small>
@@ -49,10 +39,11 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="button" id="submitBtn" class="btn btn-success w-100" data-bs-toggle="modal"
+                    <button type="button" id="submitBtn" class="btn btn-success w-50" data-bs-toggle="modal"
                             data-bs-target="#confirmationModal" disabled>Submit
                     </button>
                 </div>
+
             </form>
 
         </div>
