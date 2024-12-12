@@ -85,13 +85,12 @@
             {{ auth()->user()->name}}
           </span>
           <div class = "d-flex flex-row ">
-            <div>
+            <div class = "d-flex flex-column" style = "max-width: 20vw;">
               <span style = "font-size:18px;font-weight:500">
                 {{auth()->user()->role}}
               </span>
-              <span style="display: flex;align-items: center; gap: 5px;font-size:18px">
-                <img src="{{ asset('images/star.png') }}" style="width: 18px; height: 18px;" alt="Star"/> 
-                3/5
+              <span style = "font-size:16px;font-weight:400">
+                {{$location}}a
               </span>
             </div>
             <div style = "margin-left:20vw;font-weight:700">

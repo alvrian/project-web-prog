@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CompostProducer;
 use App\Models\Farmer;
+use App\Models\PickupSchedule;
 use App\Models\PointsTransaction;
 use App\Models\RestaurantOwner;
 use Illuminate\Http\Request;
@@ -14,9 +15,14 @@ class AccountController extends Controller
     {
         $user = auth()->user();
         $id = $user->id;
+        $role = auth()->user()->role;   
         $temp = null;
+        $sendData = null;
+        $receiveData = null;
         if ($user->role == "compost_producer") {
             $temp = CompostProducer::where('user_id', $id)->first();
+            $sendData = PickupSchedule::where('SenderCompostProducerID', $id)->where('Status', 'Completed')->get();
+            $receiveData = PickupSchedule::where('RecipientCompostProducerID', $id)->where('Status', 'Completed')->get();
         } elseif ($user->role == "farmer") {
             $temp = Farmer::where('user_id', $id)->first();
         } elseif ($user->role == "restaurant_owner") {
@@ -30,15 +36,15 @@ class AccountController extends Controller
                 break;
             }
         }
-
+        // dd($sendData);
         $data = PointsTransaction::where('ParticipantID', $id)->orderBy('Date', 'desc')->get();
         $earn = $data->where('TransactionType', 'Earned')->where('Status', 'Completed')->sum('Points');
         $spend = $data->where('TransactionType', 'Redeemed')->where('Status', 'Completed')->sum('Points');
         $total = $earn - $spend;
         $total = number_format($total, 2, '.', ',');
+        $location = $temp->Location;
 
-
-        return view("accountMain", compact('total', 'data', 'is_null'));
+        return view("accountMain", compact('total', 'data', 'is_null', 'location'));
     }
 
     public function point()
