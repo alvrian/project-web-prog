@@ -22,4 +22,16 @@ class PickupSchedule extends Model
         'ScheduledDate',
         'Status'
     ];
+
+    // Relationship untuk CompostProducer
+    public function senderCompostProducer()
+    {
+        return $this->belongsTo(CompostProducer::class, 'SenderCompostProducerID', 'user_id');
+    }
+
+    // Relationship untuk RestaurantOwner
+    public function recipientRestaurantOwner()
+    {
+        return $this->belongsTo(RestaurantOwner::class, 'RecipientRestaurantOwnerID', 'user_id');
+    }
 }
