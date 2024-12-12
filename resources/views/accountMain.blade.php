@@ -85,13 +85,12 @@
             {{ auth()->user()->name}}
           </span>
           <div class = "d-flex flex-row ">
-            <div>
+            <div class = "d-flex flex-column" style = "max-width: 20vw;">
               <span style = "font-size:18px;font-weight:500">
                 {{auth()->user()->role}}
               </span>
-              <span style="display: flex;align-items: center; gap: 5px;font-size:18px">
-                <img src="{{ asset('images/star.png') }}" style="width: 18px; height: 18px;" alt="Star"/> 
-                3/5
+              <span style = "font-size:16px;font-weight:400">
+                {{$location}}a
               </span>
             </div>
             <div style = "margin-left:20vw;font-weight:700">
@@ -121,6 +120,14 @@
                     <ul class="list-group list-group-flush" style="height: 100%; list-style: none;">
                       @foreach($data as $transaction)
                           <li class="list-group-item" style = "height: 6vh;">
+                            @if($transaction->PickupType)
+                            <div class = "row text-left">
+                              <div class = "col-3"></div>
+                              <div class = "col-3">{{ $transaction->PickupType}}</div>
+                              <div class = "col-3">{{ $transaction->formattedDate}}</div>
+                              <div class = "col-3">Completed</div>
+                            </div>
+                            @else
                             <div class="row text-left">
                                 @if($transaction->TransactionType == "Earned")
                                   <div class="col-3">+ {{ $transaction->Points }}</div>
@@ -129,9 +136,10 @@
                                   <div class="col-3">- {{ $transaction->Points }}</div>
                                   <div class="col-3" style = "color: #BC0000;font-weight: 500;">Point {{$transaction->TransactionType}}</div>
                                 @endif
-                                <div class="col-3">{{$transaction->Date}}</div>
-                                <div class="col-3">{{$transaction->Status}}</div>
+                                  <div class="col-3">{{$transaction->formattedDate}}</div>
+                                  <div class="col-3">{{$transaction->Status}}</div>
                               </div>
+                            @endif
                           </li>
                       @endforeach
                     </ul>
@@ -149,35 +157,32 @@
               <div style = "background-color:white;width:27vw;height:80vh;margin-left:0.5rem;margin-top:0.5rem;padding:2rem" class = "dropend">
                 <span style = "font-weight:500;font-size:18px;">Progress Bar</span>
                 <div class="progress-stacked" style = "margin-top:2rem;margin-bottom: 2rem;">
-                  <div class="progress" role="progressbar" aria-label="Segment one" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  <div class="progress" role="progressbar" aria-label="Segment one"  id="segment-one" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                     <div class="progress-bar bg-success"></div>
                   </div>
-                  <div class="progress" role="progressbar" aria-label="Segment two" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                  <div class="progress" role="progressbar" aria-label="Segment two" id="segment-two" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                     <div class="progress-bar bg-warning"></div>
                   </div>
-                  <div class="progress" role="progressbar" aria-label="Segment three" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
-                    <div class="progress-bar bg-danger"></div>
+                  <div class="progress" role="progressbar" aria-label="Segment three"  id="segment-three"aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                    <div class="progress-bar bg-secondary"></div>
                   </div>
                 </div>
-                <div class="container" style="margin-bottom: 2rem;">
-                  <div class="text-left mb-3">
-                    <span class="fw-medium fs-5">Total Transaction: <span>10</span></span>
-                  </div>
+                <div class="container" style="margin-bottom: 1rem;">
                   <div class="d-flex flex-column gap-2">
                     <div class="d-flex align-items-center">
                       <span class="fw-bold text-success fs-5">&centerdot;</span>
-                      <span class="text-black fw-normal fs-6 ms-1">Done</span>
-                      <span class="text-black fw-normal fs-6 ms-auto">3/10</span>
+                      <span class="text-black fw-normal fs-6 ms-1">Task Completed</span>
+                      <span class="text-black fw-normal fs-6 ms-auto">{{$taskCompletedCount}}</span>
                     </div>
                     <div class="d-flex align-items-center">
                       <span class="fw-bold text-warning fs-5">&centerdot;</span>
-                      <span class="text-black fw-normal fs-6 ms-1">In Progress</span>
-                      <span class="text-black fw-normal fs-6 ms-auto">4/10</span>
+                      <span class="text-black fw-normal fs-6 ms-1">Task Pending</span>
+                      <span class="text-black fw-normal fs-6 ms-auto">{{$taskPendingCount}}</span>
                     </div>
                     <div class="d-flex align-items-center">
-                      <span class="fw-bold text-danger fs-5">&centerdot;</span>
-                      <span class="text-black fw-normal fs-6 ms-1">Cancelled</span>
-                      <span class="text-black fw-normal fs-6 ms-auto">4/10</span>
+                      <span class="fw-bold text-secondary fs-5">&centerdot;</span>
+                      <span class="text-black fw-normal fs-6 ms-1">Point Transaction</span>
+                      <span class="text-black fw-normal fs-6 ms-auto">{{$pointTransactionCount}}</span>
                     </div>
                   </div>
                 </div>
@@ -219,4 +224,19 @@
       border-radius: 10px;
     }
   </style>
+  <script>
+    const segmentOneCount = {{$taskCompletedCount}};
+    const segmentTwoCount = {{$taskPendingCount}};
+    const segmentThreeCount = {{$pointTransactionCount}};
+
+    const totalCount = segmentOneCount + segmentTwoCount + segmentThreeCount;
+
+    const segmentOneWidth = (segmentOneCount / totalCount) * 100;
+    const segmentTwoWidth = (segmentTwoCount / totalCount) * 100;
+    const segmentThreeWidth = (segmentThreeCount / totalCount) * 100;
+    
+    document.getElementById('segment-one').style.width = segmentOneWidth + '%';
+    document.getElementById('segment-two').style.width = segmentTwoWidth + '%';
+    document.getElementById('segment-three').style.width = segmentThreeWidth + '%';
+</script>
 </x-layout>

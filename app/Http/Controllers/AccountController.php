@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\CompostProducer;
 use App\Models\Farmer;
+use App\Models\PickupSchedule;
 use App\Models\PointsTransaction;
 use App\Models\RestaurantOwner;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AccountController extends Controller
 {
@@ -14,13 +16,22 @@ class AccountController extends Controller
     {
         $user = auth()->user();
         $id = $user->id;
+        $role = auth()->user()->role;   
         $temp = null;
+        $sendData = null;
+        $receiveData = null;
         if ($user->role == "compost_producer") {
             $temp = CompostProducer::where('user_id', $id)->first();
+            $sendData = PickupSchedule::where('SenderCompostProducerID', $id)->get();
+            $receiveData = PickupSchedule::where('RecipientCompostProducerID', $id)->get();
         } elseif ($user->role == "farmer") {
             $temp = Farmer::where('user_id', $id)->first();
+            $sendData = PickupSchedule::where('SenderFarmerID', $id)->get();
+            $receiveData = PickupSchedule::where('RecipientFarmerID', $id)->get();
         } elseif ($user->role == "restaurant_owner") {
             $temp = RestaurantOwner::where('user_id', $id)->first();
+            $sendData = PickupSchedule::where('SenderRestaurantOwnerID', $id)->get();
+            $receiveData = PickupSchedule::where('RecipientRestaurantOwnerID', $id)->get();
         }
         $tempArray = $temp->toArray();
         $is_null = false;
@@ -30,15 +41,28 @@ class AccountController extends Controller
                 break;
             }
         }
-
-        $data = PointsTransaction::where('ParticipantID', $id)->orderBy('Date', 'desc')->get();
+        $dataPoint = PointsTransaction::where('ParticipantID', $id)->orderBy('Date', 'desc')->get();
+        $pointTransactionCount = $dataPoint->count();
+        $taskPendingCount = $sendData->where('Status', 'Scheduled')->count() +  $receiveData->where('Status', 'Scheduled')->count();
+        $taskCompletedCount = $sendData->where('Status', 'Completed')->count() +  $receiveData->where('Status', 'Completed')->count();
+        foreach( $dataPoint as $d){
+            $d->formattedDate = Carbon::parse($d->Date)->format('F j, Y');
+        }foreach($sendData as $d){
+            $d->formattedDate = Carbon::parse($d->ScheduledDate)->format('F j, Y');
+        }foreach($receiveData as $d){
+            $d->formattedDate = Carbon::parse($d->ScheduledDate)->format('F j, Y');
+        }
+        
+        $data = $dataPoint->merge($sendData)->merge($receiveData)->sortByDesc(function ($item) {
+            return Carbon::parse($item->Date ?? $item->ScheduledDate);
+        });
+    
         $earn = $data->where('TransactionType', 'Earned')->where('Status', 'Completed')->sum('Points');
         $spend = $data->where('TransactionType', 'Redeemed')->where('Status', 'Completed')->sum('Points');
         $total = $earn - $spend;
         $total = number_format($total, 2, '.', ',');
-
-
-        return view("accountMain", compact('total', 'data', 'is_null'));
+        $location = $temp->Location;
+        return view("accountMain", compact('total', 'data', 'is_null', 'location', 'pointTransactionCount', 'taskPendingCount', 'taskCompletedCount'));
     }
 
     public function point()
