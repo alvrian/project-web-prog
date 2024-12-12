@@ -24,19 +24,21 @@ class WasteLogController extends Controller
             'DateLogged' => 'required|date',
         ]);
 
-        //TODO:
-        // make  auth
-        // $restaurantOwner = auth()->user()->restaurantOwner;
+        $restaurantOwnerID = auth()->user()->id;
 
         WasteLog::create([
-            //TODO:
-            'RestaurantOwnerID' => '1',
+
+            'RestaurantOwnerID' => $restaurantOwnerID,
             'WasteType' => $validated['WasteType'],
             'Weight' => $validated['Weight'],
             'DateLogged' => $validated['DateLogged'],
         ]);
 
-        return redirect()->route('waste_log.create')->with('success', 'Food waste logged successfully!');
+        $wasteLogs = WasteLog::where('RestaurantOwnerID',$restaurantOwnerID )
+            ->orderBy('DateLogged', 'desc')
+            ->paginate(10);
+
+        return view('wasteReport', compact('wasteLogs'));
     }
 
     public function index(Request $request)
