@@ -67,16 +67,21 @@ class WasteLogController extends Controller
 
     public function update(Request $request, $id)
     {
-        $entry = WasteLog::findOrFail($id);
+        $wasteLog = WasteLog::findOrFail($id);
 
         $validated = $request->validate([
             'WasteType' => 'required|string|max:255',
             'Weight' => 'required|numeric|min:0',
         ]);
 
-        $entry->update($validated);
+        $wasteLog->update($validated);
 
-        return response()->json(['success' => true]);
+        $restaurantOwnerID = $wasteLog->RestaurantOwnerID;
+        $wasteLogs = WasteLog::where('RestaurantOwnerID', $restaurantOwnerID)
+            ->orderBy('DateLogged', 'desc')
+            ->paginate(10);
+
+        return view('wasteReport', compact('wasteLogs'));
     }
 
 
