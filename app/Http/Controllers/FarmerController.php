@@ -9,11 +9,25 @@ use App\Models\Farmer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Subscription;
+use App\Models\PickupSchedule;
+
 class FarmerController extends Controller
 {
     public function index()
     {
-        return view("farmerMain");
+        $farmerId = auth()->user()->farmer->user_id;
+
+        $compostSchedules = PickupSchedule::where(function ($query) use ($farmerId) {
+            $query->where('RecipientFarmerID', $farmerId)
+                ->where('PickupType', 'Compost Delivery');
+        })->orderBy('ScheduledDate')->get();
+
+        $cropSchedules = PickupSchedule::where(function ($query) use ($farmerId) {
+            $query->where('SenderFarmerID', $farmerId)
+                ->where('PickupType', 'Waste Pickup');
+        })->orderBy('ScheduledDate')->get();
+
+        return view("farmerMain", compact('compostSchedules', 'cropSchedules'));
     }
 
     public function subscribeToProducers(Request $request)
@@ -56,14 +70,16 @@ class FarmerController extends Controller
         return view('farmer.points', compact('totalPoints'));
     }
 
-    public function subsManagementResume(Request $req){
+    public function subsManagementResume(Request $req)
+    {
         $temp = Subscription::where("SubscriptionID", $req->subscriptionID)->first();
         $temp->update([
             "Status" => "Active"
         ]);
         return redirect()->back();
     }
-    public function subsManagementPause(Request $req){
+    public function subsManagementPause(Request $req)
+    {
         $temp = Subscription::where("SubscriptionID", $req->subscriptionID)->first();
         // dd($req);
         $temp->update([
@@ -76,12 +92,12 @@ class FarmerController extends Controller
     public function subsManageCancel(Request $req)
     {
         $subscription = Subscription::findOrFail($req->subscriptionID);
-        
+
         $subscription->delete();
 
         return redirect()->back()->with('success', 'Subscription has been canceled');
     }
-    
+
     public function indexFarmer(Request $request)
     {
         $query = Farmer::query();
@@ -118,5 +134,4 @@ class FarmerController extends Controller
 
         return view('farmers.show-detail', compact('farmer', 'crop', 'totalPoints'));
     }
-
 }
