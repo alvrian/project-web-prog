@@ -55,4 +55,9 @@ class CompostProducer extends Model
         return $this->hasMany(CompostEntry::class, 'compost_producer_id', 'user_id');
     }
 
+    public function PointsBalance()
+    {
+        return $this->pointsTransactions()->sum('points');
+    }
+
 }

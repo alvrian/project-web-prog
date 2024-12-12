@@ -39,7 +39,7 @@
              aria-labelledby="subscribeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form action="{{ route('subscription.store') }}" method="POST">
+                    <form action="{{ route('subscription.storeFarmerSubscribeCompost') }}" method="POST">
                         @csrf
                         <input type="hidden" name="ProviderID" value="{{ $compostEntry->compost_producer_id }}">
                         <input type="hidden" name="SubscriberID" value="{{ auth()->id() }}">
@@ -220,10 +220,3 @@
 
     </script>
 </x-layout>
-
-@if(session('subscription_data'))
-    <script>
-        console.log('Subscription Data:', @json(session('subscription_data')));
-    </script>
-@endif
-

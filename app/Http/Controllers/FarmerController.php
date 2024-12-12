@@ -72,6 +72,16 @@ class FarmerController extends Controller
 
         return redirect()->back();
     }
+
+    public function subsManageCancel(Request $req)
+    {
+        $subscription = Subscription::findOrFail($req->subscriptionID);
+        
+        $subscription->delete();
+
+        return redirect()->back()->with('success', 'Subscription has been canceled');
+    }
+    
     public function indexFarmer(Request $request)
     {
         $query = Farmer::query();
@@ -96,6 +106,7 @@ class FarmerController extends Controller
     public function detailsFarmer($farmerId, $cropId)
     {
         $user = auth()->user();
+        $totalPoints = 0;
 
         if ($user->role === "restaurant_owner") {
             $totalPoints = $user->restaurantOwner->PointsBalance ?? 0;

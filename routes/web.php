@@ -38,6 +38,9 @@ Route::prefix('restaurant-owner')->group(function () {
     Route::get('/waste-report', [WasteLogController::class, 'list'])->name('waste_log.list');
     Route::get('/create-waste-log', [WasteLogController::class, 'create'])->name('waste_log.create');
     Route::post('/create-waste-log', [WasteLogController::class, 'store'])->name('waste_log.store');
+    Route::post("/sub-manage-resume", [RestaurantController::class, "subsManagementResume"])->name('restaurant.subsManageResume');
+    Route::post("/sub-manage-pause", [RestaurantController::class, "subsManagementPause"])->name('restaurant.subsManagePause');
+    Route::post('/restaurant/subscription/cancel', [RestaurantController::class, 'subsManageCancel'])->name('restaurant.subsManageCancel');
 
     Route::resource('waste-logs', WasteLogController::class);
     Route::get('waste-logs', [WasteLogController::class, 'index'])->name('waste_log.index');
@@ -50,7 +53,7 @@ Route::prefix('restaurant-owner')->group(function () {
         Route::get('/farmerId={farmerId}', [FarmerController::class, 'showFarmer'])->name('show');
         Route::get('/farmerId={farmerId}/cropId={cropId}/details', [FarmerController::class, 'detailsFarmer'])->name('show-detail');
     });
-    Route::post('/subscribe', [SubscriptionController::class, 'storeROSubscribeCrop'])->name('subscription.store');
+    Route::post('/ROsubF', [SubscriptionController::class, 'storeROSubscribeFarmer'])->name('subscription.storeROSubscribeFarmer');
 });
 
 Route::prefix('account')->middleware(['auth', 'verified'])->group(function () {
@@ -71,6 +74,7 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
     Route::post('/create-compost', [CompostEntryController::class, 'store'])->name('compost.store');
     Route::post("/sub-manage-resume", [CompostController::class, "subsManagementResume"])->name('compost.subsManageResume');
     Route::post("/sub-manage-pause", [CompostController::class, "subsManagementPause"])->name('compost.subsManagePause');
+    Route::post('/subscription/cancel', [CompostController::class, 'subsManageCancel'])->name('compost.subsManageCancel');
 
     Route::resource('composts', CompostEntryController::class);
     Route::get('composts', [CompostEntryController::class, 'index'])->name('compost.index');
@@ -85,6 +89,7 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
         Route::get('/ownerID={ownerID}', [WasteLogController::class, 'showOwner'])->name('show');
         Route::get('/ownerID={ownerID}/wastelogID={wastelogID}/details', [WasteLogController::class, 'detailOwner'])->name('show-detail');
     });
+    Route::post('/CPsubRO', [SubscriptionController::class, 'storeCPSubscribeRO'])->name('subscription.storeCPSubscribeRO');
 });
 
 
@@ -113,10 +118,11 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function () {
         Route::get('/composterId={composterId}', [CompostProducerController::class, 'show'])->name('show');
         Route::get('/composterId={composterId}/compostId={compostId}/details', [CompostProducerController::class, 'details'])->name('show-detail');
     });
-    Route::post('/subscribe', [SubscriptionController::class, 'storeFarmerSubscribeCompost'])->name('subscription.store');
+    Route::post('/FsubCP', [SubscriptionController::class, 'storeFarmerSubscribeCompost'])->name('subscription.storeFarmerSubscribeCompost');
     Route::get('/points', [FarmerController::class, 'showPoints'])->name('farmer.points');
 
     Route::post("/sub-manage-resume", [FarmerController::class, "subsManagementResume"])->name('farmer.subsManageResume');
     Route::post("/sub-manage-pause", [FarmerController::class, "subsManagementPause"])->name('farmer.subsManagePause');
+    Route::post('/subscription/cancel', [FarmerController::class, 'subsManageCancel'])->name('farmer.subsManageCancel');
 });
 

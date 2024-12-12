@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompostEntry;
 use App\Models\Crop;
 use App\Models\RestaurantOwner;
 use App\Models\WasteLog;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class WasteLogController extends Controller
 {
@@ -94,39 +94,55 @@ class WasteLogController extends Controller
 
     public function indexOwner(Request $request)
     {
-        $query = RestaurantOwner::with('wasteLogs');
+        $query = RestaurantOwner::query();
 
-        if ($request->filled('name')) {
-            $query->where('Name', 'like', '%' . $request->input('name') . '%');
+        if ($request->filled('restaurant_name')) {
+            $query->where('Name', 'like', '%' . $request->input('restaurant_name') . '%');
         }
+    
+        if ($request->filled('type')) {
+            $query->where('Type', 'like', '%' . $request->input('type') . '%');
+        }
+    
+        $restaurantOwners = $query->get();
 
-        $wasteLogs = $query->get();
-
-        return view('waste_logs.index', compact('wasteLogs'));
+        return view('waste_logs.index', compact('restaurantOwners'));
     }
+    
 
     public function showOwner($ownerID)
     {
-        $restaurantOwner = RestaurantOwner::with('wasteLogs')
-            ->where('id', $ownerID)
+        $owner = RestaurantOwner::with(['wasteLogs.priceList'])
+            ->where('user_id', $ownerID)
             ->first();
 
-        if (!$restaurantOwner) {
+        if (!$owner) {
             return abort(404, 'Restaurant Owner not found.');
         }
 
-        $wasteLogs = WasteLog::where('RestaurantOwnerID', $ownerID)->get();
+        $wasteLogs = WasteLog::with('priceList')
+            ->where('RestaurantOwnerID', $ownerID)
+            ->get();
 
-        return view('waste_logs.show', compact('restaurantOwner', 'wasteLogs'));
+        return view('waste_logs.show', compact('owner', 'wasteLogs'));
     }
+
 
     public function detailOwner($ownerID, $wastelogID)
     {
-        $wasteLog = WasteLog::with('restaurantOwner')
+        $user = auth()->user();
+        $totalPoints = 0;
+
+        if ($user->role === "compost_producer") {
+            $totalPoints = $user->compostProducer->PointsBalance ?? 0;
+        }
+
+
+        $wasteLog = WasteLog::with(['priceList', 'compostProducer'])
             ->where('RestaurantOwnerID', $ownerID)
             ->findOrFail($wastelogID);
 
-        return view('waste_logs.show-detail', compact('wasteLog'));
+        return view('waste_logs.show-detail', compact('wasteLog', 'totalPoints'));
     }
 
 
