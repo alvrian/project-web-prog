@@ -4,6 +4,10 @@
         <div class="card shadow">
             <div class="card-header bg-success bg-opacity-10">
                 <div class="d-flex justify-content-between align-items-center">
+                    <a href="{{ route('restaurant.index') }}" class="btn btn-light">
+                        <
+                    </a>
+
                     <h3 class="mb-0" style="color: #4b5320;">My Waste Report</h3>
                     <a href="{{ route('waste_log.create') }}" class="btn btn-success">
                         Add New Entry
