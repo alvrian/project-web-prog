@@ -69,18 +69,16 @@ class WasteLogController extends Controller
     {
         $entry = WasteLog::findOrFail($id);
 
-        $request->validate([
+        $validated = $request->validate([
             'WasteType' => 'required|string|max:255',
             'Weight' => 'required|numeric|min:0',
         ]);
 
-        $entry->update($request->only([
-            'WasteType',
-            'Weight',
-        ]));
+        $entry->update($validated);
 
-        return redirect()->route('waste_log.show', ['id' => $entry->id])->with('success', 'Waste Log details updated successfully.');
+        return response()->json(['success' => true]);
     }
+
 
 
     public function list($restaurantOwnerID)
