@@ -67,7 +67,7 @@
                                                     aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form id="priceForm{{ $log->id }}" action="{{ route('price.store') }}"
+                                            <form id="priceForm{{ $log->id }}" action="{{ route('waste-log-price.store', ['id' => $log->id]) }}"
                                                   method="POST">
                                                 @csrf
                                                 <input type="hidden" name="waste_log_id" value="{{ $log->id }}">

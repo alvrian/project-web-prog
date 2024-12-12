@@ -35,6 +35,8 @@ Route::prefix('restaurant-owner')->group(function () {
     Route::get('/waste-report/restaurant-ownerID={restaurantOwnerID}', [WasteLogController::class, 'list'])->name('waste_log.list');
     Route::get('/create-waste-log', [WasteLogController::class, 'create'])->name('waste_log.create');
     Route::post('/create-waste-log', [WasteLogController::class, 'store'])->name('waste_log.store');
+    Route::post('/prices/{id}', [PriceListWasteController::class, 'store'])->name('waste-log-price.store');
+
     Route::post("/sub-manage-resume", [RestaurantController::class, "subsManagementResume"])->name('restaurant.subsManageResume');
     Route::post("/sub-manage-pause", [RestaurantController::class, "subsManagementPause"])->name('restaurant.subsManagePause');
     Route::post('/restaurant/subscription/cancel', [RestaurantController::class, 'subsManageCancel'])->name('restaurant.subsManageCancel');
@@ -52,7 +54,7 @@ Route::prefix('restaurant-owner')->group(function () {
     });
     Route::post('/ROsubF', [SubscriptionController::class, 'storeROSubscribeFarmer'])->name('subscription.storeROSubscribeFarmer');
 
-    Route::post('/prices', [PriceListWasteController::class, 'store'])->name('price.store');
+
 
 });
 
