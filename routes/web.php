@@ -75,7 +75,6 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
     Route::post("/sub-manage-pause", [CompostController::class, "subsManagementPause"])->name('compost.subsManagePause');
     Route::post('/subscription/cancel', [CompostController::class, 'subsManageCancel'])->name('compost.subsManageCancel');
 
-    Route::resource('composts', CompostEntryController::class);
     Route::get('composts', [CompostEntryController::class, 'index'])->name('compost.index');
     Route::get('composts/{id}/details', [CompostEntryController::class, 'show'])->name('compost.show');
     Route::get('composts/{id}/edit', [CompostEntryController::class, 'edit'])->name('compost.edit');
