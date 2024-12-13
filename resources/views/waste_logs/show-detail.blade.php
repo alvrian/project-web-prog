@@ -129,7 +129,9 @@
             const pointsWarning = document.getElementById('points_warning');
             const finalPriceInput = document.getElementById('final_price');
             const hiddenPriceInput = document.getElementById('hidden_price');
-
+            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            startDateInput.setAttribute('min', today);
+            
             const maxPoints = {{ $totalPoints }};
             let basePrice = 0;
 

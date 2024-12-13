@@ -12,6 +12,11 @@
         to composts>
         </span>
       </a>
+      <a href = "/compost-producer/resto-owners">
+        <span style = "display: block;">
+        to resto_owners>
+        </span>
+      </a>
       <span style="font-size: 20px;font-weight: 600;">Your Subscriptions</span>
       <div style="padding: 10px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);border-radius: 12px;margin: 1rem 0 1rem 0;">
         <div class="accordion accordion-flush" id="accordionFlushExample" style="width: 100%; height: 50vh; overflow-y: auto; overflow-x:hidden">
