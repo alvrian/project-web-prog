@@ -63,7 +63,7 @@ Route::prefix('account')->middleware(['auth', 'verified'])->group(function () {
 
 Route::get("/", [HomeController::class, 'index'])->name('home');
 
-Route::get("/market", [HomeController::class, 'market']);
+// Route::get("/market", [HomeController::class, 'market']);
 Route::get("/aboutUs", [HomeController::class, 'aboutUS']);
 
 Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(function () {
