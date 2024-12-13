@@ -42,13 +42,13 @@
                 </a>
             </div>
         </div>
-        <div class="btn-group dropend" >
+        <!-- <div class="btn-group dropend" >
             <a href = "/market" style = "text-decoration: none;width:85vw;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);border-radius:12px;" >
                 <button type = "button" class = "btn d-flex dropdown-toggle justify-content-between align-items-center" style = "color:white;height:7vh;font-weight:500;font-size:18px;background-color: #EBCF7B;width:100%;border-radius: 12px;">
                     Go to market Place
                 </button>
             </a>
-        </div>
+        </div> -->
         <span style = "width: 85vw;font-weight:bold;font-size: 24px;">Work Together with Us</span>
         <div class = "d-flex justify-content-between " style = "width: 85vw;">
                 <a href = "{{ route('restaurant.index') }}" style="text-decoration: none;">
