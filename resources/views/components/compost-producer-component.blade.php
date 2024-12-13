@@ -13,7 +13,7 @@
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
             <div class="d-flex justify-content-between">
               <span style="font-size:20px;font-weight:600;">Waste Pick up Schedule</span>
-              <span>2024</span>
+              <span>All Time</span>
             </div><br>
             <div>
               <ul class="list-group list-group-flush" style="width: 100%;">
@@ -87,7 +87,7 @@
             style="width: 100%;border-radius: 12px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);height: 100%;padding:1rem;">
             <div class="d-flex justify-content-between">
               <span style="font-size:20px;font-weight:600;">Compost Delivery Schedule</span>
-              <span>2024</span>
+              <span>All Time</span>
             </div><br>
             <div>
               <ul class="list-group list-group-flush" style="width: 100%;">

@@ -7,6 +7,11 @@
   @else
     <div style="padding: 1rem 5rem;font-family:&quot;Inter&quot;, serif;">
       <x-compost-producer-component /><br>
+      <a href = "{{route('compost.index')}}">
+        <span style = "display: block;">
+        to composts>
+        </span>
+      </a>
       <span style="font-size: 20px;font-weight: 600;">Your Subscriptions</span>
       <div style="padding: 10px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);border-radius: 12px;margin: 1rem 0 1rem 0;">
         <div class="accordion accordion-flush" id="accordionFlushExample" style="width: 100%; height: 50vh; overflow-y: auto; overflow-x:hidden">
@@ -71,6 +76,7 @@
           @endif
         </div>
       </div>
+
     </div>
   @endif
 

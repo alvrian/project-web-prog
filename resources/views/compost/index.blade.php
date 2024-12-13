@@ -80,7 +80,6 @@
                                     @csrf
                                     <input type="hidden" name="compost_entry_id" value="{{ $entry->id }}">
                                     <div class="mb-3">
-                                        dd($compostEntries);
                                         <label for="price_per_item" class="form-label">Price Per Item</label>
                                         <input type="number" name="price_per_item" class="form-control" min="0"
                                                step="0.01" required>

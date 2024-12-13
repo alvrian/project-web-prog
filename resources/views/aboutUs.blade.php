@@ -34,13 +34,13 @@
                 </div>
         </div>
             </div>
-            <div class="d-flex align-items-start flex-column" 
+            <div class="d-flex align-items-center flex-column" 
                 style="flex: 1; max-width: 40%;">
-                <img src="{{ asset('images/aboutus.png') }}" 
+                <!-- <img src="{{ asset('images/aboutus.png') }}" 
                     style="width: 30vw; border-radius: 8px; min-width: 300px;margin-top: 10vh;" 
-                    alt="About Us Image" />
+                    alt="About Us Image" /> -->
                 <img src="{{ asset('images/a-Sustainable-Way-to-Manage-Organic-Waste.jpg') }}"
-                    style="width: 30vw; border-radius: 8px; min-width: 300px;margin-top: 10vh;"
+                    style="width: 30vw; border-radius: 5px; min-width: 300px;margin-top: 8rem;"
                     alt="About Us Image_2">
             </div>
 
