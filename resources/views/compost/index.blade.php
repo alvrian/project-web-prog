@@ -56,8 +56,10 @@
                                 @endif
                                 </p>
                                 @if($entry->priceList)
-                                    <a href="{{ route('compost.show', $entry->id) }}" class="btn btn-light">View
-                                        Details</a>
+                                    <button class="btn btn-light" data-bs-toggle="modal"
+                                            data-bs-target="#showModal{{ $entry->id }}">
+                                        View Details
+                                    </button>
                                     <button class="btn btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{ $entry->id }}">
                                         Edit
@@ -69,6 +71,57 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="modal fade" id="showModal{{ $entry->id }}" tabindex="-1"
+                     aria-labelledby="showModalLabel{{ $entry->id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="showModalLabel{{ $entry->id }}">
+                                    Compost Entry Details
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h4>Compost Details</h4>
+                                <p class="card-text">
+                                    <strong>Compost Type:</strong> {{ $entry->compost_types_produced }}<br>
+                                    <strong>Average
+                                        Amount:</strong> {{ number_format($entry->average_compost_amount, 2) }} kg<br>
+                                    <strong>Kitchen Waste
+                                        Capacity:</strong> {{ number_format($entry->kitchen_waste_capacity, 2) }} kg<br>
+                                    <strong>Date
+                                        Logged:</strong> {{ $entry->date_logged ? $entry->date_logged->format('M d, Y') : 'Not Logged' }}
+                                </p>
+
+                                @if($entry->priceList)
+                                    <h5>Pricing Details</h5>
+                                    <p>
+                                        <strong>Price Per Item:</strong>
+                                        ${{ number_format($entry->priceList->price_per_item, 2) }}<br>
+                                        <strong>3-Month Subscription:</strong>
+                                        ${{ number_format($entry->priceList->price_per_subscription_3, 2) }}<br>
+                                        <strong>6-Month Subscription:</strong>
+                                        ${{ number_format($entry->priceList->price_per_subscription_6, 2) }}<br>
+                                        <strong>9-Month Subscription:</strong>
+                                        ${{ number_format($entry->priceList->price_per_subscription_9, 2) }}<br>
+                                        <strong>12-Month Subscription:</strong>
+                                        ${{ number_format($entry->priceList->price_per_subscription_12, 2) }}<br>
+                                    </p>
+                                @else
+                                    <p><strong>Price:</strong> <span class="badge bg-danger">No Price Set</span></p>
+                                @endif
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="modal fade" id="priceModal{{ $entry->id }}" tabindex="-1" aria-labelledby="priceModalLabel"
                      aria-hidden="true">
