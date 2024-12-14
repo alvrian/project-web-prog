@@ -10,14 +10,7 @@
                 <a href="{{ route('crops.index') }}" class="btn btn-light">Back</a>
 
                 <div class="mb-3">
-                    <label for="farmerId" class="form-label">Farmer ID</label>
-                    <input type="text" id="farmerId" class="form-control" value="{{ auth()->user()->id }}" disabled>
                     <input type="hidden" name="farmer_id" value="{{ auth()->user()->id }}">
-                </div>
-
-                <div class="mb-3">
-                    <label for="farmerName" class="form-label">Farmer Name</label>
-                    <input type="text" id="farmerName" class="form-control" value="{{ auth()->user()->name }}" disabled>
                 </div>
 
                 <div class="mb-3">
@@ -52,12 +45,6 @@
                            placeholder="Enter the number of harvest cycles" required>
                     <small class="text-danger d-none" id="harvestCyclesError">Please enter the number of harvest
                         cycles.</small>
-                </div>
-
-                <div class="mb-3">
-                    <label for="cropImage" class="form-label">Upload Crop Picture</label>
-                    <input type="file" class="form-control" id="cropImage" name="crop_image" accept="image/*" required>
-                    <small class="text-danger d-none" id="cropImageError">Please upload a valid image file.</small>
                 </div>
 
                 <div class="mb-3">
@@ -110,7 +97,6 @@
             cropType: document.getElementById('cropType'),
             averageAmount: document.getElementById('averageAmount'),
             harvestCycles: document.getElementById('harvestCycles'),
-            cropImage: document.getElementById('cropImage'),
             availabilityStart: document.getElementById('availabilityStart'),
             availabilityEnd: document.getElementById('availabilityEnd'),
         };
