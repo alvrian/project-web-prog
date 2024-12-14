@@ -10,11 +10,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\PriceListCompostController;
+use App\Http\Controllers\PriceListCropController;
 use App\Http\Controllers\PriceListWasteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\WasteLogController;
+use App\Models\PriceListCrop;
 use Illuminate\Support\Facades\Route;
 
 
@@ -101,7 +103,7 @@ Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function () {
     Route::get('orders/{crop}/create', [OrderController::class, 'create'])->name('orders.create');
     Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
 
-    Route::post('/prices', [PriceController::class, 'store'])->name('prices.store');
+    Route::post('/prices', [PriceListCropController::class, 'store'])->name('crop-prices.store');
 
     Route::post('/subscribe-to-producers', [FarmerController::class, 'subscribeToProducers'])->name('subscribe.to.producers');
 
