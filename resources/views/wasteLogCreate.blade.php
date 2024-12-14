@@ -6,7 +6,10 @@
             <form id="wasteForm" method="POST" action="{{ route('waste_log.store') }}" class="p-4 rounded shadow"
                   style="background-color: #f9f9f9;">
                 @csrf
-                <button type="button" class="btn btn-light w-auto" onclick="window.history.back()">Back</button>
+                <a href="{{ route('waste_log.list', ['restaurantOwnerID' => auth()->id()]) }}" class="btn btn-light">
+                    <span>Back</span>
+                </a>
+
                 <h3 class="text-center mb-4" style="color: #4b5320;">Log Waste Entry</h3>
 
                 <div class="mb-3">

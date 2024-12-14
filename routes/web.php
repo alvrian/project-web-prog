@@ -42,15 +42,12 @@ Route::prefix('restaurant-owner')->group(function () {
     Route::post("/sub-manage-pause", [RestaurantController::class, "subsManagementPause"])->name('restaurant.subsManagePause');
     Route::post('/restaurant/subscription/cancel', [RestaurantController::class, 'subsManageCancel'])->name('restaurant.subsManageCancel');
 
-
-
     Route::prefix('farmers')->name('farmers.')->group(function () {
         Route::get('/', [FarmerController::class, 'indexFarmer'])->name('index');
         Route::get('/farmerId={farmerId}', [FarmerController::class, 'showFarmer'])->name('show');
         Route::get('/farmerId={farmerId}/cropId={cropId}/details', [FarmerController::class, 'detailsFarmer'])->name('show-detail');
     });
     Route::post('/ROsubF', [SubscriptionController::class, 'storeROSubscribeFarmer'])->name('subscription.storeROSubscribeFarmer');
-
 
 
 });
@@ -74,14 +71,10 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
     Route::post("/sub-manage-resume", [CompostController::class, "subsManagementResume"])->name('compost.subsManageResume');
     Route::post("/sub-manage-pause", [CompostController::class, "subsManagementPause"])->name('compost.subsManagePause');
     Route::post('/subscription/cancel', [CompostController::class, 'subsManageCancel'])->name('compost.subsManageCancel');
-
-    Route::resource('composts', CompostEntryController::class);
-    Route::get('composts', [CompostEntryController::class, 'index'])->name('compost.index');
-    Route::get('composts/{id}/details', [CompostEntryController::class, 'show'])->name('compost.show');
-    Route::get('composts/{id}/edit', [CompostEntryController::class, 'edit'])->name('compost.edit');
+    Route::post('/prices/{id}', [PriceListCompostController::class, 'store'])->name('compost-price.store');
     Route::put('composts/{id}', [CompostEntryController::class, 'update'])->name('compost.update');
 
-    Route::post('/prices', [PriceListCompostController::class, 'store'])->name('price.store');
+    Route::get('composts', [CompostEntryController::class, 'index'])->name('compost.index');
 
     Route::prefix('resto-owners')->name('resto-owners.')->group(function () {
         Route::get('/', [WasteLogController::class, 'indexOwner'])->name('index');

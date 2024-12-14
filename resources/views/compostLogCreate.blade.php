@@ -5,29 +5,26 @@
         <div class="col-md-6">
             <form id="compostForm" method="POST" action="{{ route('compost.store') }}" class="p-4 rounded shadow"
                   style="background-color: #f9f9f9;">
+                <a href="{{ route('compost.index') }}" class="btn btn-light">
+                    <span>Back</span>
+                </a>
+
                 @csrf
                 <h3 class="text-center mb-4" style="color: #4b5320;">Log Compost Data</h3>
 
                 <div class="mb-3">
-                    <label for="compostProducerId" class="form-label">Compost Producer ID</label>
-                    <input type="text" id="compostProducerId" class="form-control" value="{{ auth()->user()->id }}"
-                           disabled>
                     <input type="hidden" name="compost_producer_id" value="{{ auth()->user()->id }}">
-                </div>
-
-                <div class="mb-3">
-                    <label for="compostProducerName" class="form-label">Compost Producer Name</label>
-                    <input type="text" id="compostProducerName" class="form-control" value="{{ auth()->user()->name }}"
-                           disabled>
                 </div>
 
                 <div class="mb-3">
                     <label for="CompostTypesProduced" class="form-label">Compost Type</label>
                     <select class="form-select" id="CompostTypesProduced" name="compost_types_produced" required>
                         <option value="" disabled selected>Select Compost Type</option>
-                        <option value="Organic Compost">Organic Compost</option>
-                        <option value="Vermicompost">Vermicompost</option>
-                        <option value="Compost Type 3">Compost Type 3</option>
+                        <option value="Green Compost">Green Compost</option>
+                        <option value="Brown Compost">Brown Compost</option>
+                        <option value="Manure-Based Compost">Manure-Based Compost</option>
+                        <option value="Mushroom Compost">Mushroom Compost</option>
+                        <option value="Humus Compost">Mushroom Compost</option>
                         <option value="Other">Other</option>
                     </select>
                     <small class="text-danger d-none" id="compostTypeError">Please select a compost type.</small>

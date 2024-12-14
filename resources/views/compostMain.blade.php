@@ -6,6 +6,7 @@
     </div>
   @else
     <div style="padding: 1rem 5rem;font-family:&quot;Inter&quot;, serif;">
+
       <x-compost-producer-component /><br>
       <a href = "{{route('compost.index')}}">
         <span style = "display: block;">

@@ -6,14 +6,11 @@
 
         <form action="{{ route('compost.index') }}" method="GET" class="mb-4">
             <div class="row d-flex justify-content-center">
-                <div class="col-md-3">
-                    <input type="text" name="search" class="form-control" placeholder="Search by Producer Name"
+                <div class="col-md-5">
+                    <input type="text" name="search" class="form-control" placeholder="Compost Type (e.g., Manure-Based Compost)"
                            value="{{ request('search') }}">
                 </div>
-                <div class="col-md-3">
-                    <input type="text" name="compost_type" class="form-control"
-                           placeholder="Compost Type (e.g., Vermicompost)" value="{{ request('compost_type') }}">
-                </div>
+
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-dark w-100">Filter</button>
                 </div>
@@ -47,6 +44,7 @@
                                     <li>9-Month Subscription: ${{ $entry->priceList->price_per_subscription_9 }}</li>
                                     <li>12-Month Subscription: ${{ $entry->priceList->price_per_subscription_12 }}</li>
                                 </ul>
+
                             @else
                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#priceModal{{ $entry->id }}">
@@ -55,8 +53,14 @@
                                 @endif
                                 </p>
                                 @if($entry->priceList)
-                                    <a href="{{ route('compost.show', $entry->id) }}" class="btn btn-light">View
-                                        Details</a>
+                                    <button class="btn btn-light" data-bs-toggle="modal"
+                                            data-bs-target="#showModal{{ $entry->id }}">
+                                        View Details
+                                    </button>
+                                    <button class="btn btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#editModal{{ $entry->id }}">
+                                        Edit
+                                    </button>
                                 @endif
                                 <script>
                                     console.log(@json($entry));
@@ -64,6 +68,57 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="modal fade" id="showModal{{ $entry->id }}" tabindex="-1"
+                     aria-labelledby="showModalLabel{{ $entry->id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="showModalLabel{{ $entry->id }}">
+                                    Compost Entry Details
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h4>Compost Details</h4>
+                                <p class="card-text">
+                                    <strong>Compost Type:</strong> {{ $entry->compost_types_produced }}<br>
+                                    <strong>Average
+                                        Amount:</strong> {{ number_format($entry->average_compost_amount, 2) }} kg<br>
+                                    <strong>Kitchen Waste
+                                        Capacity:</strong> {{ number_format($entry->kitchen_waste_capacity, 2) }} kg<br>
+                                    <strong>Date
+                                        Logged:</strong> {{ $entry->date_logged ? $entry->date_logged->format('M d, Y') : 'Not Logged' }}
+                                </p>
+
+                                @if($entry->priceList)
+                                    <h5>Pricing Details</h5>
+                                    <p>
+                                        <strong>Price Per Item:</strong>
+                                        ${{ number_format($entry->priceList->price_per_item, 2) }}<br>
+                                        <strong>3-Month Subscription:</strong>
+                                        ${{ number_format($entry->priceList->price_per_subscription_3, 2) }}<br>
+                                        <strong>6-Month Subscription:</strong>
+                                        ${{ number_format($entry->priceList->price_per_subscription_6, 2) }}<br>
+                                        <strong>9-Month Subscription:</strong>
+                                        ${{ number_format($entry->priceList->price_per_subscription_9, 2) }}<br>
+                                        <strong>12-Month Subscription:</strong>
+                                        ${{ number_format($entry->priceList->price_per_subscription_12, 2) }}<br>
+                                    </p>
+                                @else
+                                    <p><strong>Price:</strong> <span class="badge bg-danger">No Price Set</span></p>
+                                @endif
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="modal fade" id="priceModal{{ $entry->id }}" tabindex="-1" aria-labelledby="priceModalLabel"
                      aria-hidden="true">
@@ -76,7 +131,8 @@
                                         aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="priceForm{{ $entry->id }}" action="{{ route('price.store') }}" method="POST">
+                                <form id="priceForm{{ $entry->id }}"
+                                      action="{{ route('compost-price.store', ['id' => $entry->id]) }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="compost_entry_id" value="{{ $entry->id }}">
                                     <div class="mb-3">
@@ -118,6 +174,113 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="modal fade" id="editModal{{ $entry->id }}" tabindex="-1"
+                     aria-labelledby="editModalLabel{{ $entry->id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel{{ $entry->id }}">Edit Compost Entry</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <form method="POST" id="editForm{{ $entry->id }}"
+                                  action="{{ route('compost.update', $entry->id) }}">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="compost_producer_name{{ $entry->id }}" class="form-label">Producer
+                                            Name</label>
+                                        <input type="text" name="compost_producer_name"
+                                               id="compost_producer_name{{ $entry->id }}" class="form-control"
+                                               value="{{ $entry->compost_producer_name }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="compost_types_produced{{ $entry->id }}" class="form-label">Type of
+                                            Compost Produced</label>
+                                        <input type="text" name="compost_types_produced"
+                                               id="compost_types_produced{{ $entry->id }}" class="form-control"
+                                               value="{{ $entry->compost_types_produced }}" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="average_compost_amount{{ $entry->id }}" class="form-label">Average
+                                            Amount (kg)</label>
+                                        <input type="number" name="average_compost_amount"
+                                               id="average_compost_amount{{ $entry->id }}" class="form-control"
+                                               value="{{ $entry->average_compost_amount }}" min="0" step="0.01"
+                                               required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="kitchen_waste_capacity{{ $entry->id }}" class="form-label">Kitchen
+                                            Waste Capacity (kg)</label>
+                                        <input type="number" name="kitchen_waste_capacity"
+                                               id="kitchen_waste_capacity{{ $entry->id }}" class="form-control"
+                                               value="{{ $entry->kitchen_waste_capacity }}" min="0" step="0.01"
+                                               required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="date_logged{{ $entry->id }}" class="form-label">Date Logged</label>
+                                        <input type="date" name="date_logged" id="date_logged{{ $entry->id }}"
+                                               class="form-control"
+                                               value="{{ $entry->date_logged ? $entry->date_logged->format('Y-m-d') : '' }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="price_per_item{{ $entry->id }}" class="form-label">Price Per Item
+                                            ($)</label>
+                                        <input type="number" name="price_per_item" id="price_per_item{{ $entry->id }}"
+                                               class="form-control"
+                                               value="{{ optional($entry->priceList)->price_per_item }}" min="0"
+                                               step="0.01" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="price_per_subscription_3{{ $entry->id }}" class="form-label">3-Month
+                                            Subscription ($)</label>
+                                        <input type="number" name="price_per_subscription_3"
+                                               id="price_per_subscription_3{{ $entry->id }}" class="form-control"
+                                               value="{{ optional($entry->priceList)->price_per_subscription_3 }}"
+                                               min="0" step="0.01" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="price_per_subscription_6{{ $entry->id }}" class="form-label">6-Month
+                                            Subscription ($)</label>
+                                        <input type="number" name="price_per_subscription_6"
+                                               id="price_per_subscription_6{{ $entry->id }}" class="form-control"
+                                               value="{{ optional($entry->priceList)->price_per_subscription_6 }}"
+                                               min="0" step="0.01" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="price_per_subscription_9{{ $entry->id }}" class="form-label">9-Month
+                                            Subscription ($)</label>
+                                        <input type="number" name="price_per_subscription_9"
+                                               id="price_per_subscription_9{{ $entry->id }}" class="form-control"
+                                               value="{{ optional($entry->priceList)->price_per_subscription_9 }}"
+                                               min="0" step="0.01" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="price_per_subscription_12{{ $entry->id }}" class="form-label">12-Month
+                                            Subscription ($)</label>
+                                        <input type="number" name="price_per_subscription_12"
+                                               id="price_per_subscription_12{{ $entry->id }}" class="form-control"
+                                               value="{{ optional($entry->priceList)->price_per_subscription_12 }}"
+                                               min="0" step="0.01" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel
+                                    </button>
+                                    <button type="submit" class="btn btn-success">
+                                        <span id="spinner{{ $entry->id }}"
+                                              class="spinner-border spinner-border-sm d-none" role="status"
+                                              aria-hidden="true"></span>
+                                        Update
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
             @endforeach
         </div>
     </div>
@@ -131,7 +294,7 @@
 
                 const compostId = form.querySelector('input[name="compost_entry_id"]').value;
                 const formData = new FormData(form);
-                fetch('/prices', {
+                fetch('/compost-producer/prices/' + compostId, {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -157,7 +320,40 @@
                         document.getElementById('errorMessage' + compostId).innerText = 'An error occurred. Please try again.';
                         document.getElementById('errorMessage' + compostId).classList.remove('d-none');
                     });
+
             });
+
+            document.querySelectorAll('form[id^="editForm"]').forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    const formData = new FormData(form);
+                    const logId = form.action.split('/').pop();
+                    const url = form.action;
+
+                    fetch(url, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                const modal = new bootstrap.Modal(document.getElementById(`editModal${logId}`));
+                                modal.hide();
+
+                                document.querySelector(`#row-${logId} .waste-type`).innerText = formData.get('WasteType');
+                                document.querySelector(`#row-${logId} .weight`).innerText = formData.get('Weight') + ' kg';
+
+                                window.location.href = data.redirect || `/waste_log.list?restaurantOwnerID=${encodeURIComponent(auth()->id())}`;
+                            } else {
+                                alert('An error occurred while updating.');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+
         });
-    });
 </script>
