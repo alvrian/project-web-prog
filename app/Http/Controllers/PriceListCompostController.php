@@ -13,7 +13,7 @@ class PriceListCompostController extends Controller
         return view('prices.create', compact('compostEntry'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $validated = $request->validate([
             'compost_entry_id' => 'required|exists:compost_entries,id',
@@ -24,7 +24,15 @@ class PriceListCompostController extends Controller
             'price_per_subscription_12' => 'required|numeric|min:0',
         ]);
 
-        $priceList = new PriceListCompost($validated);
+        $compostLog = CompostEntry::findOrFail($id);
+
+        $priceList = new PriceListCompost();
+        $priceList->compost_entry_id = $compostLog->id;
+        $priceList->price_per_item = $request->price_per_item;
+        $priceList->price_per_subscription_3 = $request->price_per_subscription_3;
+        $priceList->price_per_subscription_6 = $request->price_per_subscription_6;
+        $priceList->price_per_subscription_9 = $request->price_per_subscription_9;
+        $priceList->price_per_subscription_12 = $request->price_per_subscription_12;
         $priceList->save();
 
         return redirect()->route('compost.index')->with('success', 'Price list created successfully.');

@@ -76,7 +76,8 @@
                                         aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form id="priceForm{{ $entry->id }}" action="{{ route('price.store') }}" method="POST">
+                                <form id="priceForm{{ $entry->id }}"
+                                      action="{{ route('compost-price.store', ['id' => $entry->id]) }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="compost_entry_id" value="{{ $entry->id }}">
                                     <div class="mb-3">
@@ -131,7 +132,7 @@
 
                 const compostId = form.querySelector('input[name="compost_entry_id"]').value;
                 const formData = new FormData(form);
-                fetch('/prices', {
+                fetch('/compost-producer/prices/' + compostId, {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -157,7 +158,8 @@
                         document.getElementById('errorMessage' + compostId).innerText = 'An error occurred. Please try again.';
                         document.getElementById('errorMessage' + compostId).classList.remove('d-none');
                     });
+
             });
-        });
+
     });
 </script>
