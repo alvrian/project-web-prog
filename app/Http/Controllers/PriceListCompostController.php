@@ -40,7 +40,12 @@ class PriceListCompostController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
+        $validatedData = $request->validate([
+            'compost_producer_name' => 'required|string|max:255',
+            'compost_types_produced' => 'required|string|max:255',
+            'average_compost_amount' => 'required|numeric|min:0',
+            'kitchen_waste_capacity' => 'required|numeric|min:0',
+            'date_logged' => 'nullable|date',
             'price_per_item' => 'required|numeric|min:0',
             'price_per_subscription_3' => 'required|numeric|min:0',
             'price_per_subscription_6' => 'required|numeric|min:0',
@@ -48,9 +53,39 @@ class PriceListCompostController extends Controller
             'price_per_subscription_12' => 'required|numeric|min:0',
         ]);
 
-        $priceList = PriceListCompost::findOrFail($id);
-        $priceList->update($validated);
+        try {
+            $entry = CompostEntry::findOrFail($id);
 
-        return redirect()->route('compost.index')->with('success', 'Price list updated successfully.');
+            $entry->update([
+                'compost_producer_name' => $validatedData['compost_producer_name'],
+                'compost_types_produced' => $validatedData['compost_types_produced'],
+                'average_compost_amount' => $validatedData['average_compost_amount'],
+                'kitchen_waste_capacity' => $validatedData['kitchen_waste_capacity'],
+                'date_logged' => $validatedData['date_logged'],
+            ]);
+
+            if ($entry->priceList) {
+                $entry->priceList->update([
+                    'price_per_item' => $validatedData['price_per_item'],
+                    'price_per_subscription_3' => $validatedData['price_per_subscription_3'],
+                    'price_per_subscription_6' => $validatedData['price_per_subscription_6'],
+                    'price_per_subscription_9' => $validatedData['price_per_subscription_9'],
+                    'price_per_subscription_12' => $validatedData['price_per_subscription_12'],
+                ]);
+            } else {
+                $entry->priceList()->create([
+                    'price_per_item' => $validatedData['price_per_item'],
+                    'price_per_subscription_3' => $validatedData['price_per_subscription_3'],
+                    'price_per_subscription_6' => $validatedData['price_per_subscription_6'],
+                    'price_per_subscription_9' => $validatedData['price_per_subscription_9'],
+                    'price_per_subscription_12' => $validatedData['price_per_subscription_12'],
+                ]);
+            }
+
+            return response()->json(['success' => true, 'message' => 'Entry updated successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to update entry.'], 500);
+        }
     }
+
 }
