@@ -63,10 +63,10 @@
                                 @endif
                                 </p>
                                 @if($crop->priceList)
-                                    <button class="btn btn-light" data-bs-toggle="modal"
-                                            data-bs-target="#showModal{{ $crop->id }}">
+                                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#viewModal{{ $crop->id }}">
                                         View Details
                                     </button>
+
                                     <button class="btn btn-warning" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{ $crop->id }}">
                                         Edit
@@ -190,6 +190,39 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="modal fade" id="viewModal{{ $crop->id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ $crop->id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="viewModalLabel{{ $crop->id }}">Crop Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h6><strong>Name:</strong> {{ $crop->crop_name }}</h6>
+                                <p><strong>Type:</strong> {{ $crop->crop_type }}</p>
+                                <p>
+                                    <strong>Available:</strong>
+                                    {{ $crop->availability_start->format('M d, Y') }} -
+                                    {{ $crop->availability_end->format('M d, Y') }}
+                                </p>
+                                <p><strong>Price:</strong> ${{ number_format(optional($crop->priceList)->price_per_item, 2) }} per kg</p>
+                                <h6>Subscription Prices</h6>
+                                <ul>
+                                    <li><strong>Per Item:</strong> ${{ number_format(optional($crop->priceList)->price_per_item, 2) }}</li>
+                                    <li><strong>3-Month Subscription:</strong> ${{ number_format(optional($crop->priceList)->price_per_subscription_3, 2) }}</li>
+                                    <li><strong>6-Month Subscription:</strong> ${{ number_format(optional($crop->priceList)->price_per_subscription_6, 2) }}</li>
+                                    <li><strong>9-Month Subscription:</strong> ${{ number_format(optional($crop->priceList)->price_per_subscription_9, 2) }}</li>
+                                    <li><strong>12-Month Subscription:</strong> ${{ number_format(optional($crop->priceList)->price_per_subscription_12, 2) }}</li>
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             @endforeach
         </div>
