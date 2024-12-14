@@ -6,14 +6,11 @@
 
         <form action="{{ route('compost.index') }}" method="GET" class="mb-4">
             <div class="row d-flex justify-content-center">
-                <div class="col-md-3">
-                    <input type="text" name="search" class="form-control" placeholder="Search by Producer Name"
+                <div class="col-md-5">
+                    <input type="text" name="search" class="form-control" placeholder="Compost Type (e.g., Manure-Based Compost)"
                            value="{{ request('search') }}">
                 </div>
-                <div class="col-md-3">
-                    <input type="text" name="compost_type" class="form-control"
-                           placeholder="Compost Type (e.g., Vermicompost)" value="{{ request('compost_type') }}">
-                </div>
+
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-dark w-100">Filter</button>
                 </div>

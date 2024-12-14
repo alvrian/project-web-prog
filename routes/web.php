@@ -75,10 +75,6 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
     Route::put('composts/{id}', [CompostEntryController::class, 'update'])->name('compost.update');
 
     Route::get('composts', [CompostEntryController::class, 'index'])->name('compost.index');
-    Route::get('composts/{id}/details', [CompostEntryController::class, 'show'])->name('compost.show');
-    Route::get('composts/{id}/edit', [CompostEntryController::class, 'edit'])->name('compost.edit');
-
-//    Route::post('/prices', [PriceListCompostController::class, 'store'])->name('price.store');
 
     Route::prefix('resto-owners')->name('resto-owners.')->group(function () {
         Route::get('/', [WasteLogController::class, 'indexOwner'])->name('index');

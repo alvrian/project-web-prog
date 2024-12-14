@@ -40,7 +40,7 @@ class CompostEntryController extends Controller
     {
         $compostEntries = CompostEntry::with('priceList')
             ->when($request->has('search'), function ($query) use ($request) {
-                $query->where('compost_producer_name', 'like', '%' . $request->input('search') . '%');
+                $query->where('compost_types_produced', 'like', '%' . $request->input('search') . '%');
             })
             ->where('compost_producer_id', auth()->user()->id)
             ->paginate(10);
