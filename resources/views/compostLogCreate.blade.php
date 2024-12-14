@@ -5,7 +5,10 @@
         <div class="col-md-6">
             <form id="compostForm" method="POST" action="{{ route('compost.store') }}" class="p-4 rounded shadow"
                   style="background-color: #f9f9f9;">
-                <button type="button" class="btn btn-light w-auto" onclick="window.history.back()">Back</button>
+                <a href="{{ route('compost.index') }}" class="btn btn-light">
+                    <span>Back</span>
+                </a>
+
                 @csrf
                 <h3 class="text-center mb-4" style="color: #4b5320;">Log Compost Data</h3>
 
