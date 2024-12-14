@@ -5,7 +5,7 @@
         <h1 class="text-center mb-4">My Available Crops</h1>
 
         <form action="{{ route('crops.index') }}" method="GET" class="mb-4">
-            <div class="row">
+            <div class="row d-flex justify-content-center">
                 <div class="col-md-3">
                     <input type="text" name="search" class="form-control" placeholder="Search by name"
                            value="{{ request('search') }}">
@@ -21,31 +21,24 @@
                         <option value="Other" {{ request('crop_type') == 'Other' ? 'selected' : '' }}>Other</option>
                     </select>
                 </div>
-                <div class="col-md-2">
-                    <input type="date" name="start_date" class="form-control" value="{{ request('start_date') }}">
-                </div>
-                <div class="col-md-2">
-                    <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
-                </div>
+
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-dark w-50">Filter</button>
                 </div>
-                <div class="col-md-2 mt-3">
-                    <a href="{{ route('crop.create') }}" class="btn btn-success w-70">Insert New Crop</a>
-                </div>
+
             </div>
         </form>
-
+        <div class="col-md-2 mt-3 mb-4">
+            <a href="{{ route('crop.create') }}" class="btn btn-success w-70">Insert New Crop</a>
+        </div>
         <div class="row">
             @foreach($crops as $crop)
                 <div class="col-md-4 mb-3">
                     <div class="card position-relative">
-                        @if(!$crop->prices || !$crop->prices->price_per_kg)
-                            <h5><span class="badge bg-success float-end"
-                                      style="font-weight: normal;">Need Attention</span></h5>
+                        @if(!$crop->priceList)
+                            <h5><span class="badge bg-danger position-absolute top-0 end-0 m-2"
+                                      style="font-weight: normal;">No Price</span></h5>
                         @endif
-                        <img src="{{ asset('storage/' . $crop->crop_image) }}" class="card-img-top"
-                             alt="{{ $crop->crop_name }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $crop->crop_name }}</h5>
                             <p class="card-text">
@@ -53,8 +46,15 @@
                                 <strong>Available:</strong> {{ $crop->availability_start->format('M d, Y') }}
                                 - {{ $crop->availability_end->format('M d, Y') }}<br>
                                 <strong>Price:</strong>
-                                @if($crop->prices)
-                                    {{ $crop->prices->price_per_kg }} per kg
+                                @if($crop->priceList)
+                                    {{ $crop->priceList->price_per_item }} per kg
+                                    <ul>
+                                        <li>Per Item: ${{ $crop->priceList->price_per_item }}</li>
+                                        <li>3-Month Subscription: ${{ $crop->priceList->price_per_subscription_3 }}</li>
+                                        <li>6-Month Subscription: ${{ $crop->priceList->price_per_subscription_6 }}</li>
+                                        <li>9-Month Subscription: ${{ $crop->priceList->price_per_subscription_9 }}</li>
+                                        <li>12-Month Subscription: ${{ $crop->priceList->price_per_subscription_12 }}</li>
+                                    </ul>
                                 @else
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#priceModal{{ $crop->id }}">
@@ -62,7 +62,7 @@
                                     </button>
                                 @endif
                             </p>
-                            @if($crop->prices)
+                            @if($crop->priceList)
                                 <a href="{{ route('crops.show', $crop->id) }}" class="btn btn-light">View Details</a>
                             @endif
                         </div>

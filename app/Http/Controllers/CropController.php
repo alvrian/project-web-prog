@@ -8,79 +8,10 @@ use Illuminate\Support\Facades\Storage;
 
 class CropController extends Controller
 {
-    /**
-     * @OA\Post(
-     *     path="/farmer/create-corp",
-     *     operationId="createCrop",
-     *     tags={"Crops"},
-     *     summary="Create a new crop",
-     *     description="Logs crop data in the database.",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 type="object",
-     *                 @OA\Property(property="farmer_id", type="integer"),
-     *                 @OA\Property(property="crop_name", type="string"),
-     *                 @OA\Property(property="crop_type", type="string"),
-     *                 @OA\Property(property="average_amount", type="number", format="float"),
-     *                 @OA\Property(property="harvest_cycles", type="integer"),
-     *                 @OA\Property(property="availability_start", type="string", format="date"),
-     *                 @OA\Property(property="availability_end", type="string", format="date"),
-     *                 @OA\Property(property="crop_image", type="string", format="binary")
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Crop data logged successfully"
-     *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Validation error"
-     *     )
-     * )
-     */
     public function create()
     {
         return view('cropLogCreate');
     }
-
-    /**
-     * @OA\Post(
-     *     path="/farmer/create-corp",
-     *     operationId="storeCrop",
-     *     tags={"Crops"},
-     *     summary="Store crop data",
-     *     description="Stores crop data in the database.",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 type="object",
-     *                 @OA\Property(property="farmer_id", type="integer"),
-     *                 @OA\Property(property="crop_name", type="string"),
-     *                 @OA\Property(property="crop_type", type="string"),
-     *                 @OA\Property(property="average_amount", type="number", format="float"),
-     *                 @OA\Property(property="harvest_cycles", type="integer"),
-     *                 @OA\Property(property="availability_start", type="string", format="date"),
-     *                 @OA\Property(property="availability_end", type="string", format="date"),
-     *                 @OA\Property(property="crop_image", type="string", format="binary")
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Crop data stored successfully"
-     *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Validation error"
-     *     )
-     * )
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -110,29 +41,6 @@ class CropController extends Controller
         return redirect()->back()->with('success', 'Crop data logged successfully!');
     }
 
-    /**
-     * @OA\Get(
-     *     path="/farmer",
-     *     operationId="getCrops",
-     *     tags={"Crops"},
-     *     summary="Get list of crops",
-     *     description="Retrieve all available crops.",
-     *     @OA\Response(
-     *         response=200,
-     *         description="Successful operation",
-     *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(
-     *                 type="object",
-     *                 @OA\Property(property="id", type="integer"),
-     *                 @OA\Property(property="crop_name", type="string"),
-     *                 @OA\Property(property="crop_type", type="string")
-     *             )
-     *         )
-     *     )
-     * )
-     */
-
     public function index(Request $request)
     {
         $query = Crop::query();
@@ -159,7 +67,7 @@ class CropController extends Controller
             $query->orderBy($sort, $order);
         }
 
-        $crops = Crop::with('prices')
+        $crops = Crop::with('priceList')
             ->when($request->has('crop_type'), function ($query) use ($request) {
                 $query->where('crop_type', $request->input('crop_type'));
             })
@@ -171,10 +79,10 @@ class CropController extends Controller
             })
             ->get()
             ->sortByDesc(function ($crop) {
-                return is_null($crop->prices) || is_null($crop->prices->price_per_kg);
+                return is_null($crop->priceList) || is_null($crop->priceList->price_per_item);
             });
 
-        $crops = $query->with('prices')->paginate(10);
+        $crops = $query->with('priceList')->paginate(10);
         return view('crops.index', compact('crops'));
     }
 
