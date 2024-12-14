@@ -63,7 +63,8 @@
                                 @endif
                                 </p>
                                 @if($crop->priceList)
-                                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#viewModal{{ $crop->id }}">
+                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                            data-bs-target="#viewModal{{ $crop->id }}">
                                         View Details
                                     </button>
 
@@ -81,25 +82,57 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="priceModalLabel">Set Price for {{ $crop->crop_name }}</h5>
+                                <h5 class="modal-title" id="priceModalLabel">Set Prices for {{ $crop->crop_name }}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{ route('prices.store') }}" method="POST">
+                                <form action="{{ route('crop-prices.store') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="crop_id" value="{{ $crop->id }}">
+
                                     <div class="mb-3">
-                                        <label for="price_per_kg" class="form-label">Price per Kg</label>
-                                        <input type="number" name="price_per_kg" class="form-control" min="0"
+                                        <label for="price_per_item{{ $crop->id }}" class="form-label">Price per Item
+                                            ($)</label>
+                                        <input type="number" name="price_per_item" id="price_per_item{{ $crop->id }}"
+                                               class="form-control" min="0" step="0.01" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="price_per_subscription_3{{ $crop->id }}" class="form-label">3-Month
+                                            Subscription ($)</label>
+                                        <input type="number" name="price_per_subscription_3"
+                                               id="price_per_subscription_3{{ $crop->id }}" class="form-control" min="0"
                                                step="0.01" required>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Set Price</button>
+                                    <div class="mb-3">
+                                        <label for="price_per_subscription_6{{ $crop->id }}" class="form-label">6-Month
+                                            Subscription ($)</label>
+                                        <input type="number" name="price_per_subscription_6"
+                                               id="price_per_subscription_6{{ $crop->id }}" class="form-control" min="0"
+                                               step="0.01" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="price_per_subscription_9{{ $crop->id }}" class="form-label">9-Month
+                                            Subscription ($)</label>
+                                        <input type="number" name="price_per_subscription_9"
+                                               id="price_per_subscription_9{{ $crop->id }}" class="form-control" min="0"
+                                               step="0.01" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="price_per_subscription_12{{ $crop->id }}" class="form-label">12-Month
+                                            Subscription ($)</label>
+                                        <input type="number" name="price_per_subscription_12"
+                                               id="price_per_subscription_12{{ $crop->id }}" class="form-control"
+                                               min="0" step="0.01" required>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Set Prices</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
                 <div class="modal fade" id="editModal{{ $crop->id }}" tabindex="-1"
                      aria-labelledby="editModalLabel{{ $crop->id }}" aria-hidden="true">
@@ -191,12 +224,14 @@
                     </div>
                 </div>
 
-                <div class="modal fade" id="viewModal{{ $crop->id }}" tabindex="-1" aria-labelledby="viewModalLabel{{ $crop->id }}" aria-hidden="true">
+                <div class="modal fade" id="viewModal{{ $crop->id }}" tabindex="-1"
+                     aria-labelledby="viewModalLabel{{ $crop->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="viewModalLabel{{ $crop->id }}">Crop Details</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <h6><strong>Name:</strong> {{ $crop->crop_name }}</h6>
@@ -206,14 +241,24 @@
                                     {{ $crop->availability_start->format('M d, Y') }} -
                                     {{ $crop->availability_end->format('M d, Y') }}
                                 </p>
-                                <p><strong>Price:</strong> ${{ number_format(optional($crop->priceList)->price_per_item, 2) }} per kg</p>
+                                <p><strong>Price:</strong>
+                                    ${{ number_format(optional($crop->priceList)->price_per_item, 2) }} per kg</p>
                                 <h6>Subscription Prices</h6>
                                 <ul>
-                                    <li><strong>Per Item:</strong> ${{ number_format(optional($crop->priceList)->price_per_item, 2) }}</li>
-                                    <li><strong>3-Month Subscription:</strong> ${{ number_format(optional($crop->priceList)->price_per_subscription_3, 2) }}</li>
-                                    <li><strong>6-Month Subscription:</strong> ${{ number_format(optional($crop->priceList)->price_per_subscription_6, 2) }}</li>
-                                    <li><strong>9-Month Subscription:</strong> ${{ number_format(optional($crop->priceList)->price_per_subscription_9, 2) }}</li>
-                                    <li><strong>12-Month Subscription:</strong> ${{ number_format(optional($crop->priceList)->price_per_subscription_12, 2) }}</li>
+                                    <li><strong>Per Item:</strong>
+                                        ${{ number_format(optional($crop->priceList)->price_per_item, 2) }}</li>
+                                    <li><strong>3-Month Subscription:</strong>
+                                        ${{ number_format(optional($crop->priceList)->price_per_subscription_3, 2) }}
+                                    </li>
+                                    <li><strong>6-Month Subscription:</strong>
+                                        ${{ number_format(optional($crop->priceList)->price_per_subscription_6, 2) }}
+                                    </li>
+                                    <li><strong>9-Month Subscription:</strong>
+                                        ${{ number_format(optional($crop->priceList)->price_per_subscription_9, 2) }}
+                                    </li>
+                                    <li><strong>12-Month Subscription:</strong>
+                                        ${{ number_format(optional($crop->priceList)->price_per_subscription_12, 2) }}
+                                    </li>
                                 </ul>
                             </div>
                             <div class="modal-footer">
@@ -222,7 +267,6 @@
                         </div>
                     </div>
                 </div>
-
 
             @endforeach
         </div>
@@ -292,7 +336,7 @@
                             document.querySelector(`#row-${logId} .crop-name`).innerText = formData.get('crop_name');
                             document.querySelector(`#row-${logId} .crop-type`).innerText = formData.get('crop_type');
                             document.querySelector(`#row-${logId} .average-amount`).innerText = formData.get('average_amount') + ' kg';
-                            document.querySelector(`#row-${logId} .price-per-kg`).innerText = '$' + formData.get('price_per_kg');
+                            document.querySelector(`#row-${logId} .price-per-kg`).innerText = '$' + formData.get('price_per_item');
 
                             if (data.redirect) {
                                 window.location.href = data.redirect;
