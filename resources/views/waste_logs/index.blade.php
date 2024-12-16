@@ -16,7 +16,7 @@
                                value="{{ request('type') }}">
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-dark w-100">Filter</button>
+                        <button type="submit" class="btn btn-success w-100">Filter</button>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="row">
                 @foreach($restaurantOwners as $owner)
                     <div class="col-md-4 mb-3">
-                        <div class="card">
+                        <div class="card position-relative card border-success mb-3">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $owner->Name }}</h5>
                                 <p class="card-text">
@@ -38,7 +38,7 @@
                                     <strong>Type:</strong> {{ $owner->Type ?? 'N/A' }}<br>
                                     <strong>Average Waste:</strong> {{ $owner->AverageFoodWastePerMonth ?? 'N/A' }} kg/month<br>
                                 </p>
-                                <a href="{{ route('resto-owners.show', ['ownerID' => $owner->user_id]) }}" class="btn btn-light">View Details</a>
+                                <a href="{{ route('resto-owners.show', ['ownerID' => $owner->user_id]) }}" class="btn btn-dark">View Details</a>
                             </div>
                         </div>
                     </div>
