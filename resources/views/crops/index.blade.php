@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-dark w-50">Filter</button>
+                    <button type="submit" class="btn btn-success w-50">Filter</button>
                 </div>
 
             </div>
@@ -34,7 +34,7 @@
         <div class="row">
             @foreach($crops as $crop)
                 <div class="col-md-4 mb-3">
-                    <div class="card position-relative">
+                    <div class="card position-relative card border-success mb-3">
                         @if(!$crop->priceList)
                             <h5><span class="badge bg-danger position-absolute top-0 end-0 m-2"
                                       style="font-weight: normal;">No Price</span></h5>
@@ -50,10 +50,6 @@
                                     {{ $crop->priceList->price_per_item }} per kg
                             <ul>
                                 <li>Per Item: ${{ $crop->priceList->price_per_item }}</li>
-                                <li>3-Month Subscription: ${{ $crop->priceList->price_per_subscription_3 }}</li>
-                                <li>6-Month Subscription: ${{ $crop->priceList->price_per_subscription_6 }}</li>
-                                <li>9-Month Subscription: ${{ $crop->priceList->price_per_subscription_9 }}</li>
-                                <li>12-Month Subscription: ${{ $crop->priceList->price_per_subscription_12 }}</li>
                             </ul>
                             @else
                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
@@ -63,12 +59,12 @@
                                 @endif
                                 </p>
                                 @if($crop->priceList)
-                                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-dark" data-bs-toggle="modal"
                                             data-bs-target="#viewModal{{ $crop->id }}">
                                         View Details
                                     </button>
 
-                                    <button class="btn btn-warning" data-bs-toggle="modal"
+                                    <button class="btn btn-success" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{ $crop->id }}">
                                         Edit
                                     </button>
@@ -77,7 +73,8 @@
                     </div>
                 </div>
 
-                <div class="modal fade" id="priceModal{{ $crop->id }}" tabindex="-1" aria-labelledby="priceModalLabel"
+                <div class="modal fade" id="priceModal{{ $crop->id }}" data-bs-backdrop="static"
+                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="priceModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -135,6 +132,7 @@
 
 
                 <div class="modal fade" id="editModal{{ $crop->id }}" tabindex="-1"
+                     data-bs-backdrop="static" data-bs-keyboard="false"
                      aria-labelledby="editModalLabel{{ $crop->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -225,6 +223,7 @@
                 </div>
 
                 <div class="modal fade" id="viewModal{{ $crop->id }}" tabindex="-1"
+                     data-bs-backdrop="static" data-bs-keyboard="false"
                      aria-labelledby="viewModalLabel{{ $crop->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">

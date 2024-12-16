@@ -7,12 +7,13 @@
         <form action="{{ route('compost.index') }}" method="GET" class="mb-4">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-5">
-                    <input type="text" name="search" class="form-control" placeholder="Compost Type (e.g., Manure-Based Compost)"
+                    <input type="text" name="search" class="form-control"
+                           placeholder="Compost Type (e.g., Manure-Based Compost)"
                            value="{{ request('search') }}">
                 </div>
 
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-dark w-100">Filter</button>
+                    <button type="submit" class="btn btn-success w-100">Filter</button>
                 </div>
 
             </div>
@@ -24,7 +25,7 @@
         <div class="row">
             @foreach($compostEntries as $entry)
                 <div class="col-md-4 mb-3">
-                    <div class="card position-relative">
+                    <div class="card position-relative card border-success mb-3">
                         @if(!$entry->priceList)
                             <span class="badge bg-danger position-absolute top-0 end-0 m-2">No Price</span>
                         @endif
@@ -39,10 +40,6 @@
                             @if($entry->priceList)
                                 <ul>
                                     <li>Per Item: ${{ $entry->priceList->price_per_item }}</li>
-                                    <li>3-Month Subscription: ${{ $entry->priceList->price_per_subscription_3 }}</li>
-                                    <li>6-Month Subscription: ${{ $entry->priceList->price_per_subscription_6 }}</li>
-                                    <li>9-Month Subscription: ${{ $entry->priceList->price_per_subscription_9 }}</li>
-                                    <li>12-Month Subscription: ${{ $entry->priceList->price_per_subscription_12 }}</li>
                                 </ul>
 
                             @else
@@ -53,11 +50,11 @@
                                 @endif
                                 </p>
                                 @if($entry->priceList)
-                                    <button class="btn btn-light" data-bs-toggle="modal"
+                                    <button class="btn btn-dark" data-bs-toggle="modal"
                                             data-bs-target="#showModal{{ $entry->id }}">
                                         View Details
                                     </button>
-                                    <button class="btn btn-warning" data-bs-toggle="modal"
+                                    <button class="btn btn-success" data-bs-toggle="modal"
                                             data-bs-target="#editModal{{ $entry->id }}">
                                         Edit
                                     </button>
@@ -70,6 +67,7 @@
                 </div>
 
                 <div class="modal fade" id="showModal{{ $entry->id }}" tabindex="-1"
+                     data-bs-backdrop="static" data-bs-keyboard="false"
                      aria-labelledby="showModalLabel{{ $entry->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -120,7 +118,8 @@
                 </div>
 
 
-                <div class="modal fade" id="priceModal{{ $entry->id }}" tabindex="-1" aria-labelledby="priceModalLabel"
+                <div class="modal fade" id="priceModal{{ $entry->id }}" data-bs-backdrop="static"
+                     data-bs-keyboard="false" tabindex="-1" aria-labelledby="priceModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -176,6 +175,7 @@
                 </div>
 
                 <div class="modal fade" id="editModal{{ $entry->id }}" tabindex="-1"
+                     data-bs-backdrop="static" data-bs-keyboard="false"
                      aria-labelledby="editModalLabel{{ $entry->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">

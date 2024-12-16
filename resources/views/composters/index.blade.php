@@ -16,7 +16,7 @@
                                value="{{ request('compost_type') }}">
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-dark w-100">Filter</button>
+                        <button type="submit" class="btn btn-success w-100">Filter</button>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="row">
                 @foreach($compostProducers as $producer)
                     <div class="col-md-4 mb-3">
-                        <div class="card">
+                        <div class="card position-relative card border-success mb-3">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $producer->Name }}</h5>
                                 <p class="card-text">
@@ -43,7 +43,7 @@
                                     @endif
                                 </p>
                                 <a href="{{ route('composters.show', ['composterId' => $producer->user_id]) }}"
-                                   class="btn btn-light">View Details</a>
+                                   class="btn btn-dark">View Details</a>
                             </div>
                         </div>
                     </div>
