@@ -86,7 +86,7 @@
   </div>
   @if(auth()->user())
     <span style="width: 85vw;font-weight:bold;font-size: 24px;">Work Together with Us</span>
-    <div class="row" style="width: 85vw;height: 30rem;">
+    <div class="row" style="width: 85vw;">
       @if(auth()->user()->role == "restaurant_owner")
       <a href="{{ route('restaurant.index') }}" style="text-decoration: none;">
         <div class="card d-flex justify-content-center align-items-center"
@@ -99,7 +99,7 @@
         </div>
       </a>
       @elseif(auth()->user()->role == "compost_producer")
-      <div class = "col-4" style = "height: 100%;">
+      <div class = "col">
         <a href="/compost-producer" style="text-decoration: none;">
           <div class="card d-flex justify-content-center align-items-center"
           style="height: 100%;color:white;background-color:#43553D;border-radius:12px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);">
