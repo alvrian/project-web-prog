@@ -88,16 +88,52 @@
     <span style="width: 85vw;font-weight:bold;font-size: 24px;">Work Together with Us</span>
     <div class="row" style="width: 85vw;">
       @if(auth()->user()->role == "restaurant_owner")
-      <a href="{{ route('restaurant.index') }}" style="text-decoration: none;">
-        <div class="card d-flex justify-content-center align-items-center"
-        style="width: 25vw;height: 30rem;color:white;background-color:#43553D;border-radius:12px;max-width: 400px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);">
-        <img src="{{ asset('images/home-restaurantLogo.png') }}"
-          class="d-flex justify-content-center align-items-center" alt="...">
-        <span style="padding: 1rem;font-size: 22px;font-weight:700;">
-          Restaurant
-        </span>
+      <div class="col">
+        <a href="{{ route('restaurant.index') }}" style="text-decoration: none;">
+          <div class="card d-flex justify-content-center align-items-center"
+          style="width: 25vw;height: 30rem;color:white;background-color:#43553D;border-radius:12px;max-width: 400px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);">
+          <img src="{{ asset('images/home-restaurantLogo.png') }}"
+            class="d-flex justify-content-center align-items-center" alt="...">
+          <span style="padding: 1rem;font-size: 22px;font-weight:700;">
+            Restaurant
+          </span>
+          </div>
+        </a>
+      </div>
+      <div class="col-8" style="padding: 0 1rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style = "margin-bottom: 1rem;">
+          <span style="font-size: 22px; font-weight: 600; display: block;">Welcome, </span>
+          <span style="font-size: 24px; font-weight: 600; display: block;">{{ auth()->user()->name }}</span>
+          <span style="font-size: 18px; color: rgba(60, 60, 60, 0.81); display: block;">{{ auth()->user()->email }}</span>
         </div>
-      </a>
+        <div class="row" style="position: relative;box-shadow: 5px 7px 8px 0px rgba(163, 163, 163, 0.17); padding: 3rem 1rem ;border: 2px solid #b8b8b8;border-radius: 12px;margin-left: 1px;">
+          <span style = "position: absolute;top: 5%;font-size: 24px;font-weight: 600;">Quick Action</span>
+          <div class="col" style = "border: 2px solid #b8b8b8;padding: 1rem;border-radius: 12px;margin: 20px;" id = "box-quick">
+            <a href = "/account" style = "text-decoration:none;color: black;">
+            <div class = "d-flex flex-column justify-content-center align-items-center">
+                <img  src = "{{ asset('images/account-quick.png') }}" style = "height: 100px;margin: 1rem;">
+                <span>account</span>
+            </div>
+            </a>
+          </div>
+          <div class="col" style="padding: 1rem;border: 2px solid #b8b8b8;border-radius: 12px;margin: 20px;" id = "box-quick">
+            <a href = "/restaurant-owner/farmers" style = "text-decoration:none;color: black;">
+            <div class = "d-flex flex-column justify-content-center align-items-center">
+              <img  src = "{{ asset('images/catalog-quick.png') }}" style = "height: 100px;margin: 1rem;">
+              <span>My Catalog</span>
+            </div>
+            </a>
+          </div>
+          <div class="col" style="padding: 1rem;border: 2px solid #b8b8b8;border-radius: 12px;margin: 20px;" id = "box-quick">
+          <a href = "/restaurant-owner" style = "text-decoration:none;color: black;">
+          <div class = "d-flex flex-column justify-content-center align-items-center">
+              <img  src = "{{ asset('images/portal-quick.png') }}" style = "height: 100px;margin: 1rem;">
+              <span>Portal</span>
+            </div>
+          </div>
+          </a>
+        </div>
+      </div>
       @elseif(auth()->user()->role == "compost_producer")
       <div class = "col">
         <a href="/compost-producer" style="text-decoration: none;">
