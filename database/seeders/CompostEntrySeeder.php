@@ -5,37 +5,54 @@ namespace Database\Seeders;
 use App\Models\CompostEntry;
 use Illuminate\Database\Seeder;
 use App\Models\PriceListCompost;
-use Faker\Factory as Faker;
+use App\Models\User;
+
 class CompostEntrySeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker::create();
+        $compostTypes = [
+            'Green Compost',
+            'Brown Compost',
+            'Manure-Based Compost',
+            'Mushroom Compost',
+            'Humus Compost',
+            'Other'
+        ];
 
-        $compostEntries = CompostEntry::all();
+        $compostProducers = User::where('role', 'compost_producer')->get();
 
-        if ($compostEntries->isEmpty()) {
-            for ($i = 0; $i < 10; $i++) {
-                $compostEntries[] = CompostEntry::create([
-                    'compost_producer_id' => $faker->numberBetween(1, 10),
-                    'compost_producer_name' => $faker->company,
-                    'compost_types_produced' => $faker->randomElement(['Type A', 'Type B', 'Type C']),
-                    'average_compost_amount' => $faker->randomFloat(2, 50, 500),
-                    'kitchen_waste_capacity' => $faker->randomFloat(2, 100, 1000), 
-                    'date_logged' => $faker->date(),
-                ]);
+        if (CompostEntry::count() === 0) {
+            foreach ($compostProducers as $producer) {
+                for ($i = 1; $i <= 5; $i++) {
+                    $compostEntry = CompostEntry::create([
+                        'compost_producer_id' => $producer->id,
+                        'compost_producer_name' => $producer->name,
+                        'compost_types_produced' => $compostTypes[array_rand($compostTypes)],
+                        'average_compost_amount' => rand(100, 1000),
+                        'kitchen_waste_capacity' => rand(500, 2000),
+                        'date_logged' => now()->subDays(rand(0, 30)),
+                    ]);
+
+                    $pricePerItem = rand(10, 20);
+                    $priceList = [
+                        'price_per_item' => $pricePerItem,
+                        'price_per_subscription_3' => $pricePerItem * 3 * 0.95,
+                        'price_per_subscription_6' => $pricePerItem * 6 * 0.90,
+                        'price_per_subscription_9' => $pricePerItem * 9 * 0.85,
+                        'price_per_subscription_12' => $pricePerItem * 12 * 0.80,
+                    ];
+
+                    PriceListCompost::create([
+                        'compost_entry_id' => $compostEntry->id,
+                        'price_per_item' => $priceList['price_per_item'],
+                        'price_per_subscription_3' => round($priceList['price_per_subscription_3'], 2),
+                        'price_per_subscription_6' => round($priceList['price_per_subscription_6'], 2),
+                        'price_per_subscription_9' => round($priceList['price_per_subscription_9'], 2),
+                        'price_per_subscription_12' => round($priceList['price_per_subscription_12'], 2),
+                    ]);
+                }
             }
-        }
-
-        foreach ($compostEntries as $compostEntry) {
-            PriceListCompost::create([
-                'compost_entry_id' => $compostEntry->id,
-                'price_per_item' => $faker->randomFloat(2, 5, 20),
-                'price_per_subscription_3' => $faker->randomFloat(2, 20, 50),
-                'price_per_subscription_6' => $faker->randomFloat(2, 40, 80),
-                'price_per_subscription_9' => $faker->randomFloat(2, 60, 120),
-                'price_per_subscription_12' => $faker->randomFloat(2, 80, 150),
-            ]);
         }
     }
 }
