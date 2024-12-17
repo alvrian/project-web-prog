@@ -13,22 +13,44 @@ use App\Models\PickupSchedule;
 
 class FarmerController extends Controller
 {
+    // public function index()
+    // {
+    //     $farmerId = auth()->user()->farmer->user_id;
+
+    //     $compostSchedules = PickupSchedule::where(function ($query) use ($farmerId) {
+    //         $query->where('RecipientFarmerID', $farmerId)
+    //             ->where('PickupType', 'Compost Delivery');
+    //     })->orderBy('ScheduledDate')->get();
+
+    //     $cropSchedules = PickupSchedule::where(function ($query) use ($farmerId) {
+    //         $query->where('SenderFarmerID', $farmerId)
+    //             ->where('PickupType', 'Waste Pickup');
+    //     })->orderBy('ScheduledDate')->get();
+
+    //     return view("farmerrmain", compact('compostSchedules', 'cropSchedules'));
+    // }
+
     public function index()
-    {
-        $farmerId = auth()->user()->farmer->user_id;
+{
+    $userId = auth()->user()->id;
 
-        $compostSchedules = PickupSchedule::where(function ($query) use ($farmerId) {
-            $query->where('RecipientFarmerID', $farmerId)
-                ->where('PickupType', 'Compost Delivery');
-        })->orderBy('ScheduledDate')->get();
+    $pickup = PickupSchedule::where('SenderFarmerID', $userId)
+                ->where('PickupType', 'Crops Delivery')
+                ->orderBy('ScheduledDate', 'asc')
+                ->get();
 
-        $cropSchedules = PickupSchedule::where(function ($query) use ($farmerId) {
-            $query->where('SenderFarmerID', $farmerId)
-                ->where('PickupType', 'Waste Pickup');
-        })->orderBy('ScheduledDate')->get();
+    $delivery = PickupSchedule::where('RecipientFarmerID', $userId)
+                ->where('PickupType', 'Compost Drop Off')
+                ->orderBy('ScheduledDate', 'asc')
+                ->get();
 
-        return view("farmerMain", compact('compostSchedules', 'cropSchedules'));
-    }
+    $data = Subscription::where('SubscriberID', $userId)
+                ->where('Status', '<>', 'Expired')
+                ->get();
+
+    return view('farmerrmain', compact('pickup', 'delivery', 'data'));
+}
+
 
     public function subscribeToProducers(Request $request)
     {
