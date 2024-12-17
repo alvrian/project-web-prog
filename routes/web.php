@@ -90,7 +90,7 @@ Route::prefix("compost-producer")->middleware(['auth', 'verified'])->group(funct
 Route::prefix("farmer")->middleware(['auth', 'verified'])->group(function () {
     Route::get("/", [FarmerController::class, 'index']);
 
-    Route::get('/create-corp', [CropController::class, 'create'])->name('crop.create');
+    Route::get('/create-crop', [CropController::class, 'create'])->name('crop.create');
     Route::post('/create-corp', [CropController::class, 'store'])->name('crop.store');
 
     Route::resource('crops', CropController::class);
