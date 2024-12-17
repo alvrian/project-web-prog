@@ -17,13 +17,13 @@ class DatabaseSeeder extends Seeder
             CompostEntrySeeder::class,
             CropSeeder::class,
             WasteLogSeeder::class,
+            SubscriptionSeeder::class,
 //            PickupScheduleSeeder::class,
 //            PointsTransactionSeeder::class,
 
 //            OrdersTableSeeder::class,
 //            PricesTableSeeder::class,
 //            PriceListCompostSeeder::class,
-//            SubscriptionSeeder::class,
 //            CropPriceListSeeder::class,
 //            PriceListWasteLogSeeder::class,
         ]);
