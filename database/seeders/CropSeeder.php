@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Models\Crop;
 use App\Models\Farmer;
@@ -12,7 +13,7 @@ class CropSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
-        $farmers = Farmer::all();
+        $farmers = User::where('role', 'farmer')->get();
 
         $cropNamesByType = [
             'Vegetables' => ['Carrot', 'Lettuce', 'Spinach', 'Tomato', 'Cabbage'],

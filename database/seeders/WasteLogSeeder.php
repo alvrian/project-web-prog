@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\PriceListWasteLog;
 use App\Models\RestaurantOwner;
+use App\Models\User;
 use App\Models\WasteLog;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +17,7 @@ class WasteLogSeeder extends Seeder
     {
         $wasteTypes = ['Fruit Waste', 'Vegetable Waste', 'Coffee Grounds', 'Tea Leaves', 'Eggshells', 'Food Scraps', 'Other'];
 
-        $restaurantOwners = RestaurantOwner::all();
+        $restaurantOwners = User::where('role', 'restaurant_owner')->get();
 
         foreach ($restaurantOwners as $owner) {
             for ($i = 0; $i < 5; $i++) {
