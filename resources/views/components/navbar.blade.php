@@ -4,8 +4,8 @@
     style="height: 7vh; background-color: 
       @auth
         {{
-          auth()->user()->role == 'restaurant_owner' ? '#ffcc00' :
-          (auth()->user()->role == 'farmer' ? '#98FB98' :
+          auth()->user()->role == 'restaurant_owner' ? '#D3D3D3' : 
+          (auth()->user()->role == 'farmer' ? '#D3D3D3' : 
           (auth()->user()->role == 'compost_producer' ? '#D3D3D3' : '#ADD8E6'))
         }}
       @else
