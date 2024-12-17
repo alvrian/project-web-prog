@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Seeders;
+
+use App\Http\Controllers\WasteLogController;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,20 +14,18 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            CompostProducerFarmerSeeder::class,
-            RestaurantOwnerFarmerSeeder::class,
-            CatalogSeeder::class,
-            PriceListWasteLogSeeder::class,
-            PickupScheduleSeeder::class,
-            PointsTransactionSeeder::class,
             CompostEntrySeeder::class,
             CropSeeder::class,
-            OrdersTableSeeder::class,
-            PricesTableSeeder::class,
-            PriceListCompostSeeder::class,
-            SubscriptionSeeder::class,
-            CropPriceListSeeder::class,
-            PriceListWasteLogSeeder::class,
+            WasteLogSeeder::class,
+//            PickupScheduleSeeder::class,
+//            PointsTransactionSeeder::class,
+
+//            OrdersTableSeeder::class,
+//            PricesTableSeeder::class,
+//            PriceListCompostSeeder::class,
+//            SubscriptionSeeder::class,
+//            CropPriceListSeeder::class,
+//            PriceListWasteLogSeeder::class,
         ]);
     }
 }
