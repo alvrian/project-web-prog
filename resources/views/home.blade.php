@@ -112,7 +112,7 @@
         </a>
       </div>
       <div class="col-8" style="padding: 0 1rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-        <div>
+        <div style = "margin-bottom: 1rem;">
           <span style="font-size: 22px; font-weight: 600; display: block;">Welcome, </span>
           <span style="font-size: 24px; font-weight: 600; display: block;">{{ auth()->user()->name }}</span>
           <span style="font-size: 18px; color: rgba(60, 60, 60, 0.81); display: block;">{{ auth()->user()->email }}</span>
