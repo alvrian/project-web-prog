@@ -86,37 +86,55 @@
   </div>
   @if(auth()->user())
     <span style="width: 85vw;font-weight:bold;font-size: 24px;">Work Together with Us</span>
-    <div class="d-flex justify-content-between " style="width: 85vw;">
-    <a href="{{ route('restaurant.index') }}" style="text-decoration: none;">
-      <div class="card d-flex justify-content-center align-items-center"
-      style="width: 25vw;height: 30rem;color:white;background-color:#43553D;border-radius:12px;max-width: 400px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);">
-      <img src="{{ asset('images/home-restaurantLogo.png') }}"
-        class="d-flex justify-content-center align-items-center" alt="...">
-      <span style="padding: 1rem;font-size: 22px;font-weight:700;">
-        Restaurant
-      </span>
+    <div class="row" style="width: 85vw;">
+      @if(auth()->user()->role == "restaurant_owner")
+      <a href="{{ route('restaurant.index') }}" style="text-decoration: none;">
+        <div class="card d-flex justify-content-center align-items-center"
+        style="width: 25vw;height: 30rem;color:white;background-color:#43553D;border-radius:12px;max-width: 400px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);">
+        <img src="{{ asset('images/home-restaurantLogo.png') }}"
+          class="d-flex justify-content-center align-items-center" alt="...">
+        <span style="padding: 1rem;font-size: 22px;font-weight:700;">
+          Restaurant
+        </span>
+        </div>
+      </a>
+      @elseif(auth()->user()->role == "compost_producer")
+      <div class = "col-4">
+        <a href="/compost-producer" style="text-decoration: none;">
+          <div class="card d-flex justify-content-center align-items-center"
+          style="height: 30rem;color:white;background-color:#43553D;border-radius:12px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);">
+          <img src="{{ asset('images/home-compostLogo.png') }}" class="d-flex justify-content-center align-items-center"
+            alt="...">
+          <span style="padding: 1rem;font-size: 22px;font-weight:700;text-align: center;">
+            Compost Producer
+          </span>
+          </div>
+        </a>
       </div>
-    </a>
-    <a href="/compost-producer" style="text-decoration: none;">
-      <div class="card d-flex justify-content-center align-items-center"
-      style="width: 25vw;height: 30rem;color:white;background-color:#43553D;border-radius:12px;max-width: 400px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);">
-      <img src="{{ asset('images/home-compostLogo.png') }}" class="d-flex justify-content-center align-items-center"
-        alt="...">
-      <span style="padding: 1rem;font-size: 22px;font-weight:700;text-align: center;">
-        Compost Producer
-      </span>
+      <div class = "col-8" style = "padding:10px  1rem;">
+      <span style = "font-size: 22px;font-weight: 600;display: block;">Welcome, </span>
+        <span style = "font-size: 24px;font-weight: 600;display: block;">{{auth()->user()->name}}</span>
+        <span style  = "font-size: 18px;color: rgba(60, 60, 60, 0.81);display:block;">{{auth()->user()->email}}</span><br>
+        <!-- <div class = "dropend">
+          <a href = "/compost-producer" style = "text-decoration: none;">
+            <button class = "btn dropdown-toggle" type = "button" style = "background-color: #EBCF7B;border: none;color: white;">
+              Go to Compost Portal
+            </button>
+          </a>
+        </div> -->
       </div>
-    </a>
-    <a href="/farmer" style="text-decoration: none;">
-      <div class="card d-flex justify-content-center align-items-center"
-      style="width: 25vw;height: 30rem;color:white;background-color:#43553D;border-radius:12px;max-width: 400px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);">
-      <img src="{{ asset('images/home-farmLogo.png') }}" class="d-flex justify-content-center align-items-center"
-        alt="...">
-      <span style="padding: 1rem;font-size: 22px;font-weight:700;">
-        Farmer
-      </span>
-      </div>
-    </a>
+      @elseif(auth()->user()->role == "farmer")
+      <a href="/farmer" style="text-decoration: none;">
+        <div class="card d-flex justify-content-center align-items-center"
+        style="width: 25vw;height: 30rem;color:white;background-color:#43553D;border-radius:12px;max-width: 400px;box-shadow: 5px 7px 8px 0px rgba(163,163,163,0.17);">
+        <img src="{{ asset('images/home-farmLogo.png') }}" class="d-flex justify-content-center align-items-center"
+          alt="...">
+        <span style="padding: 1rem;font-size: 22px;font-weight:700;">
+          Farmer
+        </span>
+        </div>
+      </a>
+      @endif
     </div>
   @endif
   </div>

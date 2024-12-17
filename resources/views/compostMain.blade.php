@@ -41,9 +41,9 @@
     <div
       style="padding: 10px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);border-radius: 12px;margin: 1rem 0 1rem 0;">
 
-      <div class="accordion accordion-flush" id="accordionFlushExample"
+    <div class="accordion accordion-flush" id="accordionFlushExample"
       style="width: 100%; height: 50vh; overflow-y: auto; overflow-x:hidden">
-      @if($data->isEmpty())
+    @if($data->isEmpty())
       <span>there isn't any subscription yet</span>
     @else
       @foreach ($data as $d)
