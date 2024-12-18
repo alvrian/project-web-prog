@@ -1,6 +1,3 @@
-<a id="readme-top"></a>
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -37,18 +34,14 @@
         <li><a href="#task-distribution">Task Distribution</a></li>
       </ul>
       <ul>
-        <li><a href="#task-distribution">Task Distribution</a></li>
-      </ul>
-      <ul>
         <li><a href="#about-farmbyte">About FarmByte</a></li>
       </ul> 
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
+      <a href="#link-to-our-website">Link to Our Website</a>
+    </li>
+    <li>
+      <a href="#database">Database</a>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -74,9 +67,6 @@ Kelompok 7:
 
 **SDG 12** : Responsible Consumption and Production  
 SDG 12 aims to ensure sustainable consumption and production patterns. It focuses on efficient resource use, reducing waste, and promoting sustainable lifestyles to minimize environmental impact and support global sustainability.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 ### Task Distribution
@@ -110,11 +100,15 @@ By fostering collaboration between these roles, FarmByte not only enhances susta
 
 
 
-<!-- GETTING STARTED -->
-## Getting Started
+<!-- LINK KE WEB -->
+## Link to Our Website
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+<!-- [Visit Our Website](linknya) -->
+
+<!-- DATABASE -->
+## Database
+
+
 
 ### Prerequisites
 
