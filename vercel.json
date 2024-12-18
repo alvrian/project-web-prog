@@ -9,7 +9,7 @@
         { "src": "/(.*)", "dest": "/api/index.php" }
     ],
     "public": true,
-    "buildCommand": "vite build",
+    "buildCommand": "apt-get install -y libssl1.0.2 && vite build",
     "outputDirectory": "public",
     "env": {
         "APP_ENV": "production",
@@ -25,10 +25,11 @@
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
-        "DB_CONNECTION": "mysql",
-        "DB_HOST": "4gg.h.filess.io",
-        "DB_PORT": "3306",
-        "DB_DATABASE": "db2024_stormtorn",
-        "DB_USERNAME": "db2024_stormtorn"
+        "DB_CONNECTION":"mysql",
+        "DB_HOST":"lrq7o.h.filess.io",
+        "DB_PORT":"3306",
+        "DB_DATABASE":"111111111_brieffully",
+        "DB_USERNAME":"111111111_brieffully",
+        "DB_PASSWORD":"60165864f2af0dd710da1fe0a85e700d3b1e0207",
     }
 }
