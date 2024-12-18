@@ -81,18 +81,32 @@ SDG 12 aims to ensure sustainable consumption and production patterns. It focuse
 
 ### Task Distribution
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+The roles and responsibilities of each team member in this project are clearly outlined to ensure efficiency and accountability. The detailed task assignments, progress tracking, and updates can be viewed directly on our project board.
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+You can access the project board here: [Task Distribution Board](https://webprog.atlassian.net/jira/software/projects/MBA/boards/1)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### About FarmByte
+
+Welcome to **FarmByte**, an innovative platform designed to create a sustainable and mutually beneficial ecosystem by connecting **farmers**, **compost producers**, and **restaurants**. Our application promotes responsible consumption and production, aligning directly with **SDG 12: Responsible Consumption and Production**, which emphasizes efficient resource use, waste reduction, and sustainable practices.
+
+#### How FarmByte Works:
+1. **Restaurants**:
+   - Restaurants can deposit kitchen waste into the platform, reducing food waste and contributing to eco-friendly practices.
+   
+2. **Compost Producers**:
+   - Compost producers process the deposited waste into high-quality compost, which is then sold to farmers as an organic fertilizer.
+   
+3. **Farmers**:
+   - Farmers use the compost to grow fresh, sustainable produce, which they sell directly to restaurants, completing the circular ecosystem.
+
+#### Connection to SDG 12:
+FarmByte embodies **SDG 12** by promoting:
+- **Efficient Resource Use**: Transforming waste into valuable compost reduces reliance on chemical fertilizers.
+- **Waste Reduction**: Encouraging restaurants to repurpose kitchen waste.
+- **Sustainable Practices**: Supporting local farmers and reducing the carbon footprint of food production and supply chains.
+
+By fostering collaboration between these roles, FarmByte not only enhances sustainability but also builds a community that prioritizes environmental responsibility and economic empowerment. Together, we are creating a future where every step of the supply chain supports a greener planet.
 
 
 
