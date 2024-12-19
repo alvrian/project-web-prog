@@ -68,6 +68,9 @@ By fostering collaboration between these roles, FarmByte not only enhances susta
 
 <!-- DATABASE -->
 ## Database
+To provide a clear understanding of the database structure, we have created an **Entity-Relationship Diagram (ERD)** for FarmByte. Click the link below to view the complete ERD in PDF format:
+[View ERD FarmByte (PDF)](erd_farmbyte.pdf)
+
 
 
 
