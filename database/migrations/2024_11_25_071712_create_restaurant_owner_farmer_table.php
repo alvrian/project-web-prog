@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('restaurant_owner_farmer', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->engine = 'InnoDB';
             $table->id();
             $table->unsignedBigInteger('RestaurantOwnerID');
             $table->unsignedBigInteger('FarmerID');
