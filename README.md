@@ -78,6 +78,7 @@ To provide a clear understanding of the database structure, we have created an *
 
 <!-- LAYOUT AND FUNCTIONALITY -->
 ## Layout and Functionality
+You can access here : [layout and functionality](https://www.canva.com/design/DAGaCdTYD1A/NhlQgKQgmB-ZV0Sqc-sVbQ/edit?utm_content=DAGaCdTYD1A&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 
 
