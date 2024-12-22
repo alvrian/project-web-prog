@@ -63,6 +63,7 @@ By fostering collaboration between these roles, FarmByte not only enhances susta
 
 <!-- LINK KE WEB -->
 ## Link to Our Website
+You can access our website here: [website link](farmbyte.dk-dutisa.my.id)
 
 <!-- [Visit Our Website](linknya) -->
 
@@ -82,6 +83,23 @@ To provide a clear understanding of the database structure, we have created an *
 
 <!-- KEY FEATURES -->
 ## Key Features
+Key Features of the FarmByte Website
+1. User Role Management  
+Tailored user experiences for restaurants, compost producers, and farmers.  
+Role-based access and dashboard features to streamline specific user needs.  
+2. Waste Tracking System  
+Restaurants can log kitchen waste contributions.  
+3. Compost Marketplace  
+A dedicated platform for compost producers to sell organic compost.  
+4. Produce Sales Platform  
+Farmers can showcase and sell sustainable produce directly to restaurants.  
+5. Delivery and Pickup Scheduling  
+Compost Delivery Schedule: Displays upcoming delivery dates for compost from producers to farmers.  
+Crops Pickup Schedule: Display schedule for farmers and restaurants about scheduled pickups for fresh produce.  
+Waste Collection Schedule: Displays upcoming delivery dates for compost from compost producer to restaurant.  
+6. Waste Report  
+Detailed Contribution Reports:  
+Restaurants can view waste contributions history.  
 
 
 
