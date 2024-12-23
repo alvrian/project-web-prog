@@ -14,9 +14,37 @@
             <div style="padding: 1rem 5rem;font-family:&quot;Inter&quot;, serif;">
                 <x-restaurant-pick-up-schedule/>
                 <br>
+                
+                <div class="row">
+                    <div class="col-6">
+                    <a href="{{ route('waste_log.index') }}" style="text-decoration: none;">
+                        <button type="button" class="btn d-flex justify-content-between align-items-center"
+                                style="color: white; height: 4rem; font-weight: 500; font-size: 18px; background-color: #43553D; width: 100%; border-radius: 12px;">
+                        View Your Waste Logs Catalog
+                        </button>
+                    </a>
+                    </div>
+                    <div class="col-6">
+                    <a href="/restaurant-owner/create-waste-log" style="text-decoration: none;">
+                        <button type="button" class="btn d-flex justify-content-between align-items-center"
+                                style="color: white; height: 4rem; font-weight: 500; font-size: 18px; background-color: #DFBE5C; width: 100%; border-radius: 12px;">
+                        Add New Waste Logs
+                        </button>
+                    </a>
+                    </div>
+                </div>
+                <div class = "dropend"style="display: flex; align-items: center; justify-content: space-between; font-size: 20px; font-weight: 600;padding-top: 2rem;">
+                    <span>Your Subscriptions</span>
+                    <a href="/restaurant-owner/farmers" style="text-decoration: none;">
+                    <button type="button" class="btn btn-primary dropdown-toggle"
+                        style="background-color: #43553D; border: none; font-size: 16px; padding: 0.5rem 1rem;">
+                        Add New
+                    </button>
+                    </a>
+                </div>
 
                 <div style="padding: 1rem 5rem;font-family:&quot;Inter&quot;, serif;">
-                    <span style="font-size: 20px;font-weight: 600;">Your Subscriptions</span>
+                    
                     <div
                         style="padding: 10px;border: 2px solid #b8b8b8;box-shadow: 4px 7px 8px 0px rgba(163,163,163,0.1);border-radius: 12px;margin: 1rem 0 1rem 0;">
                         <div class="accordion accordion-flush" id="accordionFlushExample"
