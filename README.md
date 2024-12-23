@@ -57,8 +57,10 @@ FarmByte embodies **SDG 12** by promoting:
 - **Waste Reduction**: Encouraging restaurants to repurpose kitchen waste.
 - **Sustainable Practices**: Supporting local farmers and reducing the carbon footprint of food production and supply chains.
 
-By fostering collaboration between these roles, FarmByte not only enhances sustainability but also builds a community that prioritizes environmental responsibility and economic empowerment. Together, we are creating a future where every step of the supply chain supports a greener planet.
+By fostering collaboration between these roles, FarmByte not only enhances sustainability but also builds a community that prioritizes environmental responsibility and economic empowerment. Together, we are creating a future where every step of the supply chain supports a greener planet.  
 
+## Our Prototype in Figma
+You can access our prototype here: [Figma link](https://www.figma.com/design/xvj7pDI4wX8PCagTDkgzEr/WebProg?node-id=0-1&t=7Gd3tLSkeMoJTHzE-1)
 
 
 <!-- LINK KE WEB -->
