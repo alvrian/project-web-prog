@@ -39,6 +39,7 @@ Route::prefix('restaurant-owner')->group(function () {
     Route::post('/create-waste-log', [WasteLogController::class, 'store'])->name('waste_log.store');
     Route::post('/prices/{id}', [PriceListWasteController::class, 'store'])->name('waste-log-price.store');
     Route::put('waste-logs/{id}', [WasteLogController::class, 'update'])->name('waste_log.update');
+    Route::get('/waste-log', [WasteLogController::class, 'index'])->name('waste_log.index');
 
     Route::post("/sub-manage-resume", [RestaurantController::class, "subsManagementResume"])->name('restaurant.subsManageResume');
     Route::post("/sub-manage-pause", [RestaurantController::class, "subsManagementPause"])->name('restaurant.subsManagePause');
