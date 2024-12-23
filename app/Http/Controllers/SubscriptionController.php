@@ -48,9 +48,6 @@ class SubscriptionController extends Controller
 
         if ($pointsUsed > 0) {
             $pointsBalance = $farmer->PointsBalance();
-            if ($pointsUsed > $pointsBalance) {
-                return back()->withErrors(['points_used' => 'You do not have enough points to redeem.']);
-            }
 
             $farmer->PointsBalance -= $pointsUsed;
             $farmer->save();
@@ -114,9 +111,6 @@ class SubscriptionController extends Controller
 
         if ($pointsUsed > 0) {
             $pointsBalance = $restaurantOwner->PointsBalance();
-            if ($pointsUsed > $pointsBalance) {
-                return back()->withErrors(['points_used' => 'You do not have enough points to redeem.']);
-            }
 
             $restaurantOwner->PointsBalance -= $pointsUsed;
             $restaurantOwner->save();
@@ -178,9 +172,6 @@ class SubscriptionController extends Controller
 
         if ($pointsUsed > 0) {
             $pointsBalance = $compostProducer->PointsBalance();
-            if ($pointsUsed > $pointsBalance) {
-                return back()->withErrors(['points_used' => 'You do not have enough points to redeem.']);
-            }
 
             $compostProducer->PointsBalance -= $pointsUsed;
             $compostProducer->save();

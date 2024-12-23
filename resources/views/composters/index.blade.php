@@ -35,12 +35,8 @@
                                 <h5 class="card-title">{{ $producer->Name }}</h5>
                                 <p class="card-text">
                                     <strong>Location:</strong> {{ $producer->Location ?? 'N/A' }}<br>
-                                    <strong>Compost Types Produced:</strong>
-                                    @if(is_array($types = json_decode($producer->CompostTypesProduced)))
-                                        {{ implode(', ', $types) }}
-                                    @else
-                                        N/A
-                                    @endif
+                                    <strong>Compost Types Produced:</strong> {{ $producer->CompostTypesProduced ?? 'N/A' }}
+
                                 </p>
                                 <a href="{{ route('composters.show', ['composterId' => $producer->user_id]) }}"
                                    class="btn btn-dark">View Details</a>

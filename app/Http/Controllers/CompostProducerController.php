@@ -29,7 +29,7 @@ class CompostProducerController extends Controller
     public function show($composterId)
     {
         $producer = CompostProducer::with(['subscriptions', 'compostEntries.priceList'])
-            ->where('id', $composterId)
+            ->where('user_id', $composterId)
             ->first();
 
         if (!$producer) {

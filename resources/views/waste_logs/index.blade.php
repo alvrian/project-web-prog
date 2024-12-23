@@ -11,10 +11,7 @@
                         <input type="text" name="restaurant_name" class="form-control" placeholder="Filter by Restaurant Name"
                                value="{{ request('restaurant_name') }}">
                     </div>
-                    <div class="col-md-4">
-                        <input type="text" name="type" class="form-control" placeholder="Filter by Type"
-                               value="{{ request('type') }}">
-                    </div>
+
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-success w-100">Filter</button>
                     </div>
@@ -35,7 +32,6 @@
                                 <h5 class="card-title">{{ $owner->Name }}</h5>
                                 <p class="card-text">
                                     <strong>Location:</strong> {{ $owner->Location ?? 'N/A' }}<br>
-                                    <strong>Type:</strong> {{ $owner->Type ?? 'N/A' }}<br>
                                     <strong>Average Waste:</strong> {{ $owner->AverageFoodWastePerMonth ?? 'N/A' }} kg/month<br>
                                 </p>
                                 <a href="{{ route('resto-owners.show', ['ownerID' => $owner->user_id]) }}" class="btn btn-dark">View Details</a>

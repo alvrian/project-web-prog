@@ -123,7 +123,7 @@
                                                min="0" step="0.01" required>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Set Prices</button>
+                                    <button type="submit" class="btn btn-success">Set Prices</button>
                                 </form>
                             </div>
                         </div>

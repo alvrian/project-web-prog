@@ -11,10 +11,7 @@
                         <input type="text" name="name" class="form-control" placeholder="Filter by Name"
                                value="{{ request('name') }}">
                     </div>
-                    <div class="col-md-4">
-                        <input type="text" name="crop_type" class="form-control" placeholder="Filter by Crop Type"
-                               value="{{ request('crop_type') }}">
-                    </div>
+
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-success w-100">Filter</button>
                     </div>
@@ -35,12 +32,8 @@
                                 <h5 class="card-title">{{ $farmer->Name }}</h5>
                                 <p class="card-text">
                                     <strong>Location:</strong> {{ $farmer->Location ?? 'N/A' }}<br>
-                                    <strong>Crop Types Produced:</strong>
-                                    @if(is_array($types = json_decode($farmer->CropTypesProduced)))
-                                        {{ implode(', ', $types) }}
-                                    @else
-                                        N/A
-                                    @endif
+                                    <strong>Crop Types Produced: </strong>{{ $farmer->CropTypesProduced ?? 'N/A' }}
+
                                 </p>
                                 <a href="{{ route('farmers.show', ['farmerId' => $farmer->user_id]) }}"
                                    class="btn btn-dark">View Details</a>

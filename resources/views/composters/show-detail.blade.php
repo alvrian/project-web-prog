@@ -8,7 +8,6 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $compostEntry->compost_types_produced }}</h5>
                 <p class="card-text">
-                    <strong>Producer:</strong> {{ $compostEntry->compostProducer->compost_producer_id ?? 'N/A' }}<br>
                     <strong>Producer ID</strong> {{$compostEntry->compost_producer_id ?? 'N/A'}}<br>
                     <strong>Average Amount:</strong> {{ $compostEntry->average_compost_amount ?? 'N/A' }} kg<br>
                     <strong>Kitchen Waste Capacity:</strong> {{ $compostEntry->kitchen_waste_capacity ?? 'N/A' }} kg<br>

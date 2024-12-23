@@ -3,9 +3,9 @@
 
     <div class="container">
         <h1 class="text-center mt-4 mb-4">{{ $producer->Name }}</h1>
-        <p><strong>Location:</strong> {{ $producer->Location ?? 'N/A' }}</p>
-        <p><strong>Compost Types
-                Produced:</strong> {{ implode(', ', json_decode($producer->CompostTypesProduced) ?? ['N/A']) }}</p>
+        <p class="text-center" ><strong>Location:</strong> {{ $producer->Location ?? 'N/A' }}</p>
+        <p class="text-center" ><strong>Compost Types
+                Produced:</strong> {{ $producer->CompostTypesProduced ?? 'N/A' }}</p>
 
         <h2 class="mt-4">Available Compost Items</h2>
         @if($compostEntries->isEmpty())
@@ -16,7 +16,7 @@
             <div class="row">
                 @foreach($compostEntries as $entry)
                     <div class="col-md-4 mb-3">
-                        <div class="card">
+                        <div class="card position-relative card border-success mb-3">
                             <div class="card-body">
                                 <h5 class="card-title">Compost Type: {{ $entry->compost_types_produced }}</h5>
                                 <p class="card-text">
@@ -31,7 +31,7 @@
                                     <li>12 months: ${{ $entry->priceList->price_per_subscription_12 ?? 'N/A' }}</li>
                                 </ul>
                                 </p>
-                                <a href="{{ route('composters.show-detail', ['composterId' => $producer->id, 'compostId' => $entry->id]) }}"
+                                <a href="{{ route('composters.show-detail', ['composterId' => $producer->user_id, 'compostId' => $entry->id]) }}"
                                    class="btn btn-dark">View Details</a>
                                 {{-- <a href="{{ route('composters.show-detail', ['id' => $entry->id]) }}" class="btn btn-primary">View Details</a>--}}
                             </div>

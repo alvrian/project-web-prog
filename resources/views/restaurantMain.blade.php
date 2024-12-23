@@ -7,7 +7,7 @@
     @else
         <div class="container py-4">
             <div class="d-flex justify-content-end mb-3">
-                <a href="{{ route('waste_log.list', ['restaurantOwnerID' => auth()->id()]) }}" class="btn btn-primary">
+                <a href="{{ route('waste_log.list', ['restaurantOwnerID' => auth()->id()]) }}" class="btn btn-success">
                     View My Waste Report
                 </a>
             </div>
