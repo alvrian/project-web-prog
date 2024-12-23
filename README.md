@@ -120,9 +120,9 @@ email : farmer2@farmbyte.com
 password : 1234567890 
 
 RESTAURANT OWNER  
-email : restaurant1@farmbyte.com 
+email : restaurant1@farmbyte.com  
 password : 1234567890  
-email : restaurant2@farmbyte.com 
+email : restaurant2@farmbyte.com  
 password : 1234567890  
 
 
