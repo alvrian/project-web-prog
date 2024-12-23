@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
 
         if ($validated['role'] === 'restaurant_owner') {
             RestaurantOwner::create([
-                'user_id' => $user->id,
+                'user_id' => 1,
                 'Name' => $user->name,
                 // 'Location' => 'test',
                 'Type' => 'Restaurant',
@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
 
         if ($validated['role'] === 'farmer') {
             Farmer::create([
-                'user_id' => $user->id,
+                'user_id' => 16,
                 'Name' => $user->name,
                 // 'Location' => 'test',
                 // 'CropTypesProduced' => 'test',
@@ -72,7 +72,7 @@ class RegisteredUserController extends Controller
 
         if ($validated['role'] === 'compost_producer') {
             CompostProducer::create([
-                'user_id' => $user->id,
+                'user_id' => 8,
                 'Name' => $user->name,
                 // 'Location' => 'test',
                 // 'CompostTypesProduced' => 'test',
