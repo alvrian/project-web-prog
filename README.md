@@ -104,4 +104,25 @@ Detailed Contribution Reports:
 Restaurants can view waste contributions history.  
 
 
+## Notes Email & Password for login
+COMPOST PRODUCER  
+email : composter1@farmbyte.com  
+password : 1234567890  
+email : composter2@farmbyte.com  
+password : 1234567890 
+
+FARMER  
+email : farmer1@farmbyte.com  
+password : 1234567890  
+email : farmer2@farmbyte.com  
+password : 1234567890 
+
+RESTAURANT OWNER  
+email : restaurant1@farmbyte.com 
+password : 1234567890  
+email : restaurant2@farmbyte.com 
+password : 1234567890  
+
+
+
 
