@@ -1,7 +1,7 @@
 <x-layout>
     <x-navbar/>
     <div class="d-flex justify-content-center align-items-center"
-         style="background-color: #43553D;height:93vh;font-family:&quot;Inter&quot;, serif;">
+         style="background-color: #43553D;min-height:120vh;font-family:&quot;Inter&quot;, serif;">
         <div style="background-color: white; min-height: 80vh;width:95%; border-radius: 12px;padding:1rem;">
 
             <div class="container">
